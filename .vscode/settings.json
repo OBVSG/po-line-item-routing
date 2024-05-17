@@ -1,9 +1,4 @@
 {
-  "files.exclude": {
-    "**/.ng": true,
-    "**/.gitkeep": true,
-    "**/build": true
-  },
   "typescript.tsdk": "node_modules/typescript/lib",
   "json.schemas": [
     {
