@@ -1,0 +1,16 @@
+{
+  "files.exclude": {
+    "**/.ng": true,
+    "**/.gitkeep": true,
+    "**/build": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "json.schemas": [
+    {
+      "fileMatch": ["/manifest.json"],
+      "url": "/node_modules/@exlibris/exl-cloudapp-base/manifest.schema.json"
+    }
+  ],
+  "cSpell.words": ["cloudapp", "devkit", "exlibris", "jasminewd"],
+  "material-icon-theme.activeIconPack": "angular"
+}

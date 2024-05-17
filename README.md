@@ -1,6 +1,5 @@
 # po-line-item-routing
 
-
 ## Mirroring and Token Information
 
 This repository is mirrored to [GitHub](https://github.com/OBVSG/po-line-item-routing) using GitLab's mirroring functionality. Any changes made here will be automatically reflected in the corresponding GitHub repository.
