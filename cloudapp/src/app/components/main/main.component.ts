@@ -80,4 +80,8 @@ export class MainComponent implements OnInit, OnDestroy {
         },
       });
   }
+
+  getUsers() {
+    // TODO
+  }
 }

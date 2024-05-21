@@ -58,14 +58,23 @@
     </mat-radio-group>
 
     <!-- TODO -->
-    <mat-tab-group animationDuration="0ms" *ngIf="selectedEntity">
+    <mat-tab-group animationDuration="0ms" *ngIf="apiResult">
       <mat-tab label="Interested Users"
         ><app-interested-users
           [users]="apiResult.interested_user"
         ></app-interested-users
       ></mat-tab>
 
-      <mat-tab label="Ringumlauf">Content 2</mat-tab>
+      <mat-tab label="Ringumlauf">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="getUsers()"
+          [disabled]="!apiResult || loading"
+        >
+          Print Ringumlauf
+        </button>
+      </mat-tab>
 
       <mat-tab label="Sternumlauf">Content 3</mat-tab>
     </mat-tab-group>

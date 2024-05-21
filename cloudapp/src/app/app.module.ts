@@ -14,9 +14,10 @@ import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { MainComponent } from "./components/main/main.component";
 import { InterestedUsersComponent } from "./components/interested-users/interested-users.component";
+import { RingumlaufComponent } from './components/ringumlauf/ringumlauf.component';
 
 @NgModule({
-  declarations: [AppComponent, MainComponent, InterestedUsersComponent],
+  declarations: [AppComponent, MainComponent, InterestedUsersComponent, RingumlaufComponent],
   imports: [
     MaterialModule,
     BrowserModule,
