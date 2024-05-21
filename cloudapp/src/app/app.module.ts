@@ -12,8 +12,8 @@ import {
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
-import { MainComponent } from "./main/main.component";
-import { InterestedUsersComponent } from './components/interested-users/interested-users.component';
+import { MainComponent } from "./components/main/main.component";
+import { InterestedUsersComponent } from "./components/interested-users/interested-users.component";
 
 @NgModule({
   declarations: [AppComponent, MainComponent, InterestedUsersComponent],

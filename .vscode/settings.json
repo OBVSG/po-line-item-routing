@@ -6,6 +6,17 @@
       "url": "/node_modules/@exlibris/exl-cloudapp-base/manifest.schema.json"
     }
   ],
-  "cSpell.words": ["cloudapp", "devkit", "exlibris", "jasminewd"],
+  "cSpell.words": [
+    "cloudapp",
+    "devkit",
+    "entitylist",
+    "exlibris",
+    "jasminewd",
+    "noentities",
+    "nouser",
+    "Ringumlauf",
+    "Sternumlauf",
+    "userlist"
+  ],
   "material-icon-theme.activeIconPack": "angular"
 }

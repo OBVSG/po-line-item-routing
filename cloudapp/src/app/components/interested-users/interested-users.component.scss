@@ -1,8 +1,7 @@
 // TODO
 
 .example-list {
-  width: 500px;
-  max-width: 100%;
+  box-sizing: border-box;
   border: solid 1px #ccc;
   min-height: 60px;
   display: block;
@@ -26,7 +25,7 @@
 }
 
 .example-box span {
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .cdk-drag-preview {

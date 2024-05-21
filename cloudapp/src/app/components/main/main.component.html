@@ -1,0 +1,77 @@
+<div *ngIf="entities$ | async as entities">
+  <ng-container
+    *ngIf="entities.length > 0; then entitylist; else noentities"
+  ></ng-container>
+
+  <ng-template #noentities>
+    <h1>Welcome!</h1>
+    <p>
+      Use this sample app to get you started. The app includes the following:
+    </p>
+    <ul>
+      <li>Listens on the <code>entities$</code> Observable</li>
+      <li>Performs an API call using the <code>restService</code> service</li>
+      <li>Updates the object using the <code>restService</code> service</li>
+      <li>Refreshes the page in Alma</li>
+    </ul>
+    <p>
+      Use these building blocks to be on your way to developing your own Cloud
+      App.
+    </p>
+    <div class="highlight">
+      Navigate to a page in Alma to view a list of entities.
+    </div>
+  </ng-template>
+
+  <ng-template #entitylist>
+    <div class="eca-actions">
+      <button
+        mat-flat-button
+        color="secondary"
+        (click)="clear()"
+        [disabled]="!selectedEntity"
+      >
+        Reset Cloud App
+      </button>
+      <button
+        mat-flat-button
+        color="primary"
+        (click)="update()"
+        [disabled]="!apiResult || loading"
+      >
+        Update Alma
+      </button>
+    </div>
+
+    <h1>Entities</h1>
+
+    <label id="entities-radio-group-label">Select an entity:</label>
+    <mat-radio-group
+      aria-labelledby="entities-radio-group-label"
+      class="entities-radio-group"
+      [(ngModel)]="selectedEntity"
+      (change)="entitySelected($event)"
+    >
+      <mat-radio-button *ngFor="let entity of entities" [value]="entity">
+        {{ entity.description }}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <!-- TODO -->
+    <mat-tab-group animationDuration="0ms" *ngIf="selectedEntity">
+      <mat-tab label="Interested Users"
+        ><app-interested-users
+          [users]="apiResult.interested_user"
+        ></app-interested-users
+      ></mat-tab>
+
+      <mat-tab label="Ringumlauf">Content 2</mat-tab>
+
+      <mat-tab label="Sternumlauf">Content 3</mat-tab>
+    </mat-tab-group>
+  </ng-template>
+</div>
+
+<div class="loading-shade" *ngIf="loading">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
