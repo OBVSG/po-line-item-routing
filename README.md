@@ -17,8 +17,14 @@ To install and use the correct version of Node.js, run:
 nvm install && nvm use
 ```
 
-Next, install the Exlibris CLI by running:
+Next, install the dependencies by running:
 
 ```sh
-npm install -g @exlibris/exl-cloudapp-cli
+npm install
+```
+
+then start the development server by running:
+
+```sh
+npm start
 ```
