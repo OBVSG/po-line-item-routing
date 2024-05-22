@@ -5,9 +5,15 @@
 <ng-template #userlist>
   <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
     <div class="example-box" *ngFor="let user of users; let i = index" cdkDrag>
+      <!-- TODO -->
+      <!-- lastname - firstname hover for ID -->
       <span>{{ i + 1 }}. User:</span>{{ user.primary_id }}
     </div>
   </div>
+
+  <br />
+
+  <ng-content></ng-content>
 </ng-template>
 
 <ng-template #nouser>

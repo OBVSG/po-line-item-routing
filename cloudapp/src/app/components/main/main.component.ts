@@ -12,7 +12,6 @@ import {
 
 import { Observable } from "rxjs";
 import { finalize, tap } from "rxjs/operators";
-import { InterestedUser } from "./main.model";
 
 @Component({
   selector: "app-main",
@@ -44,7 +43,9 @@ export class MainComponent implements OnInit, OnDestroy {
       .call<any>(value.link)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe(
-        (result) => (this.apiResult = result),
+        (result) => {
+          this.apiResult = result;
+        },
         (error) =>
           this.alert.error("Failed to retrieve entity: " + error.message)
       );
@@ -79,9 +80,5 @@ export class MainComponent implements OnInit, OnDestroy {
           console.error(e);
         },
       });
-  }
-
-  getUsers() {
-    // TODO
   }
 }

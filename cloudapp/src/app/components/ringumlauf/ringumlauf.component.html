@@ -1,1 +1,102 @@
-<ng-content></ng-content>
+<ng-container
+  *ngIf="
+    apiResult.location[0].copy && apiResult.location[0].copy.length > 0;
+    then ringumlauflist;
+    else noringumlauf
+  "
+></ng-container>
+
+<ng-template #ringumlauflist>
+  <mat-form-field>
+    <mat-label>Lesetage/TeilnehmerIn max:</mat-label>
+    <input matInput type="text" [(ngModel)]="readDays" />
+    <button
+      mat-button
+      *ngIf="readDays"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="readDays = ''"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <br />
+
+  <mat-form-field>
+    <mat-label>Bemerkung:</mat-label>
+    <input matInput type="text" [(ngModel)]="comment" />
+    <button
+      mat-button
+      *ngIf="comment"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="comment = ''"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <br />
+  <hr />
+  <br />
+
+  <label id="barcode-radio-group-label">Select a barcode:</label>
+  <mat-radio-group
+    aria-labelledby="barcode-radio-group-label"
+    [(ngModel)]="selectedBarcode"
+    (change)="onSelectBarcode($event)"
+  >
+    <mat-radio-button *ngFor="let barcode of barcodeList" [value]="barcode">
+      <mat-list>
+        <mat-list-item>
+          <strong>Barcode:</strong> {{ barcode.barcode }}
+        </mat-list-item>
+
+        <mat-list-item *ngIf="barcode.description">
+          <strong>Description:</strong> {{ barcode.description }}
+        </mat-list-item>
+
+        <mat-list-item *ngIf="barcode.receive_date">
+          <strong>Receive Date:</strong>
+          {{ barcode.receive_date | date : "medium" : "UTC+1" : "de-AT" }}
+        </mat-list-item>
+
+        <mat-list-item *ngIf="barcode.item_policy.desc">
+          <strong>ItemPolicy:</strong> {{ barcode.item_policy.desc }}
+        </mat-list-item>
+      </mat-list>
+    </mat-radio-button>
+  </mat-radio-group>
+</ng-template>
+
+<ng-template #noringumlauf>
+  <p>No ringumlauf found</p>
+</ng-template>
+
+<br />
+
+<ng-container
+  *ngIf="
+    apiResult.interested_user && apiResult.interested_user.length > 0;
+    then userlist;
+    else nouser
+  "
+></ng-container>
+
+<ng-template #userlist>
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="printRingumlauf()"
+    [disabled]="!apiResult || loading"
+  >
+    Print Ringumlauf
+  </button>
+</ng-template>
+
+<ng-template #nouser>
+  <p>No interested users found</p>
+</ng-template>

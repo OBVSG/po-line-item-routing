@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 
-import { InterestedUser } from "../main/main.model";
+import { InterestedUser } from "../../app.model";
 
 @Component({
   selector: "app-interested-users",

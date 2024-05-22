@@ -33,22 +33,11 @@
       >
         Reset Cloud App
       </button>
-      <button
-        mat-flat-button
-        color="primary"
-        (click)="update()"
-        [disabled]="!apiResult || loading"
-      >
-        Update Alma
-      </button>
     </div>
-
-    <h1>Entities</h1>
 
     <label id="entities-radio-group-label">Select an entity:</label>
     <mat-radio-group
       aria-labelledby="entities-radio-group-label"
-      class="entities-radio-group"
       [(ngModel)]="selectedEntity"
       (change)="entitySelected($event)"
     >
@@ -57,23 +46,24 @@
       </mat-radio-button>
     </mat-radio-group>
 
-    <!-- TODO -->
     <mat-tab-group animationDuration="0ms" *ngIf="apiResult">
       <mat-tab label="Interested Users"
-        ><app-interested-users
-          [users]="apiResult.interested_user"
-        ></app-interested-users
-      ></mat-tab>
+        ><app-interested-users [users]="apiResult.interested_user">
+          <div class="eca-actions">
+            <button
+              mat-flat-button
+              color="primary"
+              (click)="update()"
+              [disabled]="!apiResult || loading"
+            >
+              Speichern
+            </button>
+          </div>
+        </app-interested-users></mat-tab
+      >
 
       <mat-tab label="Ringumlauf">
-        <button
-          mat-flat-button
-          color="primary"
-          (click)="getUsers()"
-          [disabled]="!apiResult || loading"
-        >
-          Print Ringumlauf
-        </button>
+        <app-ringumlauf [apiResult]="apiResult"></app-ringumlauf>
       </mat-tab>
 
       <mat-tab label="Sternumlauf">Content 3</mat-tab>
