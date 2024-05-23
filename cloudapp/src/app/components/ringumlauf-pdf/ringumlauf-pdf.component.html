@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>ringumlauf-pdf data from parent: {{ data | json }}</h2>
+<mat-dialog-content>
+  <p>Download PDF?</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-flat-button color="secondary" mat-dialog-close>No</button>
+  <button
+    mat-flat-button
+    color="secondary"
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+  >
+    Yes
+  </button>
+</mat-dialog-actions>

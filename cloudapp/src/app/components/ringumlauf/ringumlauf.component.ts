@@ -7,6 +7,8 @@ import {
 } from "@exlibris/exl-cloudapp-angular-lib";
 import { of, from, throwError } from "rxjs";
 import { catchError, mergeMap, toArray, tap } from "rxjs/operators";
+import { MatDialog } from "@angular/material/dialog";
+import { RingumlaufPdfComponent } from "../ringumlauf-pdf/ringumlauf-pdf.component";
 
 @Component({
   selector: "app-ringumlauf",
@@ -26,7 +28,8 @@ export class RingumlaufComponent implements OnInit {
 
   constructor(
     private restService: CloudAppRestService,
-    private alert: AlertService
+    private alert: AlertService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +50,8 @@ export class RingumlaufComponent implements OnInit {
     this.selectedBarcode = value;
   }
 
-  loadUsers() {
+  private loadUsers() {
+    // TODO: spinner doesn't work!!!
     this.loading = true;
 
     from<InterestedUser[]>(this.apiResult.interested_user)
@@ -77,10 +81,8 @@ export class RingumlaufComponent implements OnInit {
           this.loading = false;
         },
         complete: () => {
-          // TODO: sort the interestedUsersInfo result?
-          // TODO: create PDF
           this.loading = false;
-          console.log(this.interestedUsersInfo[0]);
+          this.openDialog();
         },
       });
   }
@@ -88,5 +90,19 @@ export class RingumlaufComponent implements OnInit {
   printRingumlauf() {
     this.interestedUsersInfo = [];
     this.loadUsers();
+  }
+
+  private openDialog() {
+    const dialogRef = this.dialog.open(RingumlaufPdfComponent, {
+      autoFocus: false,
+      data: { test: "hi" },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+      // TODO: do something
+      // TODO: sort the interestedUsersInfo result?
+      console.log(this.interestedUsersInfo[0]);
+    });
   }
 }

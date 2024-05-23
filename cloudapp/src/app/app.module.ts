@@ -17,7 +17,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { MainComponent } from "./components/main/main.component";
 import { InterestedUsersComponent } from "./components/interested-users/interested-users.component";
 import { RingumlaufComponent } from "./components/ringumlauf/ringumlauf.component";
-import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loading-spinner.component';
+import { LoadingSpinnerComponent } from "./components/shared/loading-spinner/loading-spinner.component";
+import { RingumlaufPdfComponent } from "./components/ringumlauf-pdf/ringumlauf-pdf.component";
 
 registerLocaleData(localeDeAt);
 
@@ -28,6 +29,7 @@ registerLocaleData(localeDeAt);
     InterestedUsersComponent,
     RingumlaufComponent,
     LoadingSpinnerComponent,
+    RingumlaufPdfComponent,
   ],
   imports: [
     MaterialModule,
@@ -48,5 +50,6 @@ registerLocaleData(localeDeAt);
     { provide: LOCALE_ID, useValue: "de-AT" },
   ],
   bootstrap: [AppComponent],
+  entryComponents: [RingumlaufPdfComponent],
 })
 export class AppModule {}

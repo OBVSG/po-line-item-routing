@@ -24,11 +24,16 @@
   ],
   "contentSecurity": {
     "sandbox": {
-      "downloads": true
+      "downloads": true,
+      "modals": true
     }
   },
   "icon": {
     "type": "url",
     "value": "/assets/download-bib.png"
+  },
+  "fullscreen": {
+    "allow": true,
+    "open": false
   }
 }
