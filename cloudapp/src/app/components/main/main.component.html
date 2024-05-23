@@ -1,29 +1,15 @@
 <div *ngIf="entities$ | async as entities">
   <ng-container
-    *ngIf="entities.length > 0; then entitylist; else noentities"
+    *ngIf="entities.length > 0; then entityList; else noEntities"
   ></ng-container>
 
-  <ng-template #noentities>
-    <h1>Welcome!</h1>
-    <p>
-      Use this sample app to get you started. The app includes the following:
-    </p>
-    <ul>
-      <li>Listens on the <code>entities$</code> Observable</li>
-      <li>Performs an API call using the <code>restService</code> service</li>
-      <li>Updates the object using the <code>restService</code> service</li>
-      <li>Refreshes the page in Alma</li>
-    </ul>
-    <p>
-      Use these building blocks to be on your way to developing your own Cloud
-      App.
-    </p>
+  <ng-template #noEntities>
     <div class="highlight">
       Navigate to a page in Alma to view a list of entities.
     </div>
   </ng-template>
 
-  <ng-template #entitylist>
+  <ng-template #entityList>
     <div class="eca-actions">
       <button
         mat-flat-button
@@ -39,36 +25,54 @@
     <mat-radio-group
       aria-labelledby="entities-radio-group-label"
       [(ngModel)]="selectedEntity"
-      (change)="entitySelected($event)"
+      (change)="onEntitySelected($event)"
     >
       <mat-radio-button *ngFor="let entity of entities" [value]="entity">
         {{ entity.description }}
       </mat-radio-button>
     </mat-radio-group>
-
-    <mat-tab-group animationDuration="0ms" *ngIf="apiResult">
-      <mat-tab label="Interested Users"
-        ><app-interested-users [users]="apiResult.interested_user">
-          <div class="eca-actions">
-            <button
-              mat-flat-button
-              color="primary"
-              (click)="update()"
-              [disabled]="!apiResult || loading"
-            >
-              Speichern
-            </button>
-          </div>
-        </app-interested-users></mat-tab
-      >
-
-      <mat-tab label="Ringumlauf">
-        <app-ringumlauf [apiResult]="apiResult"></app-ringumlauf>
-      </mat-tab>
-
-      <mat-tab label="Sternumlauf">Content 3</mat-tab>
-    </mat-tab-group>
   </ng-template>
+
+  <div>
+    <ng-container
+      *ngIf="
+        apiResult &&
+          apiResult.interested_user &&
+          apiResult.interested_user.length > 0;
+        then tabGroup;
+        else noUserFound
+      "
+    ></ng-container>
+
+    <ng-template #tabGroup>
+      <mat-tab-group animationDuration="0ms">
+        <mat-tab label="Interested Users"
+          ><app-interested-users [users]="apiResult.interested_user">
+            <div class="eca-actions">
+              <button
+                mat-flat-button
+                color="primary"
+                (click)="saveUsersOrder()"
+                [disabled]="!apiResult || loading"
+              >
+                Speichern
+              </button>
+            </div>
+          </app-interested-users></mat-tab
+        >
+
+        <mat-tab label="Ringumlauf">
+          <app-ringumlauf [apiResult]="apiResult"></app-ringumlauf>
+        </mat-tab>
+
+        <mat-tab label="Sternumlauf">Content 3</mat-tab>
+      </mat-tab-group>
+    </ng-template>
+
+    <ng-template #noUserFound>
+      <div class="highlight">No data or no interested user found</div>
+    </ng-template>
+  </div>
 </div>
 
 <div class="loading-shade" *ngIf="loading">

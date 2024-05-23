@@ -1,13 +1,13 @@
 <ng-container
   *ngIf="
-    apiResult.location[0].copy && apiResult.location[0].copy.length > 0;
-    then ringumlauflist;
-    else noringumlauf
+    barcodeList && barcodeList.length > 0;
+    then barcodeSelection;
+    else noBarcode
   "
 ></ng-container>
 
-<ng-template #ringumlauflist>
-  <md-card>
+<ng-template #barcodeSelection>
+  <mat-card>
     <mat-card-header>
       <mat-card-title>PDF Info</mat-card-title>
     </mat-card-header>
@@ -45,17 +45,21 @@
         </button>
       </mat-form-field>
     </mat-card-content>
-  </md-card>
+  </mat-card>
 
   <br />
   <br />
 
-  <md-card>
+  <mat-card>
     <mat-card-header>
       <mat-card-title>
         <label id="barcode-radio-group-label">Select a barcode:</label>
       </mat-card-title>
     </mat-card-header>
+
+    <pre>
+      {{ barcodeList[0] | json }}
+    </pre>
 
     <mat-card-content>
       <mat-radio-group
@@ -85,34 +89,22 @@
         </mat-radio-button>
       </mat-radio-group>
     </mat-card-content>
-  </md-card>
+  </mat-card>
+
+  <br />
+
+  <div class="eca-actions">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="printRingumlauf()"
+      [disabled]="!apiResult || loading"
+    >
+      Print Ringumlauf
+    </button>
+  </div>
 </ng-template>
 
-<ng-template #noringumlauf>
+<ng-template #noBarcode>
   <p>No ringumlauf found</p>
-</ng-template>
-
-<br />
-
-<ng-container
-  *ngIf="
-    apiResult.interested_user && apiResult.interested_user.length > 0;
-    then userlist;
-    else nouser
-  "
-></ng-container>
-
-<ng-template #userlist>
-  <button
-    mat-flat-button
-    color="primary"
-    (click)="printRingumlauf()"
-    [disabled]="!apiResult || loading"
-  >
-    Print Ringumlauf
-  </button>
-</ng-template>
-
-<ng-template #nouser>
-  <p>No interested users found</p>
 </ng-template>

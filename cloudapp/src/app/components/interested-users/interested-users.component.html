@@ -1,28 +1,30 @@
-<ng-container
-  *ngIf="users && users.length > 0; then userlist; else nouser"
-></ng-container>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>PDF Info</mat-card-title>
+  </mat-card-header>
 
-<ng-template #userlist>
-  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let user of users; let i = index" cdkDrag>
-      <div>
-        <strong>{{ i + 1 }}. User: </strong>{{ user.last_name }}
-        {{ user.first_name }}
-      </div>
+  <mat-card-content>
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+      <div
+        class="example-box"
+        *ngFor="let user of users; let i = index"
+        cdkDrag
+      >
+        <div>
+          <strong>{{ i + 1 }}. User: </strong>{{ user.last_name }}
+          {{ user.first_name }}
+        </div>
 
-      <div>
-        <mat-icon [matTooltip]="user.primary_id" matTooltipPosition="after"
-          >info</mat-icon
-        >
+        <div>
+          <mat-icon [matTooltip]="user.primary_id" matTooltipPosition="after"
+            >info</mat-icon
+          >
+        </div>
       </div>
     </div>
-  </div>
+  </mat-card-content>
+</mat-card>
 
-  <br />
+<br />
 
-  <ng-content></ng-content>
-</ng-template>
-
-<ng-template #nouser>
-  <p>No interested users found</p>
-</ng-template>
+<ng-content></ng-content>

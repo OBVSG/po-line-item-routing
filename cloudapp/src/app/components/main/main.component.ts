@@ -36,7 +36,7 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
   ngOnDestroy(): void {}
 
-  entitySelected(event: MatRadioChange) {
+  onEntitySelected(event: MatRadioChange) {
     const value = event.value as Entity;
     this.loading = true;
     this.restService
@@ -56,7 +56,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.selectedEntity = null;
   }
 
-  update() {
+  saveUsersOrder() {
     this.loading = true;
 
     const request: Request = {

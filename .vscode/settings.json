@@ -12,13 +12,10 @@
     "entitylist",
     "exlibris",
     "jasminewd",
-    "noentities",
-    "nouser",
     "preinstall",
     "Ringumlauf",
     "Speichern",
-    "Sternumlauf",
-    "userlist"
+    "Sternumlauf"
   ],
   "material-icon-theme.activeIconPack": "angular"
 }
