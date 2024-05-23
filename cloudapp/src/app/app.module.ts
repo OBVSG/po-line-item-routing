@@ -17,6 +17,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { MainComponent } from "./components/main/main.component";
 import { InterestedUsersComponent } from "./components/interested-users/interested-users.component";
 import { RingumlaufComponent } from "./components/ringumlauf/ringumlauf.component";
+import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loading-spinner.component';
 
 registerLocaleData(localeDeAt);
 
@@ -26,6 +27,7 @@ registerLocaleData(localeDeAt);
     MainComponent,
     InterestedUsersComponent,
     RingumlaufComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     MaterialModule,
