@@ -48,16 +48,14 @@
       <mat-tab-group animationDuration="0ms">
         <mat-tab label="Interested Users"
           ><app-interested-users [users]="apiResult.interested_user">
-            <div class="eca-actions">
-              <button
-                mat-flat-button
-                color="primary"
-                (click)="saveUsersOrder()"
-                [disabled]="!apiResult || loading"
-              >
-                Speichern
-              </button>
-            </div>
+            <button
+              mat-flat-button
+              color="primary"
+              (click)="saveUsersOrder()"
+              [disabled]="!apiResult || loading"
+            >
+              Speichern
+            </button>
           </app-interested-users></mat-tab
         >
 

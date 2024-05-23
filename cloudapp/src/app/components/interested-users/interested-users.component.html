@@ -1,11 +1,14 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title>PDF Info</mat-card-title>
+    <mat-card-title>
+      change the order of the users by dragging and dropping them
+    </mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
     <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
       <div
+        [ngStyle]="{ cursor: 'grab' }"
         class="example-box"
         *ngFor="let user of users; let i = index"
         cdkDrag
@@ -16,9 +19,13 @@
         </div>
 
         <div>
-          <mat-icon [matTooltip]="user.primary_id" matTooltipPosition="after"
-            >info</mat-icon
-          >
+          <i
+            [ngStyle]="{ cursor: 'help' }"
+            class="uxf-icon uxf-info"
+            (click)="remove(i)"
+            [matTooltip]="'ID: ' + user.primary_id"
+            matTooltipPosition="after"
+          ></i>
         </div>
       </div>
     </div>
@@ -27,4 +34,11 @@
 
 <br />
 
-<ng-content></ng-content>
+<div *ngIf="hasUnsavedChanges">
+  <p>There are unsaved changes. Please save them before leaving this page.</p>
+  <div class="eca-actions">
+    <ng-content></ng-content>
+  </div>
+</div>
+
+<p *ngIf="!hasUnsavedChanges">There are no unsaved changes.</p>
