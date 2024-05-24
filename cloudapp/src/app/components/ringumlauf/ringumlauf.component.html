@@ -96,7 +96,7 @@
       (click)="printRingumlauf()"
       [disabled]="!apiResult || loading"
     >
-      Print Ringumlauf
+      Ringumlauf Starten
     </button>
   </div>
 </ng-template>
@@ -105,4 +105,4 @@
   <p>No ringumlauf found</p>
 </ng-template>
 
-<app-loading-spinner [isLoading]="loading"></app-loading-spinner>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>
