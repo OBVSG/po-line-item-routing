@@ -13,9 +13,11 @@
     "exlibris",
     "fullscreen",
     "jasminewd",
+    "jspdf",
     "preinstall",
     "Ringumlauf",
     "Speichern",
+    "Starten",
     "Sternumlauf"
   ],
   "material-icon-theme.activeIconPack": "angular"

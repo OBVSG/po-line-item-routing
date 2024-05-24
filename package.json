@@ -10,7 +10,6 @@
     "generate": "eca generate",
     "extract": "eca extract-labels",
     "build": "eca build",
-    "test": "eca test",
     "help": "eca help",
     "version": "eca version"
   },
@@ -29,7 +28,10 @@
     "@exlibris/exl-cloudapp-angular-lib": "^1.4.7",
     "@exlibris/exl-cloudapp-base": "^1.4.7",
     "@ngx-translate/core": "~13.0.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^2.5.1",
     "lodash": "~4.17.21",
+    "resize-observer-polyfill": "^1.5.1",
     "rxjs": "~6.5.5",
     "zone.js": "~0.10.3"
   },

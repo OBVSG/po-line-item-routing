@@ -1,39 +1,39 @@
 {
-  "id": "po-line-item-routing",
-  "title": "po-line-item-routing",
-  "subtitle": [
-    {
-      "lang": "en",
-      "text": "TODO"
-    },
-    {
-      "lang": "de",
-      "text": "TODO"
-    }
-  ],
-  "author": "Omid Soleimani",
-  "description": [
-    {
-      "lang": "en",
-      "text": "TODO"
-    },
-    {
-      "lang": "de",
-      "text": "TODO"
-    }
-  ],
-  "contentSecurity": {
-    "sandbox": {
-      "downloads": true,
-      "modals": true
-    }
-  },
-  "icon": {
-    "type": "url",
-    "value": "/assets/download-bib.png"
-  },
-  "fullscreen": {
-    "allow": true,
-    "open": false
-  }
+   "id": "po-line-item-routing",
+   "title": "po-line-item-routing",
+   "subtitle": [
+      {
+         "lang": "en",
+         "text": "TODO"
+      },
+      {
+         "lang": "de",
+         "text": "TODO"
+      }
+   ],
+   "author": "Omid Soleimani",
+   "description": [
+      {
+         "lang": "en",
+         "text": "TODO"
+      },
+      {
+         "lang": "de",
+         "text": "TODO"
+      }
+   ],
+   "contentSecurity": {
+      "sandbox": {
+         "downloads": true,
+         "modals": true
+      }
+   },
+   "icon": {
+      "type": "url",
+      "value": "/assets/download-bib.png"
+   },
+   "fullscreen": {
+      "allow": true,
+      "open": false
+   }
 }
