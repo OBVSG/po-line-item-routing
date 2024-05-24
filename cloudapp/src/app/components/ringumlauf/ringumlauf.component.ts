@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { InterestedUser, Ringumlauf } from "../../app.model";
+import { InterestedUser, Ringumlauf, RingumlaufPdfData } from "../../app.model";
 import { MatRadioChange } from "@angular/material/radio";
 import {
   AlertService,
   CloudAppRestService,
 } from "@exlibris/exl-cloudapp-angular-lib";
-import { of, from, throwError } from "rxjs";
-import { catchError, mergeMap, toArray, tap } from "rxjs/operators";
+import { from, throwError } from "rxjs";
+import { catchError, mergeMap, toArray } from "rxjs/operators";
 import { MatDialog } from "@angular/material/dialog";
 import { RingumlaufPdfComponent } from "../ringumlauf-pdf/ringumlauf-pdf.component";
 
@@ -20,8 +20,8 @@ export class RingumlaufComponent implements OnInit {
 
   barcodeList: Ringumlauf[];
   selectedBarcode: Ringumlauf;
-  readDays: string;
-  comment: string;
+  readDays: string = "";
+  comment: string = "";
 
   interestedUsersInfo: any[];
   loading = false;
@@ -51,7 +51,6 @@ export class RingumlaufComponent implements OnInit {
   }
 
   private loadUsers() {
-    // TODO: spinner doesn't work!!!
     this.loading = true;
 
     from<InterestedUser[]>(this.apiResult.interested_user)
@@ -93,16 +92,27 @@ export class RingumlaufComponent implements OnInit {
   }
 
   private openDialog() {
+    const pdfData = this.preparePdfData();
+
     const dialogRef = this.dialog.open(RingumlaufPdfComponent, {
       autoFocus: false,
-      data: { test: "hi" },
+      data: pdfData,
+      width: "90%",
+      panelClass: "ringumlauf-dialog",
     });
+  }
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (!result) return;
-      // TODO: do something
-      // TODO: sort the interestedUsersInfo result?
-      console.log(this.interestedUsersInfo[0]);
-    });
+  private preparePdfData() {
+    // TODO: sort the interestedUsersInfo result?
+
+    return {
+      senderInfo: {},
+      receiveInfo: {},
+      title: this.apiResult.resource_metadata.title,
+      readDays: this.readDays,
+      comment: this.comment,
+      barcode: this.selectedBarcode.barcode,
+      interestedUsersInfo: this.interestedUsersInfo,
+    } as RingumlaufPdfData;
   }
 }

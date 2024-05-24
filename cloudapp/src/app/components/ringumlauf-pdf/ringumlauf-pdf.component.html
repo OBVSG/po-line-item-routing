@@ -1,15 +1,54 @@
-<h2 mat-dialog-title>ringumlauf-pdf data from parent: {{ data | json }}</h2>
+<h1 id="ringumlauf-pdf-dialog-title" mat-dialog-title>ringumlauf pdf</h1>
+
 <mat-dialog-content>
-  <p>Download PDF?</p>
+  <ng-container *ngIf="hasSmallWidth; then smallView; else pdf"></ng-container>
+
+  <ng-template #smallView>
+    <p>make the component bigger to see the PDF and the download button</p>
+  </ng-template>
+
+  <ng-template #pdf>
+    <div id="ringumlauf-pdf">
+      <h2>Umlauf-/Entlehnliste</h2>
+      <h3>{{ data.title }}</h3>
+
+      <p><strong>Barcode:</strong> {{ data.barcode }}</p>
+
+      <p><strong>Lesetage/TeilnehmerIn max:</strong> {{ data.readDays }}</p>
+
+      <p><strong>Bemerkung:</strong> {{ data.comment }}</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+
+        <tbody *ngFor="let user of interestedUsers">
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.address }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <p>Download PDF?</p>
+      <mat-dialog-actions align="end">
+        <button mat-flat-button color="secondary" mat-dialog-close>No</button>
+        <button
+          mat-flat-button
+          color="secondary"
+          [mat-dialog-close]="true"
+          cdkFocusInitial
+          (click)="generatePdf()"
+        >
+          Yes
+        </button>
+      </mat-dialog-actions>
+    </div>
+  </ng-template>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-flat-button color="secondary" mat-dialog-close>No</button>
-  <button
-    mat-flat-button
-    color="secondary"
-    [mat-dialog-close]="true"
-    cdkFocusInitial
-  >
-    Yes
-  </button>
-</mat-dialog-actions>
