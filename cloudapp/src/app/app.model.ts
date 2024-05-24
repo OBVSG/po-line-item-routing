@@ -25,3 +25,13 @@ export interface Ringumlauf {
     value: string;
   };
 }
+
+export interface RingumlaufPdfData {
+  senderInfo: any; // TODO
+  receiveInfo: any; // TODO
+  title: string;
+  readDays: string;
+  comment: string;
+  barcode: string;
+  interestedUsersInfo: any[];
+}
