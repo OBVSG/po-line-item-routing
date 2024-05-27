@@ -6,26 +6,32 @@
   </mat-card-header>
 
   <mat-card-content>
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-      <div
-        [ngStyle]="{ cursor: 'grab' }"
-        class="example-box"
-        *ngFor="let user of users; let i = index"
-        cdkDrag
-      >
-        <div>
-          <strong>{{ i + 1 }}. User: </strong>{{ user.last_name }}
-          {{ user.first_name }}
+    <div class="class-to-change">
+      <div class="example-list">
+        <div *ngFor="let user of users; let i = index" class="example-box">
+          {{ i + 1 }}
         </div>
+      </div>
 
-        <div>
-          <i
-            [ngStyle]="{ cursor: 'help' }"
-            class="uxf-icon uxf-info"
-            (click)="remove(i)"
-            [matTooltip]="'ID: ' + user.primary_id"
-            matTooltipPosition="after"
-          ></i>
+      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <div
+          [ngStyle]="{ cursor: 'grab' }"
+          class="example-box"
+          *ngFor="let user of users; let i = index"
+          cdkDrag
+        >
+          <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+          <div>{{ user.last_name }} {{ user.first_name }}</div>
+
+          <div>
+            <i
+              [ngStyle]="{ cursor: 'help' }"
+              class="uxf-icon uxf-info"
+              (click)="remove(i)"
+              [matTooltip]="'ID: ' + user.primary_id"
+              matTooltipPosition="after"
+            ></i>
+          </div>
         </div>
       </div>
     </div>
