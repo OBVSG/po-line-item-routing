@@ -59,11 +59,22 @@
           </app-interested-users></mat-tab
         >
 
-        <mat-tab label="Ringumlauf">
+        <mat-tab
+          label="Ringumlauf"
+          *ngIf="
+            apiResult.fifth_reporting_code &&
+            apiResult.fifth_reporting_code === 'RING'
+          "
+        >
           <app-ringumlauf [apiResult]="apiResult"></app-ringumlauf>
         </mat-tab>
 
-        <mat-tab label="Sternumlauf"
+        <mat-tab
+          label="Sternumlauf"
+          *ngIf="
+            apiResult.fifth_reporting_code &&
+            apiResult.fifth_reporting_code === 'STERN'
+          "
           ><app-sternumlauf [apiResult]="apiResult"></app-sternumlauf
         ></mat-tab>
       </mat-tab-group>
