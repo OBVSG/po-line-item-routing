@@ -40,7 +40,7 @@ export class RingumlaufPdfComponent
     );
 
     this.interestedUsers = this.data.interestedUsersInfo.map((user) => ({
-      name: user.full_name, // TODO: change this to last_name, first_name
+      name: `${user.last_name} ${user.first_name}`,
       address: user.contact_info.address[0].line1, // TODO
     }));
   }

@@ -50,7 +50,7 @@
   <br />
   <br />
 
-  <mat-card>
+  <mat-card *ngIf="barcodeList.length > 0">
     <mat-card-header>
       <mat-card-title>
         <label id="barcode-radio-group-label">Select a barcode:</label>

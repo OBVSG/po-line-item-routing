@@ -19,7 +19,7 @@ export class RingumlaufComponent implements OnInit {
   @Input() apiResult: any;
 
   barcodeList: Ringumlauf[];
-  selectedBarcode: Ringumlauf;
+  selectedBarcode: Ringumlauf | null;
   readDays: string = "";
   comment: string = "";
 
@@ -42,7 +42,8 @@ export class RingumlaufComponent implements OnInit {
           new Date(b.receive_date).getTime() -
           new Date(a.receive_date).getTime()
       );
-    this.selectedBarcode = this.barcodeList[0];
+    this.selectedBarcode =
+      this.barcodeList.length > 0 ? this.barcodeList[0] : null;
   }
 
   onSelectBarcode(event: MatRadioChange) {
@@ -111,7 +112,9 @@ export class RingumlaufComponent implements OnInit {
       title: this.apiResult.resource_metadata.title,
       readDays: this.readDays,
       comment: this.comment,
-      barcode: this.selectedBarcode.barcode,
+      barcode: this.selectedBarcode
+        ? this.selectedBarcode.barcode
+        : "No barcode selected",
       interestedUsersInfo: this.interestedUsersInfo,
     } as RingumlaufPdfData;
   }
