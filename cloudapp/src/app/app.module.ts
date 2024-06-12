@@ -19,10 +19,17 @@ import { InterestedUsersComponent } from "./components/interested-users/interest
 import { RingumlaufComponent } from "./components/ringumlauf/ringumlauf.component";
 import { LoadingSpinnerComponent } from "./components/shared/loading-spinner/loading-spinner.component";
 import { RingumlaufPdfComponent } from "./components/ringumlauf-pdf/ringumlauf-pdf.component";
-import { SternumlaufComponent } from './components/sternumlauf/sternumlauf.component';
+import { SternumlaufComponent } from "./components/sternumlauf/sternumlauf.component";
+import { SettingsComponent } from "./components/settings/settings.component";
 
 // App routes
-const routes: Routes = [{ path: "", component: MainComponent }];
+const routes: Routes = [
+  {
+    path: "",
+    component: MainComponent,
+  },
+  { path: "settings", component: SettingsComponent },
+];
 
 // Register locale data
 registerLocaleData(localeDeAt);
@@ -36,6 +43,7 @@ registerLocaleData(localeDeAt);
     LoadingSpinnerComponent,
     RingumlaufPdfComponent,
     SternumlaufComponent,
+    SettingsComponent,
   ],
   imports: [
     MaterialModule,

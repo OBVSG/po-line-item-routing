@@ -1,0 +1,70 @@
+<div>
+  <button mat-button type="button" color="primary" routerLink="/">
+    back to Home
+  </button>
+</div>
+
+<div class="loading-shade" *ngIf="saving">
+  <mat-progress-spinner
+    mode="indeterminate"
+    diameter="50"
+  ></mat-progress-spinner>
+</div>
+
+<!-- TODO: is any validation for the settings form required? -->
+
+<div *ngIf="settingsForm">
+  <form [formGroup]="settingsForm">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>User Configurations</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-form-field>
+          <mat-label>Location Type:</mat-label>
+          <input matInput type="text" formControlName="locationType" />
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field>
+          <mat-label>Location Library:</mat-label>
+          <input matInput type="text" formControlName="locationLibrary" />
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field>
+          <mat-label>Location Circulation Desk:</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="locationCirculationDesk"
+          />
+        </mat-form-field>
+
+        <br />
+
+        <mat-form-field>
+          <mat-label>Item Policy:</mat-label>
+          <input matInput type="text" formControlName="itemPolicy" />
+        </mat-form-field>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>
+
+<br />
+
+<div buttons>
+  <button
+    mat-flat-button
+    type="button"
+    color="primary"
+    (click)="save()"
+    [disabled]="!settingsForm?.dirty"
+  >
+    Save
+  </button>
+</div>
