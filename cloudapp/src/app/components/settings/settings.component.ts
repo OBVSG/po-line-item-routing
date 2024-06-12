@@ -39,12 +39,17 @@ export class SettingsComponent implements OnInit {
   save() {
     this.saving = true;
     this.settingsService.set(this.settingsForm.value).subscribe(
-      (response) => {
+      (_response) => {
         this.alert.success("Settings successfully saved.");
         this.settingsForm.markAsPristine();
       },
-      (err) => this.alert.error(err.message),
-      () => (this.saving = false)
+      (err) => {
+        // TODO: handle error
+        this.alert.error(err.message);
+      },
+      () => {
+        this.saving = false;
+      }
     );
   }
 }

@@ -1,6 +1,87 @@
-<div>
-  <pre>
-        {{ apiResult | json }}
-    </pre
-  >
+<div *ngIf="itemPoliciesMatch; else noItemPolicyMatch">
+  <ng-container
+    *ngIf="
+      barcodeList && barcodeList.length > 0;
+      then barcodeSelection;
+      else noBarcode
+    "
+  ></ng-container>
+
+  <ng-template #barcodeSelection>
+    <mat-card *ngIf="barcodeList.length > 0">
+      <mat-card-header>
+        <mat-card-title>
+          <label id="barcode-radio-group-label">Select a barcode:</label>
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <mat-radio-group
+          aria-labelledby="barcode-radio-group-label"
+          [(ngModel)]="selectedBarcode"
+          (change)="onSelectBarcode($event)"
+        >
+          <mat-radio-button
+            *ngFor="let barcode of barcodeList"
+            [value]="barcode"
+          >
+            <mat-list>
+              <mat-list-item>
+                <strong>Barcode: </strong> {{ barcode.barcode }}
+              </mat-list-item>
+
+              <mat-list-item *ngIf="barcode.description">
+                <strong>Description: </strong> {{ barcode.description }}
+              </mat-list-item>
+
+              <mat-list-item *ngIf="barcode.receive_date">
+                <strong>Receive Date: </strong>
+                {{ barcode.receive_date | date : "mediumDate" }}
+              </mat-list-item>
+
+              <mat-list-item *ngIf="barcode.item_policy.desc">
+                <strong>ItemPolicy: </strong> {{ barcode.item_policy.desc }}
+              </mat-list-item>
+            </mat-list>
+          </mat-radio-button>
+        </mat-radio-group>
+      </mat-card-content>
+    </mat-card>
+
+    <br />
+
+    <div>
+      <p>
+        This is the user configuration. If these values are not correct, please
+        go to settings and update them.
+      </p>
+
+      <pre>{{ userSettings | json }}</pre>
+    </div>
+
+    <br />
+
+    <div class="eca-actions">
+      <button mat-flat-button color="primary" (click)="checkUserRequests()">
+        check user requests for selected barcode
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #noBarcode>
+    <p>No Sternumlauf found</p>
+  </ng-template>
 </div>
+
+<template #noItemPolicyMatch>
+  <div>
+    <p>
+      Some items in the barcode list have policies that do not match the
+      user-specified item policy pattern.
+    </p>
+
+    <pre>{{ barcodeList | json }}</pre>
+  </div>
+</template>
+
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>

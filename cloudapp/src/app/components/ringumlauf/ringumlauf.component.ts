@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { InterestedUser, Ringumlauf, RingumlaufPdfData } from "../../app.model";
+import { InterestedUser, Umlauf, RingumlaufPdfData } from "../../app.model";
 import { MatRadioChange } from "@angular/material/radio";
 import {
   AlertService,
@@ -18,8 +18,8 @@ import { RingumlaufPdfComponent } from "../ringumlauf-pdf/ringumlauf-pdf.compone
 export class RingumlaufComponent implements OnInit {
   @Input() apiResult: any;
 
-  barcodeList: Ringumlauf[];
-  selectedBarcode: Ringumlauf | null;
+  barcodeList: Umlauf[];
+  selectedBarcode: Umlauf;
   readDays: string = "";
   comment: string = "";
 
@@ -36,18 +36,20 @@ export class RingumlaufComponent implements OnInit {
     // TODO: Does this run on every apiResult changes????
 
     this.barcodeList = this.apiResult.location[0].copy
-      .filter((item: Ringumlauf) => !!item.barcode)
+      .filter((item: Umlauf) => !!item.barcode)
       .sort(
-        (a: Ringumlauf, b: Ringumlauf) =>
+        (a: Umlauf, b: Umlauf) =>
           new Date(b.receive_date).getTime() -
           new Date(a.receive_date).getTime()
       );
-    this.selectedBarcode =
-      this.barcodeList.length > 0 ? this.barcodeList[0] : null;
+
+    if (this.barcodeList.length > 0) {
+      this.selectedBarcode = this.barcodeList[0];
+    }
   }
 
   onSelectBarcode(event: MatRadioChange) {
-    const value = event.value as Ringumlauf;
+    const value = event.value as Umlauf;
     this.selectedBarcode = value;
   }
 

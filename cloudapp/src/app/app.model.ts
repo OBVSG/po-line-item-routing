@@ -9,13 +9,9 @@ export interface InterestedUser {
   last_name: string;
 }
 
-export interface Ringumlauf {
+export interface Umlauf {
   barcode: string;
-  chronology_i: string;
-  chronology_j: string;
   description: string;
-  enumeration_a: string;
-  enumeration_b: string;
   expected_arrival_date: string;
   link: string;
   pid: string;
@@ -34,4 +30,11 @@ export interface RingumlaufPdfData {
   comment: string;
   barcode: string;
   interestedUsersInfo: any[];
+}
+
+export interface UserSettings {
+  locationType: string;
+  locationLibrary: string;
+  locationCirculationDesk: string;
+  itemPolicy: string;
 }
