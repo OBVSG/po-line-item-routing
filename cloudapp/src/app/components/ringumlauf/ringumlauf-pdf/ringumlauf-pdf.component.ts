@@ -10,7 +10,7 @@ import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import ResizeObserver from "resize-observer-polyfill";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
-import { RingumlaufPdfData } from "../../app.model";
+import { RingumlaufPdfData } from "../../../app.model";
 
 @Component({
   selector: "app-ringumlauf-pdf",

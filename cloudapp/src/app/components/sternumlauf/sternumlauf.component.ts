@@ -3,7 +3,7 @@ import {
   CloudAppRestService,
   CloudAppSettingsService,
 } from "@exlibris/exl-cloudapp-angular-lib";
-import { Umlauf, UserSettings } from "../../app.model";
+import { SternumlaufSettings, Umlauf, UserSettings } from "../../app.model";
 import { MatRadioChange } from "@angular/material/radio";
 
 @Component({
@@ -17,7 +17,7 @@ export class SternumlaufComponent implements OnInit {
   itemPoliciesMatch: boolean = true;
   barcodeList: Umlauf[];
   selectedBarcode: Umlauf;
-  userSettings: UserSettings;
+  userSettings: SternumlaufSettings;
 
   constructor(
     private restService: CloudAppRestService,
@@ -38,9 +38,9 @@ export class SternumlaufComponent implements OnInit {
     }
 
     this.settingsService.get().subscribe((settings: UserSettings) => {
-      this.userSettings = settings;
+      this.userSettings = settings.sternumlauf;
 
-      this.checkItemPolicy(settings.itemPolicy);
+      this.checkItemPolicy(this.userSettings.itemPolicy);
     });
   }
 

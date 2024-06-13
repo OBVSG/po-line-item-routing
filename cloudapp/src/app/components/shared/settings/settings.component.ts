@@ -5,6 +5,7 @@ import {
   CloudAppSettingsService,
   FormGroupUtil,
 } from "@exlibris/exl-cloudapp-angular-lib";
+import { UserSettings } from "../../../app.model";
 
 @Component({
   selector: "app-settings",
@@ -25,11 +26,22 @@ export class SettingsComponent implements OnInit {
       this.settingsForm = FormGroupUtil.toFormGroup(
         Object.assign(
           {
-            locationType: "LIBRARY",
-            locationLibrary: "MUS",
-            locationCirculationDesk: "DEFAULT_CIRC_DESK",
-            itemPolicy: "STAR_SOMETHING",
-          },
+            sternumlauf: {
+              locationType: "LIBRARY",
+              locationLibrary: "MUS",
+              locationCirculationDesk: "DEFAULT_CIRC_DESK",
+              itemPolicy: "STAR_SOMETHING",
+            },
+            information: {
+              title: "",
+              subtitle: "",
+              address: "",
+              phone: "",
+              email: "",
+              website: "",
+              dvr: "",
+            },
+          } as UserSettings,
           settings
         )
       );

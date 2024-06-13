@@ -32,9 +32,23 @@ export interface RingumlaufPdfData {
   interestedUsersInfo: any[];
 }
 
-export interface UserSettings {
+export interface SternumlaufSettings {
   locationType: string;
   locationLibrary: string;
   locationCirculationDesk: string;
   itemPolicy: string;
+}
+export interface InformationSettings {
+  title: string;
+  subtitle: string;
+  address: string;
+  phone: string;
+  email: string;
+  website: string;
+  dvr: string;
+}
+
+export interface UserSettings {
+  sternumlauf: SternumlaufSettings;
+  information: InformationSettings;
 }

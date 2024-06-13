@@ -8,7 +8,7 @@ import {
 import { from, throwError } from "rxjs";
 import { catchError, mergeMap, toArray } from "rxjs/operators";
 import { MatDialog } from "@angular/material/dialog";
-import { RingumlaufPdfComponent } from "../ringumlauf-pdf/ringumlauf-pdf.component";
+import { RingumlaufPdfComponent } from "../ringumlauf/ringumlauf-pdf/ringumlauf-pdf.component";
 
 @Component({
   selector: "app-ringumlauf",
