@@ -23,8 +23,8 @@ export interface Umlauf {
 }
 
 export interface RingumlaufPdfData {
-  senderInfo: any; // TODO
-  receiveInfo: any; // TODO
+  senderInfo: InformationSettings; // TODO: check
+  receiveInfo: any; // TODO: probably not needed
   title: string;
   readDays: string;
   comment: string;

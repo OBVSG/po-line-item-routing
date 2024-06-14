@@ -109,8 +109,8 @@ export class RingumlaufComponent implements OnInit {
     // TODO: sort the interestedUsersInfo result?
 
     return {
-      senderInfo: {},
-      receiveInfo: {},
+      senderInfo: {}, // TODO: same as settings service
+      receiveInfo: {}, // TODO: probably not needed
       title: this.apiResult.resource_metadata.title,
       readDays: this.readDays,
       comment: this.comment,
