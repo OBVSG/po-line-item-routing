@@ -1,0 +1,26 @@
+// get the same style as the alert component
+
+.alert {
+  width: 100%;
+  padding: 16px;
+  border-radius: 4px;
+  margin: 10px 0;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+}
+
+.info {
+  background-color: rgb(93, 93, 251);
+  border: 1px solid blue;
+}
+
+.error {
+  background-color: rgb(255, 100, 100);
+  border: 1px solid red;
+}
+
+.success {
+  background-color: rgb(107, 255, 107);
+  border: 1px solid green;
+}

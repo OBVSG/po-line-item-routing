@@ -21,6 +21,7 @@ import { LoadingSpinnerComponent } from "./components/shared/loading-spinner/loa
 import { RingumlaufPdfComponent } from "./components/ringumlauf/ringumlauf-pdf/ringumlauf-pdf.component";
 import { SternumlaufComponent } from "./components/sternumlauf/sternumlauf.component";
 import { SettingsComponent } from "./components/shared/settings/settings.component";
+import { AlertComponent } from "./components/shared/alert/alert.component";
 
 // App routes
 const routes: Routes = [
@@ -44,6 +45,7 @@ registerLocaleData(localeDeAt);
     RingumlaufPdfComponent,
     SternumlaufComponent,
     SettingsComponent,
+    AlertComponent,
   ],
   imports: [
     MaterialModule,
