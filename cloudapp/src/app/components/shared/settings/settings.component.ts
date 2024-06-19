@@ -53,8 +53,9 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  addItemPolicy(value: string) {
-    this.itemPolicy.push(value.trim());
+  addItemPolicy(inputElement: HTMLInputElement) {
+    this.itemPolicy.push(inputElement.value.trim());
+    inputElement.value = "";
   }
 
   removeItemPolicy(value: string) {
@@ -67,7 +68,7 @@ export class SettingsComponent implements OnInit {
   save() {
     this.saving = true;
 
-    const settingsToSave = {
+    const settingsToSave: UserSettings = {
       ...this.settingsForm.value,
       itemPolicy: this.itemPolicy,
     };

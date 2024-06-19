@@ -41,17 +41,7 @@ export class SternumlaufComponent implements OnInit {
 
     this.settingsService.get().subscribe((settings: UserSettings) => {
       this.userSettings = { ...settings };
-
-      // TODO: change this
-      // TODO: here?
-      // this.checkItemPolicy(this.userSettings.itemPolicy);
     });
-  }
-
-  // check if the item policy matches the user specified pattern
-  checkItemPolicy(userItemPolicy: string) {
-    // TODO: it it correct here? only for the ones with barcode?
-    // TODO: since the item policy has multiple values, this check is not correct
   }
 
   onSelectBarcode(event: MatRadioChange) {
@@ -59,18 +49,30 @@ export class SternumlaufComponent implements OnInit {
     this.selectedBarcode = value;
   }
 
-  checkUserRequests() {
-    this.restService.call(`${this.selectedBarcode.link}/requests`).subscribe({
-      next: (result: any) => {
-        console.log(result);
-      },
-      error: (error) => {
-        console.error(error);
-        // this.loading = false;
-      },
-      complete: () => {
-        // this.loading = false;
-      },
-    });
+  checkCall(endpoint: "requests" | "loans") {
+    return this.restService.call(`${this.selectedBarcode.link}/${endpoint}`);
+  }
+
+  // check if the item policy matches the user specified pattern
+  checkSternumlaufProcess() {
+    // TODO: check policy (only for the ones with barcode?)
+    // TODO: call api check
+    /*
+    .subscribe({
+        next: (result: any) => {
+          console.log(result);
+        },
+        error: (error) => {
+          console.error(error);
+          // this.loading = false;
+        },
+        complete: () => {
+          // this.loading = false;
+        },
+      });
+    
+    */
+
+    this.checkCall("requests"); // TODO: subscribe
   }
 }
