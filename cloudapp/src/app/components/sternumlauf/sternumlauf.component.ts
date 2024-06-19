@@ -3,8 +3,9 @@ import {
   CloudAppRestService,
   CloudAppSettingsService,
 } from "@exlibris/exl-cloudapp-angular-lib";
-import { SternumlaufSettings, Umlauf, UserSettings } from "../../app.model";
+import { Umlauf, UserSettings } from "../../app.model";
 import { MatRadioChange } from "@angular/material/radio";
+import { FormControl } from "@angular/forms";
 
 @Component({
   selector: "app-sternumlauf",
@@ -14,10 +15,11 @@ import { MatRadioChange } from "@angular/material/radio";
 export class SternumlaufComponent implements OnInit {
   @Input() apiResult: any;
 
-  itemPoliciesMatch: boolean = true;
+  itemPolicy = new FormControl();
+
   barcodeList: Umlauf[];
   selectedBarcode: Umlauf;
-  userSettings: SternumlaufSettings;
+  userSettings: UserSettings;
 
   constructor(
     private restService: CloudAppRestService,
@@ -38,22 +40,18 @@ export class SternumlaufComponent implements OnInit {
     }
 
     this.settingsService.get().subscribe((settings: UserSettings) => {
-      this.userSettings = settings.sternumlauf;
+      this.userSettings = { ...settings };
 
-      this.checkItemPolicy(this.userSettings.itemPolicy);
+      // TODO: change this
+      // TODO: here?
+      // this.checkItemPolicy(this.userSettings.itemPolicy);
     });
   }
 
   // check if the item policy matches the user specified pattern
   checkItemPolicy(userItemPolicy: string) {
     // TODO: it it correct here? only for the ones with barcode?
-    const itemPoliciesMatch = this.barcodeList.some(
-      (item: Umlauf) => !item.item_policy.value.startsWith(userItemPolicy)
-    );
-
-    if (itemPoliciesMatch) {
-      this.itemPoliciesMatch = false;
-    }
+    // TODO: since the item policy has multiple values, this check is not correct
   }
 
   onSelectBarcode(event: MatRadioChange) {

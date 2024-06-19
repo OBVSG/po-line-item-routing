@@ -4,6 +4,9 @@
   </button>
 </div>
 
+<mat-divider></mat-divider>
+<br />
+
 <div class="loading-shade" *ngIf="saving">
   <mat-progress-spinner
     mode="indeterminate"
@@ -11,10 +14,54 @@
   ></mat-progress-spinner>
 </div>
 
-<!-- TODO: is any validation for the settings form required? -->
-
 <div *ngIf="settingsForm">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Item Policy</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div>
+        <mat-list role="list">
+          <div *ngFor="let policy of itemPolicy" class="flex-row">
+            <mat-list-item role="listitem">{{ policy }}</mat-list-item>
+
+            <button
+              class="warn-button"
+              mat-flat-button
+              type="button"
+              color="primary"
+              (click)="removeItemPolicy(policy)"
+            >
+              remove
+            </button>
+          </div>
+        </mat-list>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Add Policy:</mat-label>
+        <input matInput type="text" #newPolicy />
+      </mat-form-field>
+
+      <mat-card-actions>
+        <button
+          mat-flat-button
+          type="button"
+          color="primary"
+          (click)="addItemPolicy(newPolicy.value)"
+          [disabled]="newPolicy.value === ''"
+        >
+          add
+        </button>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
+
+  <br />
+
   <form [formGroup]="settingsForm">
+    <!-- TODO: div is necessary? -->
     <div formGroupName="sternumlauf">
       <mat-card>
         <mat-card-header>
@@ -44,17 +91,13 @@
               formControlName="locationCirculationDesk"
             />
           </mat-form-field>
-
-          <br />
-
-          <mat-form-field>
-            <mat-label>Item Policy:</mat-label>
-            <input matInput type="text" formControlName="itemPolicy" />
-          </mat-form-field>
         </mat-card-content>
       </mat-card>
     </div>
 
+    <br />
+
+    <!-- TODO: div is necessary? -->
     <div formGroupName="information">
       <mat-card>
         <mat-card-header>
@@ -118,14 +161,19 @@
 
 <br />
 
-<div buttons>
+<div>
   <button
     mat-flat-button
+    #saveSettingsButton
     type="button"
     color="primary"
     (click)="save()"
-    [disabled]="!settingsForm?.dirty"
+    [disabled]="itemPolicy.length === 0"
   >
     Save
   </button>
+  <!-- TODO: style this -->
+  <span *ngIf="saveSettingsButton?.disabled"
+    >item policy list can NOT be empty</span
+  >
 </div>

@@ -2,3 +2,16 @@ mat-form-field,
 input {
   width: 100%;
 }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.warn-button {
+  background-color: #f44336;
+  color: white;
+  padding: 0;
+  align-self: center;
+}

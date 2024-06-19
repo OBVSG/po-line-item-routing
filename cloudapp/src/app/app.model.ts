@@ -36,7 +36,6 @@ export interface SternumlaufSettings {
   locationType: string;
   locationLibrary: string;
   locationCirculationDesk: string;
-  itemPolicy: string;
 }
 export interface InformationSettings {
   title: string;
@@ -49,6 +48,7 @@ export interface InformationSettings {
 }
 
 export interface UserSettings {
+  itemPolicy: string[];
   sternumlauf: SternumlaufSettings;
   information: InformationSettings;
 }
