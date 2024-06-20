@@ -1,6 +1,6 @@
 <ng-container
   *ngIf="
-    barcodeList && barcodeList.length > 0;
+    userSettings && barcodeList && barcodeList.length > 0;
     then barcodeSelection;
     else noBarcode
   "
@@ -67,7 +67,7 @@
 
   <div>
     <h3>
-      Select the item policy to check against the selected barcode's policy
+      Select the item policy to compare with the selected barcode's policy
     </h3>
     <mat-form-field appearance="fill">
       <mat-label>Item Policy</mat-label>
@@ -88,9 +88,10 @@
 
   <br />
 
+  <!-- TODO: make it separate component? -->
   <div>
     <button mat-flat-button color="primary" (click)="checkSternumlaufProcess()">
-      check sternumlauf process
+      sternumlauf vorbereiten
     </button>
   </div>
 </ng-template>

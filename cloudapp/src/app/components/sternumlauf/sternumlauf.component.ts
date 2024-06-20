@@ -50,12 +50,39 @@ export class SternumlaufComponent implements OnInit {
   }
 
   checkCall(endpoint: "requests" | "loans") {
+    /*
+      TODO: /loans
+      GET /almaws/v1/bibs/{mms_id}/holdings/{holding_id}/items/{item_id}/loans
+      total_record_count === 0
+      Fehlermeldung: Umlauf kann nicht gestartet werden, entlehnt.
+    */
+
+    /*
+      TODO: /requests
+      GET /almaws/v1/bibs/{mms_id}/holdings/{holding_id}/items/{item_id}/requests
+      total_record_count === 0
+      if not
+      check comments in the response array: if comment === 'po-line-item-routing'
+      delete all these requets with this comment
+
+      then check again by sending another requests
+      total_record_count === 0 or no comment === 'po-line-item-routing'
+      Fehlermeldung: Umlauf kann nicht gestartet werden, vorgemerkt.
+    */
+
+    /*
+        TODO: check before the scan in stage
+        after sending requests for all interested users 
+        send a request to the /requests endpoint again
+        interested_users === requests.total_record_count
+        Fehlermeldung: Vormerkungen konnten nicht gebildet werden.
+      */
     return this.restService.call(`${this.selectedBarcode.link}/${endpoint}`);
   }
 
   // check if the item policy matches the user specified pattern
   checkSternumlaufProcess() {
-    // TODO: check policy (only for the ones with barcode?)
+    // TODO: the itemPolicy of the "main item" should be in the array of the user defined item policies, case sensitive
     // TODO: call api check
     /*
     .subscribe({
