@@ -62,11 +62,21 @@
 
     <br />
 
-    <!-- TODO: make it separate component? -->
     <div>
       <button mat-flat-button color="primary" (click)="prepareSternumlauf()">
         sternumlauf vorbereiten
       </button>
+
+      <div *ngIf="requestsToDelete.length > 0">
+        <p>there are already multiple registered requests</p>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="clearExistingRequests()"
+        >
+          Do you want to clear the requests?
+        </button>
+      </div>
     </div>
   </div>
 </div>

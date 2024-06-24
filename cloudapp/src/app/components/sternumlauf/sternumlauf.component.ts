@@ -3,12 +3,13 @@ import {
   AlertService,
   CloudAppRestService,
   CloudAppSettingsService,
+  HttpMethod,
 } from "@exlibris/exl-cloudapp-angular-lib";
 import { Umlauf, UserSettings } from "../../app.model";
 import { MatRadioChange } from "@angular/material/radio";
 import { FormControl } from "@angular/forms";
-import { catchError, switchMap } from "rxjs/operators";
-import { of, throwError } from "rxjs";
+import { catchError, mergeMap, switchMap } from "rxjs/operators";
+import { EMPTY, from, of, throwError } from "rxjs";
 
 @Component({
   selector: "app-sternumlauf",
@@ -21,6 +22,8 @@ export class SternumlaufComponent implements OnInit {
   userSettings: UserSettings;
   barcodeList: Umlauf[];
   selectedBarcode: Umlauf;
+
+  requestsToDelete: any[] = [];
 
   constructor(
     private restService: CloudAppRestService,
@@ -59,74 +62,32 @@ export class SternumlaufComponent implements OnInit {
     }
   }
 
-  // check if the item policy matches the user specified pattern
-  prepareSternumlauf() {
-    // TODO: the itemPolicy of the "main item" should be in the array of the user defined item policies, case sensitive
-    /*
-      TODO: /loans
-      GET /almaws/v1/bibs/{mms_id}/holdings/{holding_id}/items/{item_id}/loans
-      total_record_count === 0
-      Fehlermeldung: Umlauf kann nicht gestartet werden, entlehnt.
-    */
-    /*
-      TODO: /requests
-      GET /almaws/v1/bibs/{mms_id}/holdings/{holding_id}/items/{item_id}/requests
-      total_record_count === 0
-      if not
-      check comments in the response array: if comment === 'po-line-item-routing'
-      delete all these requets with this comment
-
-      then check again by sending another requests
-      total_record_count === 0 or no comment === 'po-line-item-routing'
-      Fehlermeldung: Umlauf kann nicht gestartet werden, vorgemerkt.
-    */
-    /*
-        TODO: check before the scan in stage
-        after sending requests for all interested users 
-        send a request to the /requests endpoint again
-        interested_users === requests.total_record_count
-        Fehlermeldung: Vormerkungen konnten nicht gebildet werden.
-      */
-
+  clearExistingRequests() {
     this.loading = true;
 
-    this.restService
-      .call(`${this.selectedBarcode.link}/loans`)
+    from(this.requestsToDelete)
       .pipe(
-        switchMap((loanResult: any) => {
-          console.log("loans", loanResult);
-
-          if (loanResult.total_record_count === 0) {
-            return this.restService.call(
-              `${this.selectedBarcode.link}/requests`
-            );
-          } else {
-            this.alert.error("Umlauf kann nicht gestartet werden, entlehnt.");
-            return throwError(() => new Error("loan failed"));
-          }
-        }),
-        switchMap((requestResult: any) => {
-          console.log("requests", requestResult);
-
-          // Additional condition for the requests result
-          // TODO: if (/* your condition based on requestResult */) {
-          if (true) {
-            // If the condition is met, do something
-            // For example, return another API call or process the result
-            return of(requestResult); // Adjust this line as needed
-          } else {
-            // If the condition is not met, handle the error or return an observable
-            this.alert.error("Condition for requests result not met.");
-            return throwError(() => new Error("request condition failed"));
-          }
+        mergeMap((user) => {
+          // delete all these requests with the comment 'po-line-item-routing'
+          return this.restService.call({
+            url: `/almaws/v1/users/${user.user_primary_id}/requests/${user.request_id}`,
+            method: HttpMethod.DELETE,
+          });
         })
       )
       .subscribe({
-        next: (finalResult: any) => {
-          console.log("final result", finalResult);
-          // Handle the final result
+        next: (result: any) => {
+          /*
+          TODO: 
+          then check again by sending another requests
+          total_record_count === 0 or no comment === 'po-line-item-routing'
+          Fehlermeldung: Umlauf kann nicht gestartet werden, vorgemerkt.
+          */
+          this.alert.success("All requests are cleared");
+          this.requestsToDelete = [];
         },
         error: (error) => {
+          this.alert.error("Failed to clear requests, please try again");
           console.error(error);
           this.loading = false;
         },
@@ -134,5 +95,76 @@ export class SternumlaufComponent implements OnInit {
           this.loading = false;
         },
       });
+  }
+
+  // check if the item policy matches the user specified pattern
+  prepareSternumlauf() {
+    this.loading = true;
+
+    this.restService
+      .call(`${this.selectedBarcode.link}/loans`)
+      .pipe(
+        switchMap((loanResult: any) => {
+          console.log("loans", loanResult); // FIX: remove this
+
+          if (loanResult.total_record_count === 0) {
+            return this.restService.call(
+              `${this.selectedBarcode.link}/requests`
+            );
+          } else {
+            this.alert.error("Umlauf kann nicht gestartet werden, entlehnt.");
+
+            //return error to skip the next checks
+            return of({ error: "loan check is not passed" });
+          }
+        }),
+        switchMap((requestResult: any) => {
+          console.log("requests", requestResult); // FIX: remove this
+
+          // check if the last api call for loans is not passed
+          if (requestResult.error) {
+            // Stop the process here
+            return of(null);
+          }
+
+          if (requestResult.total_record_count === 0) {
+            return of(null);
+          } else {
+            const userRequestsWithComment = requestResult.user_request.filter(
+              (item) => item.comment === "po-line-item-routing"
+            );
+
+            if (userRequestsWithComment.length === 0) {
+              return of(null);
+            }
+
+            return of(userRequestsWithComment);
+          }
+        })
+      )
+      .subscribe({
+        next: (result: any) => {
+          if (result !== null) {
+            console.log("result with comments", result);
+            this.requestsToDelete = result;
+          }
+        },
+        error: (error) => {
+          console.error(error);
+          this.alert.error("unexpected error occurred");
+          this.loading = false;
+        },
+        complete: () => {
+          this.loading = false;
+        },
+      });
+
+    /*
+        TODO: check before the scan in stage
+        after sending requests for all interested users 
+        send a request to the /requests endpoint again
+        interested_users === requests.total_record_count
+        Fehlermeldung: Vormerkungen konnten nicht gebildet werden.
+      */
   }
 }
