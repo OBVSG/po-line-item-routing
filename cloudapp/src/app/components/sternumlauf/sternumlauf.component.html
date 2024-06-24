@@ -1,13 +1,10 @@
-<ng-container
-  *ngIf="
-    userSettings && barcodeList && barcodeList.length > 0;
-    then barcodeSelection;
-    else noBarcode
-  "
-></ng-container>
+<div *ngIf="barcodeList.length > 0">
+  <div>
+    <p>setting item policy</p>
+    <pre>{{ userSettings.itemPolicy | json }}</pre>
+  </div>
 
-<ng-template #barcodeSelection>
-  <mat-card *ngIf="barcodeList.length > 0">
+  <mat-card>
     <mat-card-header>
       <mat-card-title>
         <label id="barcode-radio-group-label">Select a barcode:</label>
@@ -17,7 +14,6 @@
     <mat-card-content>
       <mat-radio-group
         aria-labelledby="barcode-radio-group-label"
-        [(ngModel)]="selectedBarcode"
         (change)="onSelectBarcode($event)"
       >
         <mat-radio-button *ngFor="let barcode of barcodeList" [value]="barcode">
@@ -48,56 +44,31 @@
   <mat-divider></mat-divider>
   <br />
 
-  <div>
-    <p>
-      This is the user configuration. If these values are not correct, please go
-      to settings and update them.
-    </p>
+  <div *ngIf="selectedBarcode">
+    <div>
+      <p>
+        This is the user configuration. If these values are not correct, please
+        go to settings and update them.
+      </p>
 
-    <pre>{{ userSettings.sternumlauf | json }}</pre>
+      <pre>{{ userSettings.sternumlauf | json }}</pre>
 
-    <button mat-button type="button" color="primary" routerLink="/settings">
-      go to settings
-    </button>
+      <button mat-button type="button" color="primary" routerLink="/settings">
+        go to settings
+      </button>
+    </div>
+
+    <br />
+
+    <br />
+
+    <!-- TODO: make it separate component? -->
+    <div>
+      <button mat-flat-button color="primary" (click)="prepareSternumlauf()">
+        sternumlauf vorbereiten
+      </button>
+    </div>
   </div>
-
-  <br />
-  <mat-divider></mat-divider>
-  <br />
-
-  <div>
-    <h3>
-      Select the item policy to compare with the selected barcode's policy
-    </h3>
-    <mat-form-field appearance="fill">
-      <mat-label>Item Policy</mat-label>
-      <mat-select
-        [formControl]="itemPolicy"
-        [disabled]="
-          !userSettings.itemPolicy || userSettings.itemPolicy.length == 0
-        "
-      >
-        <mat-option
-          *ngFor="let policy of userSettings.itemPolicy"
-          [value]="policy"
-          >{{ policy }}</mat-option
-        >
-      </mat-select>
-    </mat-form-field>
-  </div>
-
-  <br />
-
-  <!-- TODO: make it separate component? -->
-  <div>
-    <button mat-flat-button color="primary" (click)="checkSternumlaufProcess()">
-      sternumlauf vorbereiten
-    </button>
-  </div>
-</ng-template>
-
-<ng-template #noBarcode>
-  <p>No Sternumlauf found</p>
-</ng-template>
+</div>
 
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>

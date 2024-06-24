@@ -1,11 +1,14 @@
 import { Component, Input, OnInit } from "@angular/core";
 import {
+  AlertService,
   CloudAppRestService,
   CloudAppSettingsService,
 } from "@exlibris/exl-cloudapp-angular-lib";
 import { Umlauf, UserSettings } from "../../app.model";
 import { MatRadioChange } from "@angular/material/radio";
 import { FormControl } from "@angular/forms";
+import { catchError, switchMap } from "rxjs/operators";
+import { of, throwError } from "rxjs";
 
 @Component({
   selector: "app-sternumlauf",
@@ -14,19 +17,22 @@ import { FormControl } from "@angular/forms";
 })
 export class SternumlaufComponent implements OnInit {
   @Input() apiResult: any;
-
-  itemPolicy = new FormControl();
-
+  loading = false;
+  userSettings: UserSettings;
   barcodeList: Umlauf[];
   selectedBarcode: Umlauf;
-  userSettings: UserSettings;
 
   constructor(
     private restService: CloudAppRestService,
-    private settingsService: CloudAppSettingsService
+    private settingsService: CloudAppSettingsService,
+    private alert: AlertService
   ) {}
 
   ngOnInit(): void {
+    this.settingsService.get().subscribe((settings: UserSettings) => {
+      this.userSettings = settings;
+    });
+
     this.barcodeList = this.apiResult.location[0].copy
       .filter((item: Umlauf) => !!item.barcode)
       .sort(
@@ -35,28 +41,33 @@ export class SternumlaufComponent implements OnInit {
           new Date(a.receive_date).getTime()
       );
 
-    if (this.barcodeList.length > 0) {
-      this.selectedBarcode = this.barcodeList[0];
+    if (this.barcodeList.length === 0) {
+      this.alert.error("No barcode found");
     }
-
-    this.settingsService.get().subscribe((settings: UserSettings) => {
-      this.userSettings = { ...settings };
-    });
   }
 
   onSelectBarcode(event: MatRadioChange) {
-    const value = event.value as Umlauf;
-    this.selectedBarcode = value;
+    const selectedValue = event.value.item_policy.value;
+
+    if (this.userSettings.itemPolicy.includes(selectedValue)) {
+      this.selectedBarcode = event.value as Umlauf;
+    } else {
+      this.selectedBarcode = undefined;
+      this.alert.error(
+        `${selectedValue} doesn't exist in the item policy defined in the user settings`
+      );
+    }
   }
 
-  checkCall(endpoint: "requests" | "loans") {
+  // check if the item policy matches the user specified pattern
+  prepareSternumlauf() {
+    // TODO: the itemPolicy of the "main item" should be in the array of the user defined item policies, case sensitive
     /*
       TODO: /loans
       GET /almaws/v1/bibs/{mms_id}/holdings/{holding_id}/items/{item_id}/loans
       total_record_count === 0
       Fehlermeldung: Umlauf kann nicht gestartet werden, entlehnt.
     */
-
     /*
       TODO: /requests
       GET /almaws/v1/bibs/{mms_id}/holdings/{holding_id}/items/{item_id}/requests
@@ -69,7 +80,6 @@ export class SternumlaufComponent implements OnInit {
       total_record_count === 0 or no comment === 'po-line-item-routing'
       Fehlermeldung: Umlauf kann nicht gestartet werden, vorgemerkt.
     */
-
     /*
         TODO: check before the scan in stage
         after sending requests for all interested users 
@@ -77,29 +87,52 @@ export class SternumlaufComponent implements OnInit {
         interested_users === requests.total_record_count
         Fehlermeldung: Vormerkungen konnten nicht gebildet werden.
       */
-    return this.restService.call(`${this.selectedBarcode.link}/${endpoint}`);
-  }
 
-  // check if the item policy matches the user specified pattern
-  checkSternumlaufProcess() {
-    // TODO: the itemPolicy of the "main item" should be in the array of the user defined item policies, case sensitive
-    // TODO: call api check
-    /*
-    .subscribe({
-        next: (result: any) => {
-          console.log(result);
+    this.loading = true;
+
+    this.restService
+      .call(`${this.selectedBarcode.link}/loans`)
+      .pipe(
+        switchMap((loanResult: any) => {
+          console.log("loans", loanResult);
+
+          if (loanResult.total_record_count === 0) {
+            return this.restService.call(
+              `${this.selectedBarcode.link}/requests`
+            );
+          } else {
+            this.alert.error("Umlauf kann nicht gestartet werden, entlehnt.");
+            return throwError(() => new Error("loan failed"));
+          }
+        }),
+        switchMap((requestResult: any) => {
+          console.log("requests", requestResult);
+
+          // Additional condition for the requests result
+          // TODO: if (/* your condition based on requestResult */) {
+          if (true) {
+            // If the condition is met, do something
+            // For example, return another API call or process the result
+            return of(requestResult); // Adjust this line as needed
+          } else {
+            // If the condition is not met, handle the error or return an observable
+            this.alert.error("Condition for requests result not met.");
+            return throwError(() => new Error("request condition failed"));
+          }
+        })
+      )
+      .subscribe({
+        next: (finalResult: any) => {
+          console.log("final result", finalResult);
+          // Handle the final result
         },
         error: (error) => {
           console.error(error);
-          // this.loading = false;
+          this.loading = false;
         },
         complete: () => {
-          // this.loading = false;
+          this.loading = false;
         },
       });
-    
-    */
-
-    this.checkCall("requests"); // TODO: subscribe
   }
 }
