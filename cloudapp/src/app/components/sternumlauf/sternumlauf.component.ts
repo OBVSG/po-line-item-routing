@@ -5,11 +5,19 @@ import {
   CloudAppSettingsService,
   HttpMethod,
 } from "@exlibris/exl-cloudapp-angular-lib";
-import { Umlauf, UserSettings } from "../../app.model";
+import { SternumlaufStartData, Umlauf, UserSettings } from "../../app.model";
 import { MatRadioChange } from "@angular/material/radio";
-import { FormControl } from "@angular/forms";
-import { catchError, mergeMap, switchMap } from "rxjs/operators";
+import {
+  catchError,
+  concatMap,
+  map,
+  mergeMap,
+  switchMap,
+  toArray,
+} from "rxjs/operators";
 import { EMPTY, from, of, throwError } from "rxjs";
+import { MatDialog } from "@angular/material/dialog";
+import { SternumlaufStartComponent } from "./sternumlauf-start/sternumlauf-start.component";
 
 @Component({
   selector: "app-sternumlauf",
@@ -23,12 +31,11 @@ export class SternumlaufComponent implements OnInit {
   barcodeList: Umlauf[];
   selectedBarcode: Umlauf;
 
-  requestsToDelete: any[] = [];
-
   constructor(
     private restService: CloudAppRestService,
     private settingsService: CloudAppSettingsService,
-    private alert: AlertService
+    private alert: AlertService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -62,109 +69,133 @@ export class SternumlaufComponent implements OnInit {
     }
   }
 
-  clearExistingRequests() {
-    this.loading = true;
-
-    from(this.requestsToDelete)
-      .pipe(
-        mergeMap((user) => {
-          // delete all these requests with the comment 'po-line-item-routing'
-          return this.restService.call({
-            url: `/almaws/v1/users/${user.user_primary_id}/requests/${user.request_id}`,
-            method: HttpMethod.DELETE,
-          });
-        })
-      )
-      .subscribe({
-        next: (result: any) => {
-          /*
-          TODO: 
-          then check again by sending another requests
-          total_record_count === 0 or no comment === 'po-line-item-routing'
-          Fehlermeldung: Umlauf kann nicht gestartet werden, vorgemerkt.
-          */
-          this.alert.success("All requests are cleared");
-          this.requestsToDelete = [];
-        },
-        error: (error) => {
-          this.alert.error("Failed to clear requests, please try again");
-          console.error(error);
-          this.loading = false;
-        },
-        complete: () => {
-          this.loading = false;
-        },
-      });
-  }
-
-  // check if the item policy matches the user specified pattern
   prepareSternumlauf() {
     this.loading = true;
 
+    // first check if the item is loaned
     this.restService
-      .call(`${this.selectedBarcode.link}/loans`)
+      .call({
+        url: `${this.selectedBarcode.link}/loans`,
+        method: HttpMethod.GET,
+      })
       .pipe(
         switchMap((loanResult: any) => {
-          console.log("loans", loanResult); // FIX: remove this
-
           if (loanResult.total_record_count === 0) {
-            return this.restService.call(
-              `${this.selectedBarcode.link}/requests`
-            );
+            // when the item is not loaned, proceed to check requests
+            return this.restService.call({
+              url: `${this.selectedBarcode.link}/requests`,
+              method: HttpMethod.GET,
+            });
           } else {
             this.alert.error("Umlauf kann nicht gestartet werden, entlehnt.");
 
-            //return error to skip the next checks
-            return of({ error: "loan check is not passed" });
+            // Throw an error observable to stop further execution
+            return throwError(() => new Error("APP ERROR: Item is loaned"));
           }
         }),
         switchMap((requestResult: any) => {
-          console.log("requests", requestResult); // FIX: remove this
-
-          // check if the last api call for loans is not passed
-          if (requestResult.error) {
-            // Stop the process here
-            return of(null);
-          }
-
           if (requestResult.total_record_count === 0) {
-            return of(null);
+            return EMPTY;
           } else {
             const userRequestsWithComment = requestResult.user_request.filter(
               (item) => item.comment === "po-line-item-routing"
             );
 
             if (userRequestsWithComment.length === 0) {
-              return of(null);
+              return EMPTY;
             }
 
             return of(userRequestsWithComment);
           }
+        }),
+        switchMap((userRequestsWithComment: any) => {
+          // Delete requests with comment "po-line-item-routing"
+          return from(userRequestsWithComment).pipe(
+            mergeMap((user: any) => {
+              return this.restService
+                .call({
+                  url: `/almaws/v1/users/${user.user_primary_id}/requests/${user.request_id}`,
+                  method: HttpMethod.DELETE,
+                })
+                .pipe(
+                  catchError(() => {
+                    this.alert.error(
+                      `Failed to delete request ${user.request_id} for the user id: ${user.user_primary_id}`
+                    );
+                    return throwError(
+                      () => new Error("APP ERROR: Failed to delete requests")
+                    );
+                  })
+                );
+            }),
+            toArray(), // Wait for all delete requests to complete
+            concatMap(() => {
+              // Perform the final requests check
+              return this.restService
+                .call({
+                  url: `${this.selectedBarcode.link}/requests`,
+                  method: HttpMethod.GET,
+                })
+                .pipe(
+                  map((lastCheckResult) => {
+                    if (lastCheckResult.total_record_count !== 0) {
+                      this.alert.error(
+                        "Umlauf kann nicht gestartet werden, vorgemerkt."
+                      );
+
+                      // stop the observable chain
+                      throw new Error("APP ERROR: Requests still exist");
+                    }
+
+                    // complete the observable in case of success
+                    return EMPTY;
+                  }),
+                  catchError((_error) => {
+                    // Handle any errors from the final check
+                    this.alert.error(
+                      "Failed to perform the final requests check"
+                    );
+
+                    return throwError(
+                      () =>
+                        new Error(
+                          "APP ERROR: Failed to perform the final requests check, requests still exist"
+                        )
+                    );
+                  })
+                );
+            })
+          );
         })
       )
       .subscribe({
-        next: (result: any) => {
-          if (result !== null) {
-            console.log("result with comments", result);
-            this.requestsToDelete = result;
-          }
-        },
+        next: () => {},
         error: (error) => {
           console.error(error);
-          this.alert.error("unexpected error occurred");
           this.loading = false;
         },
         complete: () => {
+          console.log("-------------------------");
+          console.log(this.apiResult);
+          console.log("-------------------------");
+
           this.loading = false;
+          const dialogRef = this.dialog.open(SternumlaufStartComponent, {
+            autoFocus: false,
+            width: "60%",
+            panelClass: "sternumlauf-dialog",
+            data: {
+              // TODO
+              itemPrimaryId: "TODO",
+              urls: {
+                requests: "TODO",
+                createRequest: "TODO",
+                scanIn: "TODO",
+                createLoan: "TODO",
+              },
+            },
+          });
         },
       });
-
-    /*
-        TODO: check before the scan in stage
-        after sending requests for all interested users 
-        send a request to the /requests endpoint again
-        interested_users === requests.total_record_count
-        Fehlermeldung: Vormerkungen konnten nicht gebildet werden.
-      */
   }
 }

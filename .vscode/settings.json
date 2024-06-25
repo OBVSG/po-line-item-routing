@@ -11,17 +11,23 @@
     "cloudapp",
     "devkit",
     "entitylist",
+    "entlehnt",
     "exlibris",
     "fullscreen",
+    "gestartet",
     "jasminewd",
     "jspdf",
+    "kann",
+    "nicht",
     "preinstall",
     "Ringumlauf",
     "Speichern",
     "Starten",
     "Sternumlauf",
     "Umlauf",
-    "vorbereiten"
+    "vorbereiten",
+    "vorgemerkt",
+    "werden"
   ],
   "material-icon-theme.activeIconPack": "angular"
 }
