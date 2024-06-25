@@ -22,6 +22,7 @@ import { RingumlaufPdfComponent } from "./components/ringumlauf/ringumlauf-pdf/r
 import { SternumlaufComponent } from "./components/sternumlauf/sternumlauf.component";
 import { SettingsComponent } from "./components/shared/settings/settings.component";
 import { AlertComponent } from "./components/shared/alert/alert.component";
+import { SternumlaufStartComponent } from "./components/sternumlauf/sternumlauf-start/sternumlauf-start.component";
 
 // App routes
 const routes: Routes = [
@@ -43,6 +44,7 @@ registerLocaleData(localeDeAt);
     RingumlaufComponent,
     LoadingSpinnerComponent,
     RingumlaufPdfComponent,
+    SternumlaufStartComponent,
     SternumlaufComponent,
     SettingsComponent,
     AlertComponent,
@@ -66,6 +68,6 @@ registerLocaleData(localeDeAt);
     { provide: LOCALE_ID, useValue: "de-AT" },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [RingumlaufPdfComponent],
+  entryComponents: [RingumlaufPdfComponent, SternumlaufStartComponent],
 })
 export class AppModule {}

@@ -1,0 +1,25 @@
+<ng-container
+  *ngIf="isUmlaufStarted; then umlaufResult; else umlaufButton"
+></ng-container>
+
+<ng-template #umlaufButton>
+  <button mat-flat-button color="primary" (click)="startSternumlauf()">
+    sternumlauf starten
+  </button>
+</ng-template>
+
+<ng-template #umlaufResult>
+  <app-alert
+    [type]="finalResult.type"
+    [message]="finalResult.message"
+    *ngIf="finalResult"
+  ></app-alert>
+
+  <div *ngIf="finalResult && finalResult.type === 'success'">
+    <button mat-button type="button" color="primary" routerLink="/">
+      back to Home
+    </button>
+  </div>
+</ng-template>
+
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>

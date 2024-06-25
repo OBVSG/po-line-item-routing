@@ -1,4 +1,4 @@
-<div *ngIf="barcodeList.length > 0">
+<div *ngIf="userSettings && barcodeList.length > 0">
   <div>
     <p>setting item policy</p>
     <pre>{{ userSettings.itemPolicy | json }}</pre>

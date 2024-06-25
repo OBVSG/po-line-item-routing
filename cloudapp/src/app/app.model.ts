@@ -22,6 +22,11 @@ export interface Umlauf {
   };
 }
 
+export interface SternumlaufStartData {
+  apiResult: any;
+  selectedBarcode: Umlauf;
+}
+
 export interface RingumlaufPdfData {
   senderInfo: InformationSettings; // TODO: check
   receiveInfo: any; // TODO: probably not needed

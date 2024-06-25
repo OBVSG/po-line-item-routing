@@ -5,7 +5,7 @@ import {
   CloudAppSettingsService,
   HttpMethod,
 } from "@exlibris/exl-cloudapp-angular-lib";
-import { SternumlaufStartData, Umlauf, UserSettings } from "../../app.model";
+import { Umlauf, UserSettings } from "../../app.model";
 import { MatRadioChange } from "@angular/material/radio";
 import {
   catchError,
@@ -175,24 +175,14 @@ export class SternumlaufComponent implements OnInit {
           this.loading = false;
         },
         complete: () => {
-          console.log("-------------------------");
-          console.log(this.apiResult);
-          console.log("-------------------------");
-
           this.loading = false;
           const dialogRef = this.dialog.open(SternumlaufStartComponent, {
             autoFocus: false,
-            width: "60%",
+            width: "80%",
             panelClass: "sternumlauf-dialog",
             data: {
-              // TODO
-              itemPrimaryId: "TODO",
-              urls: {
-                requests: "TODO",
-                createRequest: "TODO",
-                scanIn: "TODO",
-                createLoan: "TODO",
-              },
+              apiResult: this.apiResult,
+              selectedBarcode: this.selectedBarcode,
             },
           });
         },

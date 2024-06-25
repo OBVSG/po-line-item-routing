@@ -70,7 +70,7 @@ export class RingumlaufComponent implements OnInit {
             })
           );
         }),
-        toArray()
+        toArray() // wait for all requests to complete
       )
       .subscribe({
         next: (result: any[]) => {
