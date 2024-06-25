@@ -111,16 +111,16 @@ export class SternumlaufComponent implements OnInit {
         switchMap((userRequestsWithComment: any) => {
           // Delete requests with comment "po-line-item-routing"
           return from(userRequestsWithComment).pipe(
-            mergeMap((user: any) => {
+            mergeMap((request: any) => {
               return this.restService
                 .call({
-                  url: `/almaws/v1/users/${user.user_primary_id}/requests/${user.request_id}`,
+                  url: `/almaws/v1/users/${request.user_primary_id}/requests/${request.request_id}`,
                   method: HttpMethod.DELETE,
                 })
                 .pipe(
                   catchError(() => {
                     this.alert.error(
-                      `Failed to delete request ${user.request_id} for the user id: ${user.user_primary_id}`
+                      `Failed to delete request ${request.request_id} for the user id: ${request.user_primary_id}`
                     );
                     return throwError(
                       () => new Error("APP ERROR: Failed to delete requests")
