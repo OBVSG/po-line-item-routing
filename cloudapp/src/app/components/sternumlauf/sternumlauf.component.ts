@@ -110,7 +110,7 @@ export class SternumlaufComponent implements OnInit {
         }),
         switchMap((userRequestsWithComment: any) => {
           // Delete requests with comment "po-line-item-routing"
-          return from(userRequestsWithComment).pipe(
+          return of(userRequestsWithComment).pipe(
             mergeMap((request: any) => {
               return this.restService
                 .call({
@@ -176,7 +176,8 @@ export class SternumlaufComponent implements OnInit {
         },
         complete: () => {
           this.loading = false;
-          const dialogRef = this.dialog.open(SternumlaufStartComponent, {
+
+          this.dialog.open(SternumlaufStartComponent, {
             autoFocus: false,
             width: "80%",
             panelClass: "sternumlauf-dialog",

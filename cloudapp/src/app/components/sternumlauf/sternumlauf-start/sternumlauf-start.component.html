@@ -22,4 +22,11 @@
   </div>
 </ng-template>
 
-<app-loading-spinner *ngIf="loading"></app-loading-spinner>
+<div class="loading-shade" *ngIf="loading">
+  <mat-progress-spinner
+    mode="determinate"
+    diameter="50"
+    [value]="percentComplete"
+  >
+  </mat-progress-spinner>
+</div>
