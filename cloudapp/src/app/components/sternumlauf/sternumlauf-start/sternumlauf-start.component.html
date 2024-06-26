@@ -23,6 +23,10 @@
 </ng-template>
 
 <div class="loading-shade" *ngIf="loading">
+  <!-- TODO: check if it works -->
+  <h2>{{ processed }} / {{ totalProgress }}</h2>
+  <br />
+  <br />
   <mat-progress-spinner
     mode="determinate"
     diameter="50"
