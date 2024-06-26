@@ -110,7 +110,7 @@ export class SternumlaufComponent implements OnInit {
         }),
         switchMap((userRequestsWithComment: any) => {
           // Delete requests with comment "po-line-item-routing"
-          return of(userRequestsWithComment).pipe(
+          return from(userRequestsWithComment).pipe(
             mergeMap((request: any) => {
               return this.restService
                 .call({
