@@ -10,6 +10,32 @@
   <ng-template #pdf>
     <div id="ringumlauf-pdf">
       <h2>Umlauf-/Entlehnliste</h2>
+
+      <hr />
+
+      <div>
+        <h4>Left Side</h4>
+        <p>{{ usersList[0].firstName }}</p>
+        <p>{{ usersList[0].lastName }}</p>
+        <p>{{ usersList[0].address1 }}</p>
+        <p>{{ usersList[0].address2 }}</p>
+      </div>
+
+      <hr />
+
+      <div>
+        <h4>right Side</h4>
+        <p>{{ userSettings.information.title }}</p>
+        <p>{{ userSettings.information.subtitle }}</p>
+        <p>{{ userSettings.information.address }}</p>
+        <p>{{ userSettings.information.phone }}</p>
+        <p>{{ userSettings.information.email }}</p>
+        <p>{{ userSettings.information.website }}</p>
+        <p>DVR: {{ userSettings.information.dvr }}</p>
+      </div>
+
+      <hr />
+
       <h3>{{ data.title }}</h3>
 
       <p><strong>Barcode:</strong> {{ data.barcode }}</p>
@@ -21,16 +47,17 @@
       <table>
         <thead>
           <tr>
-            <th>UmlaufteilnehmerIn</th>
+            <th>Vorname</th>
+            <th>Nachname</th>
             <th>Adresse</th>
           </tr>
         </thead>
 
-        <tbody *ngFor="let user of interestedUsers">
+        <tbody *ngFor="let user of usersList">
           <tr>
-            <td>{{ user.name }}</td>
-            <!-- TODO: add a column without header for USER PRIMARY ID -->
-            <td>{{ user.address }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.address1 }}</td>
           </tr>
         </tbody>
       </table>

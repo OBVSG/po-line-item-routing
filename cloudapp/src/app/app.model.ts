@@ -28,8 +28,6 @@ export interface SternumlaufStartData {
 }
 
 export interface RingumlaufPdfData {
-  senderInfo: InformationSettings; // TODO: check
-  receiveInfo: any; // TODO: probably not needed
   title: string;
   readDays: string;
   comment: string;

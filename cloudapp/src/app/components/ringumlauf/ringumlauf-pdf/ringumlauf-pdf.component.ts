@@ -10,7 +10,8 @@ import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import ResizeObserver from "resize-observer-polyfill";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
-import { RingumlaufPdfData } from "../../../app.model";
+import { RingumlaufPdfData, UserSettings } from "../../../app.model";
+import { CloudAppSettingsService } from "@exlibris/exl-cloudapp-angular-lib";
 
 @Component({
   selector: "app-ringumlauf-pdf",
@@ -20,10 +21,12 @@ import { RingumlaufPdfData } from "../../../app.model";
 export class RingumlaufPdfComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  interestedUsers: {
-    name: string;
-    address: string;
-    // TODO: add a column without header for USER PRIMARY ID
+  userSettings: UserSettings;
+  usersList: {
+    firstName: string;
+    lastName: string;
+    address1: string;
+    address2: string;
   }[];
 
   private resizeObserver: ResizeObserver;
@@ -32,19 +35,41 @@ export class RingumlaufPdfComponent
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: RingumlaufPdfData,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private settingsService: CloudAppSettingsService
   ) {}
 
   ngOnInit(): void {
+    this.settingsService.get().subscribe((settings: UserSettings) => {
+      console.log("Settings: ", settings);
+      this.userSettings = settings;
+    });
+
     this.observableElement = this.elementRef.nativeElement.querySelector(
       "#ringumlauf-pdf-dialog-title"
     );
 
-    this.interestedUsers = this.data.interestedUsersInfo.map((user) => ({
-      name: `${user.last_name} ${user.first_name}`,
-      address: user.contact_info.address[0].line1,
-      // TODO: add a column without header for USER PRIMARY ID
-    }));
+    this.usersList = this.data.interestedUsersInfo.map((user) => {
+      const userInfo = {
+        firstName: user.first_name,
+        lastName: user.last_name,
+        address1: "",
+        address2: "",
+      };
+
+      if (user.contact_info.address.length > 0) {
+        const preferredAddress = user.contact_info.address.find(
+          (address) => address.preferred
+        );
+
+        if (preferredAddress) {
+          userInfo.address1 = preferredAddress.line1 || "";
+          userInfo.address2 = preferredAddress.line2 || "";
+        }
+      }
+
+      return userInfo;
+    });
   }
 
   ngAfterViewInit(): void {

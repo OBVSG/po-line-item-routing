@@ -6,7 +6,7 @@ import {
   CloudAppRestService,
 } from "@exlibris/exl-cloudapp-angular-lib";
 import { from, throwError } from "rxjs";
-import { catchError, mergeMap, toArray } from "rxjs/operators";
+import { catchError, concatMap, toArray } from "rxjs/operators";
 import { MatDialog } from "@angular/material/dialog";
 import { RingumlaufPdfComponent } from "../ringumlauf/ringumlauf-pdf/ringumlauf-pdf.component";
 
@@ -33,8 +33,6 @@ export class RingumlaufComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // TODO: Does this run on every apiResult changes????
-
     this.barcodeList = this.apiResult.location[0].copy
       .filter((item: Umlauf) => !!item.barcode)
       .sort(
@@ -58,25 +56,25 @@ export class RingumlaufComponent implements OnInit {
 
     from<InterestedUser[]>(this.apiResult.interested_user)
       .pipe(
-        mergeMap((user) => {
-          return this.restService.call(`/users/${user.primary_id}`).pipe(
-            catchError(() => {
-              this.alert.error(
-                "Failed to retrieve user info for: " + user.primary_id
-              );
-              return throwError(
-                () => new Error("Failed to retrieve users info")
-              );
-            })
-          );
+        concatMap((user) => {
+          return this.restService
+            .call(`/almaws/v1/users/${user.primary_id}`)
+            .pipe(
+              catchError(() => {
+                this.alert.error(
+                  "Failed to retrieve user info for: " + user.primary_id
+                );
+                return throwError(
+                  () => new Error("Failed to retrieve users info")
+                );
+              })
+            );
         }),
         toArray() // wait for all requests to complete
       )
       .subscribe({
         next: (result: any[]) => {
-          result.forEach((user) => {
-            this.interestedUsersInfo.push(user);
-          });
+          this.interestedUsersInfo = [...result];
         },
         error: (error) => {
           console.error(error);
@@ -90,34 +88,40 @@ export class RingumlaufComponent implements OnInit {
   }
 
   printRingumlauf() {
-    this.interestedUsersInfo = [];
+    this.interestedUsersInfo = []; // TODO: check this, empty array or undefined?
     this.loadUsers();
   }
 
   private openDialog() {
-    const pdfData = this.preparePdfData();
-
-    const dialogRef = this.dialog.open(RingumlaufPdfComponent, {
-      autoFocus: false,
-      data: pdfData,
-      width: "90%",
-      panelClass: "ringumlauf-dialog",
-    });
-  }
-
-  private preparePdfData() {
-    // TODO: sort the interestedUsersInfo result?
-
-    return {
-      senderInfo: {}, // TODO: same as settings service
-      receiveInfo: {}, // TODO: probably not needed
+    const pdfData = {
       title: this.apiResult.resource_metadata.title,
       readDays: this.readDays,
       comment: this.comment,
       barcode: this.selectedBarcode
         ? this.selectedBarcode.barcode
-        : "No barcode selected",
+        : "No barcode selected", // TODO: this should never happen
       interestedUsersInfo: this.interestedUsersInfo,
     } as RingumlaufPdfData;
+
+    // check if the interestedUsersInfo list order is the same as the interestedUsersList order
+    try {
+      for (let i = 0; i < this.apiResult.interested_user.length; i++) {
+        if (
+          this.apiResult.interested_user[i].primary_id !==
+          this.interestedUsersInfo[i].primary_id
+        ) {
+          throw new Error("Not matched");
+        }
+      }
+
+      this.dialog.open(RingumlaufPdfComponent, {
+        autoFocus: false,
+        data: pdfData,
+        width: "90%",
+        panelClass: "ringumlauf-dialog",
+      });
+    } catch (error) {
+      this.alert.error("The interested users list is not matched");
+    }
   }
 }
