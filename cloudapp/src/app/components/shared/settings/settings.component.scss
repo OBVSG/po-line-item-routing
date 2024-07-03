@@ -1,17 +1,23 @@
-mat-form-field,
-input {
-  width: 100%;
+.item-policy,
+mat-card-header {
+  margin-left: -16px;
 }
 
-.flex-row {
+.item-policy__list {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
 }
 
-.warn-button {
-  background-color: #f44336;
-  color: white;
-  padding: 0;
-  align-self: center;
+button[mat-icon-button][color="warn"] mat-icon {
+  color: #f44336;
+}
+
+mat-form-field {
+  width: 100%;
 }

@@ -9,11 +9,9 @@
 </ng-template>
 
 <ng-template #umlaufResult>
-  <app-alert
-    [type]="finalResult.type"
-    [message]="finalResult.message"
-    *ngIf="finalResult"
-  ></app-alert>
+  <app-alert [type]="finalResult.type" *ngIf="finalResult">
+    {{ finalResult.message }}</app-alert
+  >
 
   <div *ngIf="finalResult && finalResult.type === 'success'">
     <button mat-button type="button" color="primary" routerLink="/">

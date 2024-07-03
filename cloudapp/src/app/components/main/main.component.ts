@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component } from "@angular/core";
 import { MatRadioChange } from "@angular/material/radio";
 import {
   Entity,
@@ -18,13 +18,23 @@ import { finalize, tap } from "rxjs/operators";
   templateUrl: "./main.component.html",
   styleUrls: ["./main.component.scss"],
 })
-export class MainComponent implements OnInit, OnDestroy {
+export class MainComponent {
   loading = false;
   selectedEntity: Entity;
   apiResult: any;
+  isEntityCorrect: boolean = false;
 
   entities$: Observable<Entity[]> = this.eventsService.entities$.pipe(
-    tap(() => this.clear())
+    tap((entities) => {
+      this.clear();
+
+      // check if in the list of entities there is a PO line item to select
+      this.isEntityCorrect = entities.some((entity) =>
+        entity.link.startsWith("/acq/po-lines")
+      )
+        ? true
+        : false;
+    })
   );
 
   constructor(
@@ -33,8 +43,11 @@ export class MainComponent implements OnInit, OnDestroy {
     private alert: AlertService
   ) {}
 
-  ngOnInit(): void {}
-  ngOnDestroy(): void {}
+  clear() {
+    this.apiResult = null;
+    this.selectedEntity = null;
+    this.isEntityCorrect = false;
+  }
 
   onEntitySelected(event: MatRadioChange) {
     const value = event.value as Entity;
@@ -46,16 +59,14 @@ export class MainComponent implements OnInit, OnDestroy {
         (result) => {
           this.apiResult = result;
         },
-        (error) =>
-          this.alert.error("Failed to retrieve entity: " + error.message)
+        (error) => {
+          console.log(error);
+          this.alert.error("Failed to retrieve entity data from Alma API");
+        }
       );
   }
 
-  clear() {
-    this.apiResult = null;
-    this.selectedEntity = null;
-  }
-
+  // save the order of the users to the Alma API
   saveUsersOrder() {
     this.loading = true;
 
@@ -75,9 +86,9 @@ export class MainComponent implements OnInit, OnDestroy {
             this.alert.success("Success!");
           });
         },
-        error: (e: RestErrorResponse) => {
-          this.alert.error("Failed to update data: " + e.message);
-          console.error(e);
+        error: (error: RestErrorResponse) => {
+          this.alert.error("Failed to update the user list");
+          console.error(error);
         },
       });
   }

@@ -1,18 +1,16 @@
-<div>
-  <button mat-button type="button" color="primary" routerLink="/">
-    back to Home
-  </button>
-</div>
+<button mat-flat-button color="primary" routerLink="/" style="display: block">
+  Startseite
+</button>
 
+<br />
 <mat-divider></mat-divider>
 <br />
 
-<div class="loading-shade" *ngIf="saving">
-  <mat-progress-spinner
-    mode="indeterminate"
-    diameter="50"
-  ></mat-progress-spinner>
-</div>
+<app-loading-spinner *ngIf="saving"></app-loading-spinner>
+
+<app-alert type="error" *ngIf="itemPolicy.length === 0"
+  >item policy list can not be empty</app-alert
+>
 
 <div *ngIf="settingsForm">
   <mat-card>
@@ -21,70 +19,65 @@
     </mat-card-header>
 
     <mat-card-content>
-      <div>
+      <div class="item-policy">
         <mat-list role="list">
-          <div *ngFor="let policy of itemPolicy" class="flex-row">
-            <mat-list-item role="listitem">{{ policy }}</mat-list-item>
-
+          <mat-list-item
+            role="listitem"
+            *ngFor="let policy of itemPolicy"
+            class="item-policy__list"
+          >
+            <div mat-line>{{ policy }}</div>
             <button
-              class="warn-button"
-              mat-flat-button
-              type="button"
-              color="primary"
+              mat-icon-button
+              color="warn"
+              aria-label="remove item policy"
               (click)="removeItemPolicy(policy)"
             >
-              remove
+              <mat-icon>delete</mat-icon>
             </button>
-          </div>
+          </mat-list-item>
         </mat-list>
       </div>
 
       <mat-form-field>
-        <mat-label>Add Policy:</mat-label>
+        <mat-label>new policy</mat-label>
         <input matInput type="text" #newPolicy />
       </mat-form-field>
 
-      <mat-card-actions>
-        <button
-          mat-flat-button
-          type="button"
-          color="primary"
-          (click)="addItemPolicy(newPolicy)"
-          [disabled]="newPolicy.value === ''"
-        >
-          add item
-        </button>
-      </mat-card-actions>
+      <button
+        mat-flat-button
+        type="button"
+        color="primary"
+        (click)="addItemPolicy(newPolicy)"
+        [disabled]="newPolicy.value === ''"
+      >
+        add policy
+      </button>
     </mat-card-content>
   </mat-card>
 
   <br />
 
   <form [formGroup]="settingsForm">
-    <!-- TODO: div is necessary? -->
     <div formGroupName="sternumlauf">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>Sternumlauf Configuration</mat-card-title>
+          <mat-card-title>Sternumlauf</mat-card-title>
         </mat-card-header>
 
         <mat-card-content>
           <mat-form-field>
-            <mat-label>Location Type:</mat-label>
+            <mat-label>Location Type</mat-label>
             <input matInput type="text" formControlName="locationType" />
           </mat-form-field>
 
-          <br />
-
           <mat-form-field>
-            <mat-label>Location Library:</mat-label>
+            <mat-label>Location Library</mat-label>
             <input matInput type="text" formControlName="locationLibrary" />
           </mat-form-field>
 
-          <br />
-
           <mat-form-field>
-            <mat-label>Location Circulation Desk:</mat-label>
+            <mat-label>Location Circulation Desk</mat-label>
             <input
               matInput
               type="text"
@@ -97,62 +90,47 @@
 
     <br />
 
-    <!-- TODO: div is necessary? -->
     <div formGroupName="information">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>Absender Informationen</mat-card-title>
+          <mat-card-title>Absender</mat-card-title>
         </mat-card-header>
 
         <mat-card-content>
           <mat-form-field>
-            <mat-label>Title:</mat-label>
+            <mat-label>Title</mat-label>
             <input matInput type="text" formControlName="title" />
           </mat-form-field>
 
-          <br />
-
           <mat-form-field>
-            <mat-label> Subtitle: </mat-label>
+            <mat-label>Subtitle</mat-label>
             <input matInput type="text" formControlName="subtitle" />
           </mat-form-field>
 
-          <br />
-
           <mat-form-field>
-            <mat-label> Address: </mat-label>
+            <mat-label>Address</mat-label>
             <input matInput type="text" formControlName="address" />
           </mat-form-field>
 
-          <br />
-
           <mat-form-field>
-            <mat-label> Phone: </mat-label>
+            <mat-label>Phone</mat-label>
             <input matInput type="text" formControlName="phone" />
           </mat-form-field>
 
-          <br />
-
           <mat-form-field>
-            <mat-label> Email: </mat-label>
+            <mat-label>Email</mat-label>
             <input matInput type="text" formControlName="email" />
           </mat-form-field>
 
-          <br />
-
           <mat-form-field>
-            <mat-label> Website: </mat-label>
+            <mat-label>Website</mat-label>
             <input matInput type="text" formControlName="website" />
           </mat-form-field>
 
-          <br />
-
           <mat-form-field>
-            <mat-label> DVR: </mat-label>
+            <mat-label>DVR</mat-label>
             <input matInput type="text" formControlName="dvr" />
           </mat-form-field>
-
-          <br />
         </mat-card-content>
       </mat-card>
     </div>
@@ -161,19 +139,12 @@
 
 <br />
 
-<div>
-  <button
-    mat-flat-button
-    #saveSettingsButton
-    type="button"
-    color="primary"
-    (click)="save()"
-    [disabled]="itemPolicy.length === 0"
-  >
-    Save
-  </button>
-  <!-- TODO: style this -->
-  <span *ngIf="saveSettingsButton?.disabled"
-    >item policy list can NOT be empty</span
-  >
-</div>
+<button
+  mat-flat-button
+  type="button"
+  color="primary"
+  (click)="save()"
+  [disabled]="itemPolicy.length === 0"
+>
+  Save Configuration
+</button>

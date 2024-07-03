@@ -14,7 +14,7 @@ import { UserSettings } from "../../../app.model";
 })
 export class SettingsComponent implements OnInit {
   settingsForm: FormGroup;
-  itemPolicy: string[] = ["STAR_SOMETHING", "STAR_2"];
+  itemPolicy: string[] = ["STAR_EXAMPLE", "SU_EXAMPLE"];
   saving = false;
 
   constructor(
@@ -44,7 +44,7 @@ export class SettingsComponent implements OnInit {
         settings
       );
 
-      // set the settings defaults
+      // set the settings default values
       this.settingsForm = FormGroupUtil.toFormGroup(initialSettings);
 
       if (settings.itemPolicy && settings.itemPolicy.length > 0) {
@@ -78,9 +78,9 @@ export class SettingsComponent implements OnInit {
         this.alert.success("Settings successfully saved.");
         this.settingsForm.markAsPristine();
       },
-      (err) => {
-        // TODO: handle error
-        this.alert.error(err.message);
+      (error) => {
+        console.log(error);
+        this.alert.error("Failed to save settings");
       },
       () => {
         this.saving = false;

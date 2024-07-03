@@ -17,8 +17,8 @@ import { InterestedUser } from "../../app.model";
 export class InterestedUsersComponent implements OnInit, OnChanges {
   @Input() users: InterestedUser[];
 
-  hasUnsavedChanges = false;
   private originalOrderHash: string;
+  hasUnsavedChanges = false;
 
   constructor() {}
 
@@ -42,6 +42,7 @@ export class InterestedUsersComponent implements OnInit, OnChanges {
       this.originalOrderHash !== this.computeArrayHash(this.users);
   }
 
+  // Save the new order of the users to track changes
   private computeArrayHash(array: InterestedUser[]): string {
     return array.map((user) => user.primary_id).join("|"); // Simple hash by joining IDs
   }

@@ -1,50 +1,36 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>
-      change the order of the users by dragging and dropping them
-    </mat-card-title>
-  </mat-card-header>
+<br />
+<h3>change the order of the users</h3>
 
-  <mat-card-content>
-    <div class="class-to-change">
-      <div class="example-list">
-        <div *ngFor="let user of users; let i = index" class="example-box">
-          {{ i + 1 }}
-        </div>
-      </div>
+<div class="dnd__container">
+  <div class="dnd__list dnd__list--index">
+    <div *ngFor="let user of users; let i = index" class="dnd__item">
+      {{ i + 1 }}
+    </div>
+  </div>
 
-      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-        <div
-          [ngStyle]="{ cursor: 'grab' }"
-          class="example-box"
-          *ngFor="let user of users; let i = index"
-          cdkDrag
-        >
-          <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
-          <div>{{ user.last_name }} {{ user.first_name }}</div>
+  <div cdkDropList class="dnd__list" (cdkDropListDropped)="drop($event)">
+    <div class="dnd__item" *ngFor="let user of users; let i = index" cdkDrag>
+      <div class="dnd__placeholder" *cdkDragPlaceholder></div>
+      <div>{{ user.last_name }} {{ user.first_name }}</div>
 
-          <div>
-            <i
-              [ngStyle]="{ cursor: 'help' }"
-              class="uxf-icon uxf-info"
-              (click)="remove(i)"
-              [matTooltip]="'ID: ' + user.primary_id"
-              matTooltipPosition="after"
-            ></i>
-          </div>
-        </div>
+      <div>
+        <i
+          style="cursor: initial"
+          class="uxf-icon uxf-help"
+          [matTooltip]="'ID: ' + user.primary_id"
+          matTooltipPosition="after"
+        ></i>
       </div>
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
 
 <br />
 
 <div *ngIf="hasUnsavedChanges">
-  <p>There are unsaved changes. Please save them before leaving this page.</p>
-  <div class="eca-actions">
-    <ng-content></ng-content>
-  </div>
-</div>
+  <app-alert type="info">
+    There are unsaved changes. Please save them before leaving this page.
+  </app-alert>
 
-<p *ngIf="!hasUnsavedChanges">There are no unsaved changes.</p>
+  <ng-content></ng-content>
+</div>

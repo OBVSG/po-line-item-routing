@@ -4,86 +4,110 @@
   ></ng-container>
 
   <ng-template #noEntities>
-    <div class="highlight">
+    <br />
+    <app-alert type="info">
       Navigate to a page in Alma to view a list of entities.
-    </div>
+    </app-alert>
   </ng-template>
 
   <ng-template #entityList>
-    <div class="eca-actions">
-      <button
-        mat-flat-button
-        color="secondary"
-        (click)="clear()"
-        [disabled]="!selectedEntity"
-      >
-        Reset Cloud App
-      </button>
-    </div>
+    <br />
 
-    <label id="entities-radio-group-label">Select an entity:</label>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="clear()"
+      [disabled]="!selectedEntity"
+      style="display: block"
+    >
+      Reset App
+    </button>
+
+    <br />
+    <mat-divider></mat-divider>
+    <br />
+
+    <h2>
+      <label id="entities-radio-group-label">Select an entity:</label>
+    </h2>
+
     <mat-radio-group
       aria-labelledby="entities-radio-group-label"
       [(ngModel)]="selectedEntity"
       (change)="onEntitySelected($event)"
     >
-      <mat-radio-button *ngFor="let entity of entities" [value]="entity">
-        {{ entity.description }}
-      </mat-radio-button>
+      <div *ngFor="let entity of entities" class="entity__list">
+        <mat-radio-button
+          [value]="entity"
+          *ngIf="entity.link.startsWith('/acq/po-lines')"
+        >
+          {{ entity.description }}
+        </mat-radio-button>
+      </div>
+
+      <app-alert type="info" *ngIf="!isEntityCorrect">
+        No entity has the correct link. please navigate to a correct page.
+      </app-alert>
     </mat-radio-group>
+
+    <div *ngIf="selectedEntity && !loading">
+      <br />
+      <mat-divider></mat-divider>
+      <br />
+
+      <ng-container
+        *ngIf="
+          apiResult &&
+            apiResult.interested_user &&
+            apiResult.interested_user.length > 0;
+          then tabGroup;
+          else noUserFound
+        "
+      ></ng-container>
+
+      <ng-template #tabGroup>
+        <mat-tab-group animationDuration="0ms">
+          <mat-tab label="Interested Users">
+            <app-interested-users [users]="apiResult.interested_user">
+              <button
+                mat-flat-button
+                color="primary"
+                (click)="saveUsersOrder()"
+                [disabled]="!apiResult || loading"
+              >
+                Speichern
+              </button>
+            </app-interested-users></mat-tab
+          >
+
+          <mat-tab
+            label="Ringumlauf"
+            *ngIf="
+              apiResult.fifth_reporting_code &&
+              apiResult.fifth_reporting_code === 'RING'
+            "
+          >
+            <app-ringumlauf [apiResult]="apiResult"></app-ringumlauf>
+          </mat-tab>
+
+          <mat-tab
+            label="Sternumlauf"
+            *ngIf="
+              apiResult.fifth_reporting_code &&
+              apiResult.fifth_reporting_code === 'STERN'
+            "
+            ><app-sternumlauf [apiResult]="apiResult"></app-sternumlauf
+          ></mat-tab>
+        </mat-tab-group>
+      </ng-template>
+
+      <ng-template #noUserFound>
+        <app-alert type="info"
+          >No interested user found, please navigate to correct page</app-alert
+        >
+      </ng-template>
+    </div>
   </ng-template>
-
-  <div>
-    <ng-container
-      *ngIf="
-        apiResult &&
-          apiResult.interested_user &&
-          apiResult.interested_user.length > 0;
-        then tabGroup;
-        else noUserFound
-      "
-    ></ng-container>
-
-    <ng-template #tabGroup>
-      <mat-tab-group animationDuration="0ms">
-        <mat-tab label="Interested Users"
-          ><app-interested-users [users]="apiResult.interested_user">
-            <button
-              mat-flat-button
-              color="primary"
-              (click)="saveUsersOrder()"
-              [disabled]="!apiResult || loading"
-            >
-              Speichern
-            </button>
-          </app-interested-users></mat-tab
-        >
-
-        <mat-tab
-          label="Ringumlauf"
-          *ngIf="
-            apiResult.fifth_reporting_code &&
-            apiResult.fifth_reporting_code === 'RING'
-          "
-        >
-          <app-ringumlauf [apiResult]="apiResult"></app-ringumlauf>
-        </mat-tab>
-
-        <mat-tab
-          label="Sternumlauf"
-          *ngIf="
-            apiResult.fifth_reporting_code &&
-            apiResult.fifth_reporting_code === 'STERN'
-          "
-          ><app-sternumlauf [apiResult]="apiResult"></app-sternumlauf
-        ></mat-tab>
-      </mat-tab-group>
-    </ng-template>
-
-    <ng-template #noUserFound>
-      <div class="highlight">No data or no interested user found</div>
-    </ng-template>
-  </div>
 </div>
 
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>

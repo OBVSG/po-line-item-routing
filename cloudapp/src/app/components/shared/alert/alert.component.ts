@@ -7,7 +7,6 @@ import { Component, Input } from "@angular/core";
 })
 export class AlertComponent {
   @Input() type: "info" | "error" | "success" = "info";
-  @Input() message: string = "";
 
   constructor() {}
 }
