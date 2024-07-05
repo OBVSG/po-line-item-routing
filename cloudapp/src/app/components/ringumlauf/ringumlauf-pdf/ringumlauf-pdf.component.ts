@@ -94,6 +94,16 @@ export class RingumlaufPdfComponent
     this.resizeObserver.disconnect();
   }
 
+  // TODO: Remove this method
+  private downloadImage(dataUrl: string, filename: string) {
+    const downloadLink = document.createElement("a");
+    downloadLink.href = dataUrl;
+    downloadLink.download = filename;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  }
+
   async generatePdf() {
     const pdfElement =
       this.elementRef.nativeElement.querySelector("#ringumlauf-pdf");
@@ -104,8 +114,11 @@ export class RingumlaufPdfComponent
         scale: 4,
       });
 
-      canvas.toDataURL("image/png");
+      const fullImage = canvas.toDataURL("image/png");
+
       const pdf = new jsPDF("p", "mm", "a4");
+
+      // TODO: find the problem with the image and generated PDF
 
       // Calculate the aspect ratio to maintain the content's original aspect ratio
       const pageWidth = 210; // A4 width in mm
@@ -141,6 +154,8 @@ export class RingumlaufPdfComponent
         );
 
         const imgPageData = canvasPage.toDataURL("image/png");
+
+        this.downloadImage(imgPageData, `image-${page}.png`); // TODO: Remove this line
 
         if (page > 0) {
           pdf.addPage();
