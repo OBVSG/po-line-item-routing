@@ -11,14 +11,7 @@ import {
   UserSettings,
 } from "../../../app.model";
 import { from, of, throwError } from "rxjs";
-import {
-  catchError,
-  concatMap,
-  delay,
-  map,
-  tap,
-  toArray,
-} from "rxjs/operators";
+import { catchError, concatMap, delay, tap, toArray } from "rxjs/operators";
 
 @Component({
   selector: "app-sternumlauf-start",

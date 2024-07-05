@@ -1,82 +1,105 @@
-<h1 id="ringumlauf-pdf-dialog-title" mat-dialog-title>ringumlauf pdf</h1>
+<h1 id="ringumlauf-pdf-dialog-title" mat-dialog-title>Ringumlauf PDF</h1>
 
 <mat-dialog-content>
   <ng-container *ngIf="hasSmallWidth; then smallView; else pdf"></ng-container>
 
   <ng-template #smallView>
-    <p>make the component bigger to see the PDF and the download button</p>
+    <app-alert type="info">
+      make the browser fullscreen to see the PDF
+    </app-alert>
   </ng-template>
 
   <ng-template #pdf>
-    <div id="ringumlauf-pdf">
-      <h2>Umlauf-/Entlehnliste</h2>
+    <div class="ringumlauf-pdf-container">
+      <div id="ringumlauf-pdf">
+        <div style="height: 100px"></div>
 
-      <hr />
+        <h2>Umlauf-/Entlehnliste</h2>
 
-      <div>
-        <h4>Left Side</h4>
-        <p>{{ usersList[0].firstName }}</p>
-        <p>{{ usersList[0].lastName }}</p>
-        <p>{{ usersList[0].address1 }}</p>
-        <p>{{ usersList[0].address2 }}</p>
+        <br />
+
+        <div class="address-container">
+          <div class="address-left">
+            <p>{{ usersList[0].firstName }}</p>
+            <p>{{ usersList[0].lastName }}</p>
+            <p>{{ usersList[0].address1 }}</p>
+            <p>{{ usersList[0].address2 }}</p>
+          </div>
+
+          <div class="address-right">
+            <p>{{ userSettings.information.title }}</p>
+            <p>{{ userSettings.information.subtitle }}</p>
+            <p>{{ userSettings.information.address }}</p>
+            <p>{{ userSettings.information.phone }}</p>
+            <p>{{ userSettings.information.email }}</p>
+            <p>{{ userSettings.information.website }}</p>
+            <p>DVR: {{ userSettings.information.dvr }}</p>
+          </div>
+        </div>
+
+        <br />
+
+        <h3>{{ data.title }}</h3>
+
+        <br />
+
+        <div>
+          <p><strong>Barcode:</strong> {{ data.barcode }}</p>
+          <p><strong>Lesetage/TeilnehmerIn max:</strong> {{ data.readDays }}</p>
+          <p><strong>Bemerkung:</strong> {{ data.comment }}</p>
+        </div>
+
+        <br />
+        <br />
+
+        <table>
+          <thead>
+            <tr>
+              <th>Vorname</th>
+              <th>Nachname</th>
+              <th>Adresse</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let user of usersList">
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>{{ user.address1 }}</td>
+            </tr>
+            <tr
+              *ngFor="
+                let user of [
+                  1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5,
+                  6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 7, 8,
+                  1, 2, 3, 4, 5, 6, 7, 3, 4, 5, 6, 7, 3, 4, 5, 6, 7, 3, 4, 5, 6
+                ];
+                let i = index
+              "
+            >
+              <td>example name {{ i }}</td>
+              <td>example name {{ i }}</td>
+              <td>example address {{ i }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-
-      <hr />
-
-      <div>
-        <h4>right Side</h4>
-        <p>{{ userSettings.information.title }}</p>
-        <p>{{ userSettings.information.subtitle }}</p>
-        <p>{{ userSettings.information.address }}</p>
-        <p>{{ userSettings.information.phone }}</p>
-        <p>{{ userSettings.information.email }}</p>
-        <p>{{ userSettings.information.website }}</p>
-        <p>DVR: {{ userSettings.information.dvr }}</p>
-      </div>
-
-      <hr />
-
-      <h3>{{ data.title }}</h3>
-
-      <p><strong>Barcode:</strong> {{ data.barcode }}</p>
-
-      <p><strong>Lesetage/TeilnehmerIn max:</strong> {{ data.readDays }}</p>
-
-      <p><strong>Bemerkung:</strong> {{ data.comment }}</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Vorname</th>
-            <th>Nachname</th>
-            <th>Adresse</th>
-          </tr>
-        </thead>
-
-        <tbody *ngFor="let user of usersList">
-          <tr>
-            <td>{{ user.firstName }}</td>
-            <td>{{ user.lastName }}</td>
-            <td>{{ user.address1 }}</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
 
-    <div>
-      <p>Download PDF?</p>
-      <mat-dialog-actions align="end">
-        <button mat-flat-button color="secondary" mat-dialog-close>No</button>
-        <button
-          mat-flat-button
-          color="secondary"
-          [mat-dialog-close]="true"
-          cdkFocusInitial
-          (click)="generatePdf()"
-        >
-          Yes
-        </button>
-      </mat-dialog-actions>
-    </div>
+    <br />
+    <br />
+    <mat-divider></mat-divider>
+
+    <mat-dialog-actions>
+      <button
+        mat-flat-button
+        color="primary"
+        [mat-dialog-close]="true"
+        cdkFocusInitial
+        (click)="generatePdf()"
+      >
+        Download PDF
+      </button>
+    </mat-dialog-actions>
   </ng-template>
 </mat-dialog-content>

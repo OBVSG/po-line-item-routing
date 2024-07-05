@@ -73,7 +73,8 @@
                 mat-flat-button
                 color="primary"
                 (click)="saveUsersOrder()"
-                [disabled]="!apiResult || loading"
+                [disabled]="loading"
+                style="margin-bottom: 20px"
               >
                 Speichern
               </button>

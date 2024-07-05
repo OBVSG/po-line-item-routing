@@ -1,12 +1,18 @@
+.ringumlauf-barcode-item mat-card-header {
+  margin-left: -16px;
+}
+
 mat-radio-group {
   display: flex;
   flex-direction: column;
-  margin: 10px 0;
+}
+
+mat-card.ringumlauf-barcode-item {
+  width: 100%;
+  margin-bottom: 15px;
+  overflow-x: hidden;
 }
 
 mat-form-field {
   width: 100%;
-}
-
-.ringumlauf-dialog {
 }

@@ -18,13 +18,13 @@ import { RingumlaufPdfComponent } from "../ringumlauf/ringumlauf-pdf/ringumlauf-
 export class RingumlaufComponent implements OnInit {
   @Input() apiResult: any;
 
+  loading = false;
   barcodeList: Umlauf[];
   selectedBarcode: Umlauf;
   readDays: string = "";
   comment: string = "";
 
   interestedUsersInfo: any[];
-  loading = false;
 
   constructor(
     private restService: CloudAppRestService,
@@ -33,6 +33,7 @@ export class RingumlaufComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // filter out the items without barcode
     this.barcodeList = this.apiResult.location[0].copy
       .filter((item: Umlauf) => !!item.barcode)
       .sort(
@@ -64,6 +65,7 @@ export class RingumlaufComponent implements OnInit {
                 this.alert.error(
                   "Failed to retrieve user info for: " + user.primary_id
                 );
+
                 return throwError(
                   () => new Error("Failed to retrieve users info")
                 );
@@ -78,6 +80,7 @@ export class RingumlaufComponent implements OnInit {
         },
         error: (error) => {
           console.error(error);
+          this.alert.error("Failed to retrieve users info");
           this.loading = false;
         },
         complete: () => {
@@ -87,19 +90,12 @@ export class RingumlaufComponent implements OnInit {
       });
   }
 
-  printRingumlauf() {
-    this.interestedUsersInfo = []; // TODO: check this, empty array or undefined?
-    this.loadUsers();
-  }
-
   private openDialog() {
     const pdfData = {
       title: this.apiResult.resource_metadata.title,
       readDays: this.readDays,
       comment: this.comment,
-      barcode: this.selectedBarcode
-        ? this.selectedBarcode.barcode
-        : "No barcode selected", // TODO: this should never happen
+      barcode: this.selectedBarcode.barcode,
       interestedUsersInfo: this.interestedUsersInfo,
     } as RingumlaufPdfData;
 
@@ -118,10 +114,14 @@ export class RingumlaufComponent implements OnInit {
         autoFocus: false,
         data: pdfData,
         width: "90%",
-        panelClass: "ringumlauf-dialog",
       });
     } catch (error) {
       this.alert.error("The interested users list is not matched");
     }
+  }
+
+  printRingumlauf() {
+    this.interestedUsersInfo = [];
+    this.loadUsers();
   }
 }

@@ -8,11 +8,13 @@
   ],
   "cSpell.words": [
     "Absender",
+    "Adresse",
     "almaws",
     "Bemerkung",
     "cloudapp",
     "devkit",
     "entitylist",
+    "Entlehnliste",
     "entlehnt",
     "exlibris",
     "fullscreen",
@@ -21,6 +23,7 @@
     "jspdf",
     "kann",
     "Lesetage",
+    "Nachname",
     "nicht",
     "preinstall",
     "Ringumlauf",
@@ -32,7 +35,9 @@
     "Umlauf",
     "vorbereiten",
     "vorgemerkt",
-    "werden"
+    "Vorname",
+    "werden",
+    "Zusatzinformation"
   ],
   "material-icon-theme.activeIconPack": "angular"
 }

@@ -1,3 +1,5 @@
+<br />
+
 <ng-container
   *ngIf="
     barcodeList && barcodeList.length > 0;
@@ -7,102 +9,93 @@
 ></ng-container>
 
 <ng-template #barcodeSelection>
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>PDF Info</mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content>
-      <mat-form-field>
-        <mat-label>Lesetage/TeilnehmerIn max:</mat-label>
-        <input matInput type="text" [(ngModel)]="readDays" />
-        <button
-          mat-button
-          *ngIf="readDays"
-          matSuffix
-          mat-icon-button
-          aria-label="Clear"
-          (click)="readDays = ''"
-        >
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
-
-      <br />
-
-      <mat-form-field>
-        <mat-label>Bemerkung:</mat-label>
-        <input matInput type="text" [(ngModel)]="comment" />
-        <button
-          mat-button
-          *ngIf="comment"
-          matSuffix
-          mat-icon-button
-          aria-label="Clear"
-          (click)="comment = ''"
-        >
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
-    </mat-card-content>
-  </mat-card>
-
-  <br />
-  <br />
-
-  <mat-card *ngIf="barcodeList.length > 0">
-    <mat-card-header>
-      <mat-card-title>
-        <label id="barcode-radio-group-label">Select a barcode:</label>
-      </mat-card-title>
-    </mat-card-header>
-
-    <mat-card-content>
-      <mat-radio-group
-        aria-labelledby="barcode-radio-group-label"
-        [(ngModel)]="selectedBarcode"
-        (change)="onSelectBarcode($event)"
-      >
-        <mat-radio-button *ngFor="let barcode of barcodeList" [value]="barcode">
-          <mat-list>
-            <mat-list-item>
-              <strong>Barcode: </strong> {{ barcode.barcode }}
-            </mat-list-item>
-
-            <mat-list-item *ngIf="barcode.description">
-              <strong>Description: </strong> {{ barcode.description }}
-            </mat-list-item>
-
-            <mat-list-item *ngIf="barcode.receive_date">
-              <strong>Receive Date: </strong>
-              {{ barcode.receive_date | date : "mediumDate" }}
-            </mat-list-item>
-
-            <mat-list-item *ngIf="barcode.item_policy.desc">
-              <strong>ItemPolicy: </strong> {{ barcode.item_policy.desc }}
-            </mat-list-item>
-          </mat-list>
-        </mat-radio-button>
-      </mat-radio-group>
-    </mat-card-content>
-  </mat-card>
-
-  <br />
-
-  <div class="eca-actions">
-    <button
-      mat-flat-button
-      color="primary"
-      (click)="printRingumlauf()"
-      [disabled]="!apiResult || loading"
+  <h2 id="barcode-radio-group-label">Please select a barcode:</h2>
+  <mat-radio-group
+    aria-labelledby="barcode-radio-group-label"
+    [(ngModel)]="selectedBarcode"
+    (change)="onSelectBarcode($event)"
+  >
+    <mat-card
+      class="ringumlauf-barcode-item"
+      *ngFor="let barcode of barcodeList"
     >
-      Ringumlauf Starten
-    </button>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-radio-button [value]="barcode"
+            >{{ barcode.barcode }}
+          </mat-radio-button>
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p *ngIf="barcode.description">
+          <strong>Description: </strong>{{ barcode.description }}
+        </p>
+
+        <p *ngIf="barcode.receive_date">
+          <strong>Receive Date: </strong
+          >{{ barcode.receive_date | date : "mediumDate" }}
+        </p>
+
+        <p *ngIf="barcode.item_policy.desc">
+          <strong>ItemPolicy: </strong>{{ barcode.item_policy.desc }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </mat-radio-group>
+
+  <br />
+  <mat-divider></mat-divider>
+  <br />
+
+  <h2>Zusatzinformation</h2>
+  <div>
+    <mat-form-field>
+      <mat-label>Lesetage/TeilnehmerIn max:</mat-label>
+      <input matInput type="text" [(ngModel)]="readDays" />
+      <button
+        mat-button
+        *ngIf="readDays"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="readDays = ''"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Bemerkung:</mat-label>
+      <input matInput type="text" [(ngModel)]="comment" />
+      <button
+        mat-button
+        *ngIf="comment"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="comment = ''"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
   </div>
+
+  <br />
+
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="printRingumlauf()"
+    [disabled]="loading"
+    style="margin-bottom: 20px"
+  >
+    Ringumlauf Starten
+  </button>
 </ng-template>
 
 <ng-template #noBarcode>
-  <p>No ringumlauf found</p>
+  <app-alert type="error"> No ringumlauf barcode found </app-alert>
 </ng-template>
 
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>
