@@ -2,39 +2,43 @@
   margin: 50px;
   padding-bottom: 50px;
   border: 1px solid rgb(197, 197, 197);
-}
 
-#ringumlauf-pdf {
-  padding: 0 100px;
+  #ringumlauf-pdf {
+    padding: 0 90px;
 
-  h2 {
-    text-align: center;
-  }
-
-  p,
-  td {
-    font-weight: 400;
-  }
-
-  .address-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-
-    th {
-      border-bottom: 1px solid rgb(0, 0, 0);
+    h2 {
+      text-align: center;
     }
 
-    td,
-    th {
-      text-align: left;
-      padding: 10px 0;
+    p,
+    td {
+      font-weight: 400;
+    }
+
+    .address-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .ringumlauf-pdf-table {
+    padding: 0 100px;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th {
+        background-color: rgb(235, 235, 235);
+      }
+
+      td,
+      th {
+        text-align: left;
+        padding: 10px 0;
+      }
     }
   }
 }

@@ -30,6 +30,7 @@
     "@ngx-translate/core": "~13.0.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
     "lodash": "~4.17.21",
     "resize-observer-polyfill": "^1.5.1",
     "rxjs": "~6.5.5",

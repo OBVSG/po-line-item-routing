@@ -15,6 +15,7 @@ import {
   AlertService,
   CloudAppSettingsService,
 } from "@exlibris/exl-cloudapp-angular-lib";
+import autoTable from "jspdf-autotable";
 
 @Component({
   selector: "app-ringumlauf-pdf",
@@ -94,16 +95,6 @@ export class RingumlaufPdfComponent
     this.resizeObserver.disconnect();
   }
 
-  // TODO: Remove this method
-  private downloadImage(dataUrl: string, filename: string) {
-    const downloadLink = document.createElement("a");
-    downloadLink.href = dataUrl;
-    downloadLink.download = filename;
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
-  }
-
   async generatePdf() {
     const pdfElement =
       this.elementRef.nativeElement.querySelector("#ringumlauf-pdf");
@@ -114,62 +105,36 @@ export class RingumlaufPdfComponent
         scale: 4,
       });
 
-      const fullImage = canvas.toDataURL("image/png");
+      const imgData = canvas.toDataURL("image/png");
 
       const pdf = new jsPDF("p", "mm", "a4");
 
-      // TODO: find the problem with the image and generated PDF
-
       // Calculate the aspect ratio to maintain the content's original aspect ratio
       const pageWidth = 210; // A4 width in mm
-      const pageHeight = 297; // A4 height in mm
       const imgWidth = pageWidth;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      // Variables to control the position on the image and PDF page
-      const pageCount = Math.ceil(imgHeight / pageHeight);
+      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
 
-      for (let page = 0; page < pageCount; page++) {
-        const srcY = (page * canvas.height) / pageCount;
-        const srcHeight = Math.min(
-          canvas.height / pageCount,
-          canvas.height - srcY
-        );
-
-        const canvasPage = document.createElement("canvas");
-        canvasPage.width = canvas.width;
-        canvasPage.height = srcHeight;
-
-        const ctx = canvasPage.getContext("2d");
-        ctx.drawImage(
-          canvas,
-          0,
-          srcY,
-          canvas.width,
-          srcHeight,
-          0,
-          0,
-          canvas.width,
-          srcHeight
-        );
-
-        const imgPageData = canvasPage.toDataURL("image/png");
-
-        this.downloadImage(imgPageData, `image-${page}.png`); // TODO: Remove this line
-
-        if (page > 0) {
-          pdf.addPage();
-        }
-
-        pdf.addImage(
-          imgPageData,
-          "PNG",
-          0,
-          0,
-          imgWidth,
-          (srcHeight * imgWidth) / canvas.width
-        );
-      }
+      // autoTable(pdf, { html: "#ringumlauf-pdf-table" });
+      autoTable(pdf, {
+        theme: "plain",
+        startY: imgHeight,
+        margin: { right: 20, left: 20 },
+        headStyles: {
+          fontSize: 10,
+          fillColor: [235, 235, 235],
+        },
+        bodyStyles: {
+          fontSize: 9,
+        },
+        head: [["Vorname", "Nachname", "Adresse"]],
+        body: this.usersList.map((user) => [
+          user.firstName,
+          user.lastName,
+          user.address1,
+        ]),
+      });
 
       const pdfFileName = `${
         new Date().toISOString().split("T")[0]
