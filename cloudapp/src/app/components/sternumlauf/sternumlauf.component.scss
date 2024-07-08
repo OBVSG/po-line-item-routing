@@ -1,3 +1,14 @@
-.sternumlauf-dialog {
-  min-height: 250px;
+.sternumlauf-barcode-item mat-card-header {
+  margin-left: -16px;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-card.sternumlauf-barcode-item {
+  width: 100%;
+  margin-bottom: 15px;
+  overflow-x: hidden;
 }

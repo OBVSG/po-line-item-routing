@@ -25,7 +25,7 @@ export class SternumlaufStartComponent implements OnInit {
   isUmlaufStarted = false;
   userSettings: UserSettings;
   finalResult: {
-    type: "info" | "error" | "success";
+    type: "error" | "success";
     message: string;
   };
 
@@ -40,6 +40,7 @@ export class SternumlaufStartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Get user settings
     this.settingsService.get().subscribe((settings: UserSettings) => {
       this.userSettings = settings;
     });

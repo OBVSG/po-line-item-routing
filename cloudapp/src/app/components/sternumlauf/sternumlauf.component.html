@@ -1,44 +1,48 @@
-<div *ngIf="userSettings && barcodeList.length > 0">
-  <div>
-    <p>setting item policy</p>
-    <pre>{{ userSettings.itemPolicy | json }}</pre>
-  </div>
+<br />
 
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>
-        <label id="barcode-radio-group-label">Select a barcode:</label>
-      </mat-card-title>
-    </mat-card-header>
+<ng-container
+  *ngIf="
+    userSettings && barcodeList && barcodeList.length > 0;
+    then barcodeSelection;
+    else noBarcode
+  "
+></ng-container>
 
-    <mat-card-content>
-      <mat-radio-group
-        aria-labelledby="barcode-radio-group-label"
-        (change)="onSelectBarcode($event)"
-      >
-        <mat-radio-button *ngFor="let barcode of barcodeList" [value]="barcode">
-          <mat-list>
-            <mat-list-item>
-              <strong>Barcode: </strong> {{ barcode.barcode }}
-            </mat-list-item>
+<ng-template #barcodeSelection>
+  <h2 id="barcode-radio-group-label">Please select a barcode:</h2>
 
-            <mat-list-item *ngIf="barcode.description">
-              <strong>Description: </strong> {{ barcode.description }}
-            </mat-list-item>
+  <mat-radio-group
+    aria-labelledby="barcode-radio-group-label"
+    (change)="onSelectBarcode($event)"
+  >
+    <mat-card
+      class="sternumlauf-barcode-item"
+      *ngFor="let barcode of barcodeList"
+    >
+      <mat-card-header>
+        <mat-card-title>
+          <mat-radio-button [value]="barcode"
+            >{{ barcode.barcode }}
+          </mat-radio-button>
+        </mat-card-title>
+      </mat-card-header>
 
-            <mat-list-item *ngIf="barcode.receive_date">
-              <strong>Receive Date: </strong>
-              {{ barcode.receive_date | date : "mediumDate" }}
-            </mat-list-item>
+      <mat-card-content>
+        <p *ngIf="barcode.description">
+          <strong>Description: </strong>{{ barcode.description }}
+        </p>
 
-            <mat-list-item *ngIf="barcode.item_policy.desc">
-              <strong>ItemPolicy: </strong> {{ barcode.item_policy.desc }}
-            </mat-list-item>
-          </mat-list>
-        </mat-radio-button>
-      </mat-radio-group>
-    </mat-card-content>
-  </mat-card>
+        <p *ngIf="barcode.receive_date">
+          <strong>Receive Date: </strong
+          >{{ barcode.receive_date | date : "mediumDate" }}
+        </p>
+
+        <p *ngIf="barcode.item_policy.desc">
+          <strong>ItemPolicy: </strong>{{ barcode.item_policy.desc }}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </mat-radio-group>
 
   <br />
   <mat-divider></mat-divider>
@@ -46,12 +50,14 @@
 
   <div *ngIf="selectedBarcode">
     <div>
-      <p>
+      <h4>
         This is the user configuration. If these values are not correct, please
         go to settings and update them.
-      </p>
+      </h4>
 
-      <pre>{{ userSettings.sternumlauf | json }}</pre>
+      <app-alert type="info">
+        <pre>{{ userSettings.sternumlauf | json }}</pre>
+      </app-alert>
 
       <button mat-button type="button" color="primary" routerLink="/settings">
         go to settings
@@ -59,7 +65,6 @@
     </div>
 
     <br />
-
     <br />
 
     <div>
@@ -67,7 +72,13 @@
         sternumlauf vorbereiten
       </button>
     </div>
+
+    <br />
   </div>
-</div>
+</ng-template>
+
+<ng-template #noBarcode>
+  <app-alert type="error"> No sternumlauf barcode found </app-alert>
+</ng-template>
 
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>

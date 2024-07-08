@@ -39,10 +39,12 @@ export class SternumlaufComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Get user settings
     this.settingsService.get().subscribe((settings: UserSettings) => {
       this.userSettings = settings;
     });
 
+    // Filter out the items with barcode
     this.barcodeList = this.apiResult.location[0].copy
       .filter((item: Umlauf) => !!item.barcode)
       .sort(
@@ -50,15 +52,12 @@ export class SternumlaufComponent implements OnInit {
           new Date(b.receive_date).getTime() -
           new Date(a.receive_date).getTime()
       );
-
-    if (this.barcodeList.length === 0) {
-      this.alert.error("No barcode found");
-    }
   }
 
   onSelectBarcode(event: MatRadioChange) {
     const selectedValue = event.value.item_policy.value;
 
+    // Check if the selected barcode is in the item policy
     if (this.userSettings.itemPolicy.includes(selectedValue)) {
       this.selectedBarcode = event.value as Umlauf;
     } else {
@@ -180,7 +179,6 @@ export class SternumlaufComponent implements OnInit {
           this.dialog.open(SternumlaufStartComponent, {
             autoFocus: false,
             width: "80%",
-            panelClass: "sternumlauf-dialog",
             data: {
               apiResult: this.apiResult,
               selectedBarcode: this.selectedBarcode,
