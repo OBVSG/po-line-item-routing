@@ -59,7 +59,7 @@ export class SternumlaufStartComponent implements OnInit {
       .pipe(
         concatMap((user) => {
           return of(user).pipe(
-            delay(5000),
+            delay(0),
             tap(() => {
               this.processed++;
             }),
