@@ -117,16 +117,31 @@ export class SternumlaufStartComponent implements OnInit {
                 ) {
                   this.finalResult = {
                     type: "error",
-                    message: "interested_user !== total_record_count",
-                  };
-
-                  this.finalResult = {
-                    type: "error",
                     message: "Vormerkungen konnten nicht gebildet werden.",
                   };
 
                   // stop the observable chain
                   throw new Error("APP ERROR: Requests count mismatch.");
+                }
+              }),
+              tap((result: any) => {
+                // check the requests order agin, if doesn't match the interested users order, then show an error message and DO NOT let to scan in and loan the item
+                for (
+                  let i = 0;
+                  i < this.data.apiResult.interested_user.length;
+                  i++
+                ) {
+                  if (
+                    this.data.apiResult.interested_user[i].primary_id !==
+                    result.user_request[i].user_primary_id
+                  ) {
+                    this.finalResult = {
+                      type: "error",
+                      message: "Requests order mismatch. Cannot loan the item.",
+                    };
+
+                    throw new Error("APP ERROR: Requests order mismatch.");
+                  }
                 }
               }),
               catchError((_error) => {
@@ -171,50 +186,6 @@ export class SternumlaufStartComponent implements OnInit {
 
                 return throwError(
                   () => new Error("Failed to perform the scan in operation")
-                );
-              })
-            );
-        }),
-        concatMap(() => {
-          // check existing requests after sending requests for all interested users
-          return this.restService
-            .call({
-              url: `${this.data.selectedBarcode.link}/requests`,
-              method: HttpMethod.GET,
-            })
-            .pipe(
-              tap((result: any) => {
-                // check the requests order agin, if doesn't match the interested users order, then show an error message and DO NOT let to loan the item
-                for (
-                  let i = 0;
-                  i < this.data.apiResult.interested_user.length;
-                  i++
-                ) {
-                  if (
-                    this.data.apiResult.interested_user[i].primary_id !==
-                    result.user_request[i].user_primary_id
-                  ) {
-                    this.finalResult = {
-                      type: "error",
-                      message: "Requests order mismatch. Cannot loan the item.",
-                    };
-
-                    throw new Error("APP ERROR: Requests order mismatch.");
-                  }
-                }
-              }),
-              catchError((_error) => {
-                // Handle any errors from the final check
-                this.finalResult = {
-                  type: "error",
-                  message: "Failed to perform the after scan in check.",
-                };
-
-                return throwError(
-                  () =>
-                    new Error(
-                      "APP ERROR: Failed to perform the after scan in check."
-                    )
                 );
               })
             );
