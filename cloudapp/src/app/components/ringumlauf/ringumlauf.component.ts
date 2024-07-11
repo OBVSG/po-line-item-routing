@@ -61,14 +61,15 @@ export class RingumlaufComponent implements OnInit {
           return this.restService
             .call(`/almaws/v1/users/${user.primary_id}`)
             .pipe(
-              catchError(() => {
+              catchError((error) => {
                 this.alert.error(
                   "Failed to retrieve user info for: " + user.primary_id
                 );
 
-                return throwError(
-                  () => new Error("Failed to retrieve users info")
-                );
+                console.error(error);
+
+                // Throw an error to stop the observable chain
+                return throwError(() => new Error());
               })
             );
         }),
@@ -78,9 +79,7 @@ export class RingumlaufComponent implements OnInit {
         next: (result: any[]) => {
           this.interestedUsersInfo = [...result];
         },
-        error: (error) => {
-          console.error(error);
-          this.alert.error("Failed to retrieve users info");
+        error: (_error) => {
           this.loading = false;
         },
         complete: () => {

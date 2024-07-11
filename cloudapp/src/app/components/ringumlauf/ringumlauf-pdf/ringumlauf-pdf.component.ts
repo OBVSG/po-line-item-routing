@@ -141,6 +141,7 @@ export class RingumlaufPdfComponent
       }-ringumlauf.pdf`;
 
       pdf.save(pdfFileName);
+      this.alert.success("PDF generated successfully");
     } catch (error) {
       this.alert.error("Failed to generate PDF");
       console.error(error);

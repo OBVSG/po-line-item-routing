@@ -5,7 +5,7 @@ import {
   CloudAppSettingsService,
   HttpMethod,
 } from "@exlibris/exl-cloudapp-angular-lib";
-import { Umlauf, UserSettings } from "../../app.model";
+import { InternalAppError, Umlauf, UserSettings } from "../../app.model";
 import { MatRadioChange } from "@angular/material/radio";
 import {
   catchError,
@@ -18,6 +18,7 @@ import {
 import { EMPTY, from, of, throwError } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
 import { SternumlaufStartComponent } from "./sternumlauf-start/sternumlauf-start.component";
+import { error } from "console";
 
 @Component({
   selector: "app-sternumlauf",
@@ -89,7 +90,7 @@ export class SternumlaufComponent implements OnInit {
             this.alert.error("Umlauf kann nicht gestartet werden, entlehnt.");
 
             // Throw an error observable to stop further execution
-            return throwError(() => new Error("APP ERROR: Item is loaned"));
+            return throwError(() => new Error());
           }
         }),
         switchMap((requestResult: any) => {
@@ -117,13 +118,16 @@ export class SternumlaufComponent implements OnInit {
                   method: HttpMethod.DELETE,
                 })
                 .pipe(
-                  catchError(() => {
+                  // this catch error will never be called because the delete request will always return 204 status code even if the request failed
+                  catchError((error) => {
                     this.alert.error(
                       `Failed to delete request ${request.request_id} for the user id: ${request.user_primary_id}`
                     );
-                    return throwError(
-                      () => new Error("APP ERROR: Failed to delete requests")
-                    );
+
+                    console.log(error);
+
+                    // Throw an error observable to stop further execution
+                    return throwError(() => new Error());
                   })
                 );
             }),
@@ -138,29 +142,34 @@ export class SternumlaufComponent implements OnInit {
                 .pipe(
                   map((lastCheckResult) => {
                     if (lastCheckResult.total_record_count !== 0) {
-                      this.alert.error(
-                        "Umlauf kann nicht gestartet werden, vorgemerkt."
-                      );
+                      let errorMessage =
+                        "Umlauf kann nicht gestartet werden, vorgemerkt.";
+
+                      if (lastCheckResult.total_record_count === 1) {
+                        errorMessage +=
+                          " one of the requests is probably on HOLD SHELF status and cannot be canceled, but all other existing requests are removed.";
+                      }
+
+                      this.alert.error(errorMessage);
 
                       // stop the observable chain
-                      throw new Error("APP ERROR: Requests still exist");
+                      throw new InternalAppError();
                     }
 
                     // complete the observable in case of success
                     return EMPTY;
                   }),
-                  catchError((_error) => {
-                    // Handle any errors from the final check
-                    this.alert.error(
-                      "Failed to perform the final requests check"
-                    );
+                  catchError((error) => {
+                    // handle errors that is not thrown by the map operator
+                    if (!error.internalError) {
+                      console.error(error);
 
-                    return throwError(
-                      () =>
-                        new Error(
-                          "APP ERROR: Failed to perform the final requests check, requests still exist"
-                        )
-                    );
+                      this.alert.error(
+                        "Failed to perform the final requests check"
+                      );
+                    }
+
+                    return throwError(() => new Error());
                   })
                 );
             })
@@ -169,8 +178,7 @@ export class SternumlaufComponent implements OnInit {
       )
       .subscribe({
         next: () => {},
-        error: (error) => {
-          console.error(error);
+        error: (_error) => {
           this.loading = false;
         },
         complete: () => {

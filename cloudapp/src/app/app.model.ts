@@ -1,3 +1,5 @@
+import { InternalSymbolName } from "typescript";
+
 export interface InterestedUser {
   email: string;
   primary_id: string;
@@ -54,4 +56,12 @@ export interface UserSettings {
   itemPolicy: string[];
   sternumlauf: SternumlaufSettings;
   information: InformationSettings;
+}
+
+export class InternalAppError extends Error {
+  internalError: boolean = true;
+
+  constructor() {
+    super();
+  }
 }

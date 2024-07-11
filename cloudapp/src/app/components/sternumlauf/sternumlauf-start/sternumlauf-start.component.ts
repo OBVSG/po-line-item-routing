@@ -7,6 +7,7 @@ import {
 } from "@exlibris/exl-cloudapp-angular-lib";
 import {
   InterestedUser,
+  InternalAppError,
   SternumlaufStartData,
   UserSettings,
 } from "../../../app.model";
@@ -85,7 +86,7 @@ export class SternumlaufStartComponent implements OnInit {
                   },
                 })
                 .pipe(
-                  catchError(() => {
+                  catchError((error) => {
                     this.finalResult = {
                       type: "error",
                       message:
@@ -93,9 +94,10 @@ export class SternumlaufStartComponent implements OnInit {
                         user.primary_id,
                     };
 
-                    return throwError(
-                      () => new Error("Failed to register requests")
-                    );
+                    console.log(error);
+
+                    // Throw an error observable to stop further execution
+                    return throwError(() => new Error());
                   })
                 );
             })
@@ -121,7 +123,7 @@ export class SternumlaufStartComponent implements OnInit {
                   };
 
                   // stop the observable chain
-                  throw new Error("APP ERROR: Requests count mismatch.");
+                  throw new InternalAppError();
                 }
               }),
               tap((result: any) => {
@@ -140,23 +142,23 @@ export class SternumlaufStartComponent implements OnInit {
                       message: "Requests order mismatch. Cannot loan the item.",
                     };
 
-                    throw new Error("APP ERROR: Requests order mismatch.");
+                    throw new InternalAppError();
                   }
                 }
               }),
-              catchError((_error) => {
-                // Handle any errors from the final check
-                this.finalResult = {
-                  type: "error",
-                  message: "Failed to perform the final requests check.",
-                };
+              catchError((error) => {
+                // handle errors that is not thrown by the tap operator
+                if (!error.internalError) {
+                  console.error(error);
 
-                return throwError(
-                  () =>
-                    new Error(
-                      "APP ERROR: Failed to perform the final requests check."
-                    )
-                );
+                  this.finalResult = {
+                    type: "error",
+                    message: "Failed to perform the final requests check.",
+                  };
+                }
+
+                // Throw an error observable to stop further execution
+                return throwError(() => new Error());
               })
             );
         }),
@@ -177,16 +179,16 @@ export class SternumlaufStartComponent implements OnInit {
               },
             })
             .pipe(
-              catchError(() => {
+              catchError((error) => {
                 // Handle any errors from the scan in operation
                 this.finalResult = {
                   type: "error",
                   message: "Failed to perform the scan in operation.",
                 };
 
-                return throwError(
-                  () => new Error("Failed to perform the scan in operation")
-                );
+                console.log(error);
+
+                return throwError(() => new Error());
               })
             );
         }),
@@ -211,16 +213,16 @@ export class SternumlaufStartComponent implements OnInit {
               },
             })
             .pipe(
-              catchError(() => {
+              catchError((error) => {
                 // Handle any errors from the create user loan operation
                 this.finalResult = {
                   type: "error",
                   message: "Failed to perform the loan operation.",
                 };
 
-                return throwError(
-                  () => new Error("Failed to perform the loan operation.")
-                );
+                console.log(error);
+
+                return throwError(() => new Error());
               })
             );
         })
@@ -232,8 +234,7 @@ export class SternumlaufStartComponent implements OnInit {
             message: "Sternumlauf finished successfully.",
           };
         },
-        error: (error) => {
-          console.error(error);
+        error: (_error) => {
           this.loading = false;
         },
         complete: () => {
