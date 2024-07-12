@@ -18,7 +18,6 @@ import {
 import { EMPTY, from, of, throwError } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
 import { SternumlaufStartComponent } from "./sternumlauf-start/sternumlauf-start.component";
-import { error } from "console";
 
 @Component({
   selector: "app-sternumlauf",

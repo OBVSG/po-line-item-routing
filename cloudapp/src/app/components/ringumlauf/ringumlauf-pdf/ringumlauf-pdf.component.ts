@@ -120,13 +120,13 @@ export class RingumlaufPdfComponent
       autoTable(pdf, {
         theme: "plain",
         startY: imgHeight,
-        margin: { right: 20, left: 20 },
+        margin: { right: 16, left: 16 },
         headStyles: {
           fontSize: 10,
           fillColor: [235, 235, 235],
         },
         bodyStyles: {
-          fontSize: 9,
+          fontSize: 10,
         },
         head: [["Vorname", "Nachname", "Adresse"]],
         body: this.usersList.map((user) => [

@@ -4,15 +4,16 @@
   border: 1px solid rgb(197, 197, 197);
 
   #ringumlauf-pdf {
-    padding: 0 90px;
+    padding: 100px 100px 0;
 
-    h2 {
-      text-align: center;
+    p {
+      font-size: 22px;
+      font-weight: 400;
     }
 
-    p,
-    td {
-      font-weight: 400;
+    h2.ringumlauf-pdf-header {
+      text-align: center;
+      font-size: 30px;
     }
 
     .address-container {
@@ -20,6 +21,14 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+
+      p {
+        font-size: 22px;
+      }
+    }
+
+    h3.ringumlauf-pdf-title {
+      font-size: 24px;
     }
   }
 
@@ -37,7 +46,8 @@
       td,
       th {
         text-align: left;
-        padding: 10px 0;
+        padding: 10px;
+        font-size: 20px;
       }
     }
   }
