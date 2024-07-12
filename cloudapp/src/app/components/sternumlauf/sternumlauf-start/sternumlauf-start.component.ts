@@ -12,15 +12,7 @@ import {
   UserSettings,
 } from "../../../app.model";
 import { forkJoin, from, of, throwError } from "rxjs";
-import {
-  catchError,
-  concatMap,
-  delay,
-  finalize,
-  switchMap,
-  tap,
-  toArray,
-} from "rxjs/operators";
+import { catchError, concatMap, delay, finalize, tap } from "rxjs/operators";
 
 @Component({
   selector: "app-sternumlauf-start",
@@ -32,8 +24,9 @@ export class SternumlaufStartComponent implements OnInit {
   totalProgress: number;
   processed: number = 0;
   isUmlaufStarted = false;
-  runScanIn = false;
-  runLoan = false;
+  runCheckRequests: "block" | "check" | "loading" = "block";
+  runScanIn: "block" | "check" | "loading" = "block";
+  runLoan: "block" | "check" | "loading" = "block";
   userSettings: UserSettings;
   finalResult: {
     type: "error" | "success";
@@ -112,6 +105,8 @@ export class SternumlaufStartComponent implements OnInit {
     forkJoin([requestsObservables])
       .pipe(
         concatMap(() => {
+          this.runCheckRequests = "loading";
+
           // check existing requests after sending requests for all interested users
           return this.restService
             .call({
@@ -155,6 +150,9 @@ export class SternumlaufStartComponent implements OnInit {
                   }
                 }
               }),
+              tap(() => {
+                this.runCheckRequests = "check";
+              }),
               catchError((error) => {
                 // handle errors that is not thrown by the tap operator
                 if (!error.internalError) {
@@ -171,6 +169,8 @@ export class SternumlaufStartComponent implements OnInit {
             );
         }),
         concatMap((_result: any) => {
+          this.runScanIn = "loading";
+
           // perform the scan in operation
           return this.restService
             .call({
@@ -188,7 +188,7 @@ export class SternumlaufStartComponent implements OnInit {
             })
             .pipe(
               tap(() => {
-                this.runScanIn = true;
+                this.runScanIn = "check";
               }),
               catchError((error) => {
                 // TODO-STERN: change text
@@ -203,6 +203,8 @@ export class SternumlaufStartComponent implements OnInit {
             );
         }),
         concatMap((_result: any) => {
+          this.runLoan = "loading";
+
           // perform the create user loan operation
           return this.restService
             .call({
@@ -224,7 +226,7 @@ export class SternumlaufStartComponent implements OnInit {
             })
             .pipe(
               tap(() => {
-                this.runLoan = true;
+                this.runLoan = "check";
               }),
               delay(1000),
               catchError((error) => {

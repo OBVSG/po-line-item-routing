@@ -1,6 +1,30 @@
 .sternumlauf-process {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+
+  mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  mat-icon.check {
+    color: #00b206;
+  }
+
+  mat-icon.block {
+    color: #aeaeae;
+  }
+
+  mat-icon.loading {
+    color: #02587f;
+  }
+
+  div {
+    margin-left: 10px;
+  }
 }

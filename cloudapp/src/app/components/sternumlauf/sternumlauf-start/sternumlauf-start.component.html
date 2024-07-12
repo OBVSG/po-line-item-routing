@@ -18,23 +18,47 @@
 
   <br />
 
-  <div class="sternumlauf-process" *ngIf="loading">
-    <div>
-      <mat-spinner diameter="40"></mat-spinner>
+  <div *ngIf="loading">
+    <div class="sternumlauf-process">
+      <mat-icon *ngIf="processed != totalProgress" class="loading"
+        >hourglass_bottom</mat-icon
+      >
+      <mat-icon *ngIf="processed == totalProgress" class="check"
+        >check</mat-icon
+      >
+      <div>Creating user requests: {{ processed }} / {{ totalProgress }}</div>
     </div>
 
-    <br />
-    <br />
-
-    <div>
-      <!-- TODO-STERN: change text -->
-      <p>Creating user requests: {{ processed }} / {{ totalProgress }}</p>
-      <p *ngIf="processed == totalProgress">Checking created user requests</p>
-      <p *ngIf="runScanIn">Running scan in operation</p>
-      <p *ngIf="runLoan">Running loan operation</p>
+    <div class="sternumlauf-process">
+      <mat-icon *ngIf="runCheckRequests == 'loading'" class="loading"
+        >hourglass_bottom</mat-icon
+      >
+      <mat-icon *ngIf="runCheckRequests == 'check'" class="check"
+        >check</mat-icon
+      >
+      <mat-icon *ngIf="runCheckRequests == 'block'" class="block"
+        >block</mat-icon
+      >
+      <div>Checking created user requests</div>
     </div>
 
-    <br />
+    <div class="sternumlauf-process">
+      <mat-icon *ngIf="runScanIn == 'loading'" class="loading"
+        >hourglass_bottom</mat-icon
+      >
+      <mat-icon *ngIf="runScanIn == 'check'" class="check">check</mat-icon>
+      <mat-icon *ngIf="runScanIn == 'block'" class="block">block</mat-icon>
+      <div>Running scan in operation</div>
+    </div>
+
+    <div class="sternumlauf-process">
+      <mat-icon *ngIf="runLoan == 'loading'" class="loading"
+        >hourglass_bottom</mat-icon
+      >
+      <mat-icon *ngIf="runLoan == 'check'" class="check">check</mat-icon>
+      <mat-icon *ngIf="runLoan == 'block'" class="block">block</mat-icon>
+      <div>Running loan operation</div>
+    </div>
   </div>
 
   <div *ngIf="finalResult">
