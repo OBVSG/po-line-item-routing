@@ -96,7 +96,7 @@ export class SternumlaufStartComponent implements OnInit {
                 })
                 .pipe(
                   catchError((error) => {
-                    // TODO-CORE: change text
+                    // TODO-STERN: change text
                     this.finalResult = {
                       type: "error",
                       message:
@@ -125,7 +125,7 @@ export class SternumlaufStartComponent implements OnInit {
                   this.data.apiResult.interested_user.length !==
                   result.total_record_count
                 ) {
-                  // TODO-CORE: change text
+                  // TODO-STERN: change text
                   this.finalResult = {
                     type: "error",
                     message: "Vormerkungen konnten nicht gebildet werden.",
@@ -146,7 +146,7 @@ export class SternumlaufStartComponent implements OnInit {
                     this.data.apiResult.interested_user[i].primary_id !==
                     result.user_request[i].user_primary_id
                   ) {
-                    // TODO-CORE: change text
+                    // TODO-STERN: change text
                     this.finalResult = {
                       type: "error",
                       message: "Requests order mismatch. Cannot loan the item.",
@@ -159,7 +159,7 @@ export class SternumlaufStartComponent implements OnInit {
               catchError((error) => {
                 // handle errors that is not thrown by the tap operator
                 if (!error.internalError) {
-                  // TODO-CORE: change text
+                  // TODO-STERN: change text
                   this.finalResult = {
                     type: "error",
                     message: "Failed to perform the final requests check.",
@@ -192,7 +192,7 @@ export class SternumlaufStartComponent implements OnInit {
                 this.runScanIn = true;
               }),
               catchError((error) => {
-                // TODO-CORE: change text
+                // TODO-STERN: change text
                 // Handle any errors from the scan in operation
                 this.finalResult = {
                   type: "error",
@@ -229,7 +229,7 @@ export class SternumlaufStartComponent implements OnInit {
               }),
               delay(1000),
               catchError((error) => {
-                // TODO-CORE: change text
+                // TODO-STERN: change text
                 // Handle any errors from the create user loan operation
                 this.finalResult = {
                   type: "error",
@@ -244,7 +244,7 @@ export class SternumlaufStartComponent implements OnInit {
       )
       .subscribe({
         next: (_result: any) => {
-          // TODO-CORE: change text
+          // TODO-STERN: change text
           this.finalResult = {
             type: "success",
             message: "Sternumlauf finished successfully.",

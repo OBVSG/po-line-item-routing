@@ -63,7 +63,7 @@ export class SternumlaufComponent implements OnInit {
       this.selectedBarcode = event.value as Umlauf;
     } else {
       this.selectedBarcode = undefined;
-      // TODO-CORE: change text
+      // TODO-STERN: change text
       this.alert.error(
         `${selectedValue} doesn't exist in the item policy defined in the user settings`
       );
@@ -88,7 +88,7 @@ export class SternumlaufComponent implements OnInit {
               method: HttpMethod.GET,
             });
           } else {
-            // TODO-CORE: change text
+            // TODO-STERN: change text
             this.alert.error("Umlauf kann nicht gestartet werden, entlehnt.");
 
             // Throw an error observable to stop further execution
@@ -122,7 +122,7 @@ export class SternumlaufComponent implements OnInit {
                 .pipe(
                   // this catch error will never be called because the delete request will always return 204 status code even if the request failed
                   catchError((error) => {
-                    // TODO-CORE: change text
+                    // TODO-STERN: change text
                     this.alert.error(
                       `Failed to delete request ${request.request_id} for the user id: ${request.user_primary_id}`
                     );
@@ -143,12 +143,12 @@ export class SternumlaufComponent implements OnInit {
                 .pipe(
                   map((lastCheckResult) => {
                     if (lastCheckResult.total_record_count !== 0) {
-                      // TODO-CORE: change text
+                      // TODO-STERN: change text
                       let errorMessage =
                         "Umlauf kann nicht gestartet werden, vorgemerkt.";
 
                       if (lastCheckResult.total_record_count === 1) {
-                        // TODO-CORE: change text
+                        // TODO-STERN: change text
                         errorMessage +=
                           " one of the requests is probably on HOLD SHELF status and cannot be canceled, but all other existing requests are removed.";
                       }
@@ -165,7 +165,7 @@ export class SternumlaufComponent implements OnInit {
                   catchError((error) => {
                     // handle errors that is not thrown by the map operator
                     if (!error.internalError) {
-                      // TODO-CORE: change text
+                      // TODO-STERN: change text
                       this.alert.error(
                         "Failed to perform the final requests check"
                       );

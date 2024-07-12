@@ -9,7 +9,7 @@
 ></ng-container>
 
 <ng-template #barcodeSelection>
-  <!-- TODO-CORE: change text -->
+  <!-- TODO-STERN: change text -->
   <h2 id="barcode-radio-group-label">Please select a barcode:</h2>
 
   <mat-radio-group
@@ -30,18 +30,18 @@
 
       <mat-card-content>
         <p *ngIf="barcode.description">
-          <!-- TODO-CORE: change text -->
+          <!-- TODO-STERN: change text -->
           <strong>Description: </strong>{{ barcode.description }}
         </p>
 
         <p *ngIf="barcode.receive_date">
-          <!-- TODO-CORE: change text -->
+          <!-- TODO-STERN: change text -->
           <strong>Receive Date: </strong
           >{{ barcode.receive_date | date : "mediumDate" }}
         </p>
 
         <p *ngIf="barcode.item_policy.desc">
-          <!-- TODO-CORE: change text -->
+          <!-- TODO-STERN: change text -->
           <strong>ItemPolicy: </strong>{{ barcode.item_policy.desc }}
         </p>
       </mat-card-content>
@@ -54,7 +54,7 @@
 
   <div *ngIf="selectedBarcode">
     <div>
-      <!-- TODO-CORE: change text -->
+      <!-- TODO-STERN: change text -->
       <h4>
         This is the user configuration. If these values are not correct, please
         go to settings and update them.
@@ -64,7 +64,7 @@
         <pre>{{ userSettings.sternumlauf | json }}</pre>
       </app-alert>
 
-      <!-- TODO-CORE: change text -->
+      <!-- TODO-STERN: change text -->
       <button mat-button type="button" color="primary" routerLink="/settings">
         go to settings
       </button>
@@ -74,7 +74,7 @@
     <br />
 
     <div>
-      <!-- TODO-CORE: change text -->
+      <!-- TODO-STERN: change text -->
       <button mat-flat-button color="primary" (click)="prepareSternumlauf()">
         sternumlauf vorbereiten
       </button>
@@ -85,7 +85,7 @@
 </ng-template>
 
 <ng-template #noBarcode>
-  <!-- TODO-CORE: change text -->
+  <!-- TODO-STERN: change text -->
   <app-alert type="error"> No sternumlauf barcode found </app-alert>
 </ng-template>
 

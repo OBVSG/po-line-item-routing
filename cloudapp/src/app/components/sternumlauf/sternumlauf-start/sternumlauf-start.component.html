@@ -1,8 +1,8 @@
 <mat-dialog-content>
-  <!-- TODO-CORE: change text -->
+  <!-- TODO-STERN: change text -->
   <h2>Sternumlauf is ready to start</h2>
 
-  <!-- TODO-CORE: change text -->
+  <!-- TODO-STERN: change text -->
   <p>
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae accusamus
     natus repellendus qui ullam saepe unde ipsam neque, harum asperiores enim
@@ -10,7 +10,7 @@
   </p>
 
   <div *ngIf="!isUmlaufStarted">
-    <!-- TODO-CORE: change text -->
+    <!-- TODO-STERN: change text -->
     <button mat-flat-button color="primary" (click)="startSternumlauf()">
       starten
     </button>
@@ -27,7 +27,7 @@
     <br />
 
     <div>
-      <!-- TODO-CORE: change text -->
+      <!-- TODO-STERN: change text -->
       <p>Creating user requests: {{ processed }} / {{ totalProgress }}</p>
       <p *ngIf="processed == totalProgress">Checking created user requests</p>
       <p *ngIf="runScanIn">Running scan in operation</p>
@@ -45,7 +45,7 @@
   <mat-divider></mat-divider>
 
   <mat-dialog-actions align="end">
-    <!-- TODO-CORE: change text -->
+    <!-- TODO-STERN: change text -->
     <button mat-button [disabled]="loading" mat-dialog-close>close</button>
   </mat-dialog-actions>
 </mat-dialog-content>

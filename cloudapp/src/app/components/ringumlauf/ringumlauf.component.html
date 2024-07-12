@@ -9,7 +9,7 @@
 ></ng-container>
 
 <ng-template #barcodeSelection>
-  <!-- TODO-CORE: change text -->
+  <!-- TODO-RING: change text -->
   <h2 id="barcode-radio-group-label">Please select a barcode:</h2>
   <mat-radio-group
     aria-labelledby="barcode-radio-group-label"
@@ -30,18 +30,18 @@
 
       <mat-card-content>
         <p *ngIf="barcode.description">
-          <!-- TODO-CORE: change text -->
+          <!-- TODO-RING: change text -->
           <strong>Description: </strong>{{ barcode.description }}
         </p>
 
         <p *ngIf="barcode.receive_date">
-          <!-- TODO-CORE: change text -->
+          <!-- TODO-RING: change text -->
           <strong>Receive Date: </strong
           >{{ barcode.receive_date | date : "mediumDate" }}
         </p>
 
         <p *ngIf="barcode.item_policy.desc">
-          <!-- TODO-CORE: change text -->
+          <!-- TODO-RING: change text -->
           <strong>ItemPolicy: </strong>{{ barcode.item_policy.desc }}
         </p>
       </mat-card-content>
@@ -52,11 +52,11 @@
   <mat-divider></mat-divider>
   <br />
 
-  <!-- TODO-CORE: change text -->
+  <!-- TODO-RING: change text -->
   <h2>Zusatzinformation</h2>
   <div>
     <mat-form-field>
-      <!-- TODO-CORE: change text -->
+      <!-- TODO-RING: change text -->
       <mat-label>Lesetage/TeilnehmerIn max:</mat-label>
       <input matInput type="text" [(ngModel)]="readDays" />
       <button
@@ -72,7 +72,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <!-- TODO-CORE: change text -->
+      <!-- TODO-RING: change text -->
       <mat-label>Bemerkung:</mat-label>
       <input matInput type="text" [(ngModel)]="comment" />
       <button
@@ -90,7 +90,7 @@
 
   <br />
 
-  <!-- TODO-CORE: change text -->
+  <!-- TODO-RING: change text -->
   <button
     mat-flat-button
     color="primary"
@@ -103,7 +103,7 @@
 </ng-template>
 
 <ng-template #noBarcode>
-  <!-- TODO-CORE: change text -->
+  <!-- TODO-RING: change text -->
   <app-alert type="error"> No ringumlauf barcode found </app-alert>
 </ng-template>
 
