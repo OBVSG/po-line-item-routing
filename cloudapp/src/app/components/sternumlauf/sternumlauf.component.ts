@@ -186,6 +186,7 @@ export class SternumlaufComponent implements OnInit {
         },
         complete: () => {
           this.dialog.open(SternumlaufStartComponent, {
+            disableClose: true,
             autoFocus: false,
             width: "80%",
             data: {
