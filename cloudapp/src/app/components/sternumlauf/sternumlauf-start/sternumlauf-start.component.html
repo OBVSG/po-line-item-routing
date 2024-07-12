@@ -15,11 +15,30 @@
 
   <br />
 
+  <div class="sternumlauf-process" *ngIf="loading">
+    <div class="loading-shade"></div>
+
+    <div>
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+
+    <br />
+    <br />
+
+    <div>
+      <p>Creating user requests: {{ processed }} / {{ totalProgress }}</p>
+      <p>Checking created user requests</p>
+      <p *ngIf="runScanIn">Running scan in operation</p>
+      <p *ngIf="runLoan">Running loan operation</p>
+    </div>
+
+    <br />
+  </div>
+
   <div *ngIf="finalResult">
     <app-alert [type]="finalResult.type">{{ finalResult.message }}</app-alert>
   </div>
 
-  <br />
   <br />
   <mat-divider></mat-divider>
 
@@ -27,24 +46,3 @@
     <button mat-button [disabled]="loading" mat-dialog-close>close</button>
   </mat-dialog-actions>
 </mat-dialog-content>
-
-<div class="loading-shade" *ngIf="loading">
-  <div>
-    <mat-progress-spinner
-      mode="determinate"
-      diameter="40"
-      [value]="percentComplete"
-    >
-    </mat-progress-spinner>
-  </div>
-
-  <br />
-  <br />
-
-  <div>
-    <p>Creating user requests: {{ processed }} / {{ totalProgress }}</p>
-    <p>Checking created user requests</p>
-    <p *ngIf="runScanIn">Running scan in operation</p>
-    <p *ngIf="runLoan">Running loan operation</p>
-  </div>
-</div>
