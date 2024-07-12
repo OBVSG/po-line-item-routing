@@ -75,6 +75,7 @@ export class SettingsComponent implements OnInit {
 
     this.settingsService.set(settingsToSave).subscribe(
       (_response) => {
+        // TODO-CORE: change text
         this.alert.success("Settings successfully saved.");
         this.settingsForm.markAsPristine();
       },

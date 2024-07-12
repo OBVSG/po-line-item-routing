@@ -1,9 +1,11 @@
+<!-- TODO-CORE: change text -->
 <h1 id="ringumlauf-pdf-dialog-title" mat-dialog-title>Ringumlauf PDF</h1>
 
 <mat-dialog-content>
   <ng-container *ngIf="hasSmallWidth; then smallView; else pdf"></ng-container>
 
   <ng-template #smallView>
+    <!-- TODO-CORE: change text -->
     <app-alert type="info">
       make the browser and cloud app fullscreen to see the PDF
     </app-alert>

@@ -141,8 +141,10 @@ export class RingumlaufPdfComponent
       }-ringumlauf.pdf`;
 
       pdf.save(pdfFileName);
+      // TODO-CORE: change text
       this.alert.success("PDF generated successfully");
     } catch (error) {
+      // TODO-CORE: change text
       this.alert.error("Failed to generate PDF");
       console.error(error);
     }

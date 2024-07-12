@@ -62,6 +62,7 @@ export class RingumlaufComponent implements OnInit {
             .call(`/almaws/v1/users/${user.primary_id}`)
             .pipe(
               catchError((error) => {
+                // TODO-CORE: change text
                 this.alert.error(
                   "Failed to retrieve user info for: " + user.primary_id
                 );
@@ -113,6 +114,7 @@ export class RingumlaufComponent implements OnInit {
         width: "90%",
       });
     } catch (error) {
+      // TODO-CORE: change text
       this.alert.error("The interested users list is not matched");
     }
   }

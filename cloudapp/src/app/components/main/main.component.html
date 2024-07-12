@@ -5,6 +5,7 @@
 
   <ng-template #noEntities>
     <br />
+    <!-- TODO-CORE: change text -->
     <app-alert type="info">
       Navigate to a page in Alma to view a list of entities.
     </app-alert>
@@ -13,6 +14,7 @@
   <ng-template #entityList>
     <br />
 
+    <!-- TODO-CORE: change text -->
     <button
       mat-flat-button
       color="primary"
@@ -28,6 +30,7 @@
     <br />
 
     <h2>
+      <!-- TODO-CORE: change text -->
       <label id="entities-radio-group-label">Select an entity:</label>
     </h2>
 
@@ -45,6 +48,7 @@
         </mat-radio-button>
       </div>
 
+      <!-- TODO-CORE: change text -->
       <app-alert type="info" *ngIf="!isEntityCorrect">
         No entity has the correct link. please navigate to a correct page.
       </app-alert>
@@ -103,6 +107,7 @@
       </ng-template>
 
       <ng-template #noUserFound>
+        <!-- TODO-CORE: change text -->
         <app-alert type="info"
           >No interested user found, please navigate to correct page</app-alert
         >

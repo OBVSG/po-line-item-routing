@@ -61,6 +61,7 @@ export class MainComponent {
         },
         (error) => {
           console.log(error);
+          // TODO-CORE: change text
           this.alert.error("Failed to retrieve entity data from Alma API");
         }
       );
@@ -83,10 +84,12 @@ export class MainComponent {
         next: (result) => {
           this.apiResult = result;
           this.eventsService.refreshPage().subscribe(() => {
+            // TODO-CORE: change text
             this.alert.success("Success!");
           });
         },
         error: (error: RestErrorResponse) => {
+          // TODO-CORE: change text
           this.alert.error("Failed to update the user list");
           console.error(error);
         },
