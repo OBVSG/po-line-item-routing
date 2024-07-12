@@ -12,7 +12,14 @@ import {
   UserSettings,
 } from "../../../app.model";
 import { from, of, throwError } from "rxjs";
-import { catchError, concatMap, delay, tap, toArray } from "rxjs/operators";
+import {
+  catchError,
+  concatMap,
+  delay,
+  finalize,
+  tap,
+  toArray,
+} from "rxjs/operators";
 
 @Component({
   selector: "app-sternumlauf-start",
@@ -96,10 +103,8 @@ export class SternumlaufStartComponent implements OnInit {
                         user.primary_id,
                     };
 
-                    console.log(error);
-
                     // Throw an error observable to stop further execution
-                    return throwError(() => new Error());
+                    return throwError(error);
                   })
                 );
             })
@@ -151,8 +156,6 @@ export class SternumlaufStartComponent implements OnInit {
               catchError((error) => {
                 // handle errors that is not thrown by the tap operator
                 if (!error.internalError) {
-                  console.error(error);
-
                   this.finalResult = {
                     type: "error",
                     message: "Failed to perform the final requests check.",
@@ -160,7 +163,7 @@ export class SternumlaufStartComponent implements OnInit {
                 }
 
                 // Throw an error observable to stop further execution
-                return throwError(() => new Error());
+                return throwError(error);
               })
             );
         }),
@@ -191,9 +194,7 @@ export class SternumlaufStartComponent implements OnInit {
                   message: "Failed to perform the scan in operation.",
                 };
 
-                console.log(error);
-
-                return throwError(() => new Error());
+                return throwError(error);
               })
             );
         }),
@@ -229,12 +230,11 @@ export class SternumlaufStartComponent implements OnInit {
                   message: "Failed to perform the loan operation.",
                 };
 
-                console.log(error);
-
-                return throwError(() => new Error());
+                return throwError(error);
               })
             );
-        })
+        }),
+        finalize(() => (this.loading = false))
       )
       .subscribe({
         next: (_result: any) => {
@@ -243,12 +243,10 @@ export class SternumlaufStartComponent implements OnInit {
             message: "Sternumlauf finished successfully.",
           };
         },
-        error: (_error) => {
-          this.loading = false;
+        error: (error) => {
+          console.log(error);
         },
-        complete: () => {
-          this.loading = false;
-        },
+        complete: () => {},
       });
   }
 }

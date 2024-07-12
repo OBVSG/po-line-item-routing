@@ -27,7 +27,7 @@
 
     <div>
       <p>Creating user requests: {{ processed }} / {{ totalProgress }}</p>
-      <p>Checking created user requests</p>
+      <p *ngIf="processed == totalProgress">Checking created user requests</p>
       <p *ngIf="runScanIn">Running scan in operation</p>
       <p *ngIf="runLoan">Running loan operation</p>
     </div>

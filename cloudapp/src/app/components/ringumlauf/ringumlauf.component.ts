@@ -6,7 +6,7 @@ import {
   CloudAppRestService,
 } from "@exlibris/exl-cloudapp-angular-lib";
 import { from, throwError } from "rxjs";
-import { catchError, concatMap, toArray } from "rxjs/operators";
+import { catchError, concatMap, finalize, toArray } from "rxjs/operators";
 import { MatDialog } from "@angular/material/dialog";
 import { RingumlaufPdfComponent } from "../ringumlauf/ringumlauf-pdf/ringumlauf-pdf.component";
 
@@ -66,24 +66,22 @@ export class RingumlaufComponent implements OnInit {
                   "Failed to retrieve user info for: " + user.primary_id
                 );
 
-                console.error(error);
-
-                // Throw an error to stop the observable chain
-                return throwError(() => new Error());
+                // Throw the error again to stop the observable chain
+                return throwError(error);
               })
             );
         }),
-        toArray() // wait for all requests to complete
+        toArray(), // wait for all requests to complete
+        finalize(() => (this.loading = false))
       )
       .subscribe({
         next: (result: any[]) => {
           this.interestedUsersInfo = [...result];
         },
-        error: (_error) => {
-          this.loading = false;
+        error: (error) => {
+          console.error(error);
         },
         complete: () => {
-          this.loading = false;
           this.openDialog();
         },
       });

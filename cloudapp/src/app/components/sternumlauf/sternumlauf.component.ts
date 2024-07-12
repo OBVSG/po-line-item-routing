@@ -10,6 +10,7 @@ import { MatRadioChange } from "@angular/material/radio";
 import {
   catchError,
   concatMap,
+  finalize,
   map,
   mergeMap,
   switchMap,
@@ -123,10 +124,8 @@ export class SternumlaufComponent implements OnInit {
                       `Failed to delete request ${request.request_id} for the user id: ${request.user_primary_id}`
                     );
 
-                    console.log(error);
-
                     // Throw an error observable to stop further execution
-                    return throwError(() => new Error());
+                    return throwError(error);
                   })
                 );
             }),
@@ -161,28 +160,25 @@ export class SternumlaufComponent implements OnInit {
                   catchError((error) => {
                     // handle errors that is not thrown by the map operator
                     if (!error.internalError) {
-                      console.error(error);
-
                       this.alert.error(
                         "Failed to perform the final requests check"
                       );
                     }
 
-                    return throwError(() => new Error());
+                    return throwError(error);
                   })
                 );
             })
           );
-        })
+        }),
+        finalize(() => (this.loading = false))
       )
       .subscribe({
         next: () => {},
-        error: (_error) => {
-          this.loading = false;
+        error: (error) => {
+          console.error(error);
         },
         complete: () => {
-          this.loading = false;
-
           this.dialog.open(SternumlaufStartComponent, {
             autoFocus: false,
             width: "80%",
