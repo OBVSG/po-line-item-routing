@@ -11,12 +11,13 @@ import {
   SternumlaufStartData,
   UserSettings,
 } from "../../../app.model";
-import { from, of, throwError } from "rxjs";
+import { forkJoin, from, of, throwError } from "rxjs";
 import {
   catchError,
   concatMap,
   delay,
   finalize,
+  switchMap,
   tap,
   toArray,
 } from "rxjs/operators";
@@ -65,53 +66,51 @@ export class SternumlaufStartComponent implements OnInit {
     this.isUmlaufStarted = true;
 
     // create request for each interested user
-    from<InterestedUser[]>(this.data.apiResult.interested_user)
-      .pipe(
-        concatMap((user) => {
-          return of(user).pipe(
-            delay(0),
+    const requestsObservables = from<InterestedUser[]>(
+      this.data.apiResult.interested_user
+    ).pipe(
+      concatMap((user) => {
+        return this.restService
+          .call({
+            url: `/almaws/v1/users/${user.primary_id}/requests`,
+            method: HttpMethod.POST,
+            queryParams: {
+              user_id_type: "all_unique",
+              allow_same_request: false,
+              item_pid: this.data.selectedBarcode.pid,
+            },
+            requestBody: {
+              request_type: "HOLD",
+              comment: "po-line-item-routing",
+              pickup_location_type: this.userSettings.sternumlauf.locationType,
+              pickup_location_library:
+                this.userSettings.sternumlauf.locationLibrary,
+              pickup_location_circulation_desk:
+                this.userSettings.sternumlauf.locationCirculationDesk,
+            },
+          })
+          .pipe(
             tap(() => {
               this.processed++;
             }),
-            concatMap((user) => {
-              return this.restService
-                .call({
-                  url: `/almaws/v1/users/${user.primary_id}/requests`,
-                  method: HttpMethod.POST,
-                  queryParams: {
-                    user_id_type: "all_unique",
-                    allow_same_request: false,
-                    item_pid: this.data.selectedBarcode.pid,
-                  },
-                  requestBody: {
-                    request_type: "HOLD",
-                    comment: "po-line-item-routing",
-                    pickup_location_type:
-                      this.userSettings.sternumlauf.locationType,
-                    pickup_location_library:
-                      this.userSettings.sternumlauf.locationLibrary,
-                    pickup_location_circulation_desk:
-                      this.userSettings.sternumlauf.locationCirculationDesk,
-                  },
-                })
-                .pipe(
-                  catchError((error) => {
-                    // TODO-STERN: change text
-                    this.finalResult = {
-                      type: "error",
-                      message:
-                        "Failed to register request for user: " +
-                        user.primary_id,
-                    };
+            catchError((error) => {
+              // TODO-STERN: change text
+              this.finalResult = {
+                type: "error",
+                message:
+                  "Failed to register request for user: " + user.primary_id,
+              };
 
-                    // Throw an error observable to stop further execution
-                    return throwError(error);
-                  })
-                );
+              // Throw an error observable to stop further execution
+              return throwError(error);
             })
           );
-        }),
-        toArray(), // wait for all requests to complete
+      })
+    );
+
+    // forkJoin makes sure that all requests are sent before proceeding to the next steps
+    forkJoin([requestsObservables])
+      .pipe(
         concatMap(() => {
           // check existing requests after sending requests for all interested users
           return this.restService
