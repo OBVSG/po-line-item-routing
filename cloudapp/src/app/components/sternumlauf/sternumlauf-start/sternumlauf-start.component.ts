@@ -24,6 +24,8 @@ export class SternumlaufStartComponent implements OnInit {
   totalProgress: number;
   processed: number = 0;
   isUmlaufStarted = false;
+  runScanIn = false;
+  runLoan = false;
   userSettings: UserSettings;
   finalResult: {
     type: "error" | "success";
@@ -179,6 +181,9 @@ export class SternumlaufStartComponent implements OnInit {
               },
             })
             .pipe(
+              tap(() => {
+                this.runScanIn = true;
+              }),
               catchError((error) => {
                 // Handle any errors from the scan in operation
                 this.finalResult = {
@@ -213,6 +218,10 @@ export class SternumlaufStartComponent implements OnInit {
               },
             })
             .pipe(
+              tap(() => {
+                this.runLoan = true;
+              }),
+              delay(1000),
               catchError((error) => {
                 // Handle any errors from the create user loan operation
                 this.finalResult = {
