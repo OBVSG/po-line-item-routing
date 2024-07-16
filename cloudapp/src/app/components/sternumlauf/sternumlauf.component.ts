@@ -72,6 +72,7 @@ export class SternumlaufComponent implements OnInit {
 
   prepareSternumlauf() {
     this.loading = true;
+    this.alert.clear();
 
     // first check if the item is loaned
     this.restService

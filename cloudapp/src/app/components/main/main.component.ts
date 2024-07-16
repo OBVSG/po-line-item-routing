@@ -47,11 +47,14 @@ export class MainComponent {
     this.apiResult = null;
     this.selectedEntity = null;
     this.isEntityCorrect = false;
+    this.alert.clear();
   }
 
   onEntitySelected(event: MatRadioChange) {
     const value = event.value as Entity;
     this.loading = true;
+    this.alert.clear();
+
     this.restService
       .call<any>(value.link)
       .pipe(finalize(() => (this.loading = false)))
@@ -70,6 +73,7 @@ export class MainComponent {
   // save the order of the users to the Alma API
   saveUsersOrder() {
     this.loading = true;
+    this.alert.clear();
 
     const request: Request = {
       url: this.selectedEntity.link,

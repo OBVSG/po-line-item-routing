@@ -54,6 +54,7 @@ export class RingumlaufComponent implements OnInit {
 
   private loadUsers() {
     this.loading = true;
+    this.alert.clear();
 
     from<InterestedUser[]>(this.apiResult.interested_user)
       .pipe(

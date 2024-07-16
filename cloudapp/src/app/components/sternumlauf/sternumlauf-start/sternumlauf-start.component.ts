@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import {
+  AlertService,
   CloudAppRestService,
   CloudAppSettingsService,
   HttpMethod,
@@ -40,7 +41,8 @@ export class SternumlaufStartComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: SternumlaufStartData,
     private restService: CloudAppRestService,
-    private settingsService: CloudAppSettingsService
+    private settingsService: CloudAppSettingsService,
+    private alert: AlertService
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +57,8 @@ export class SternumlaufStartComponent implements OnInit {
 
   startSternumlauf() {
     this.loading = true;
+    this.alert.clear();
+
     this.processed = 0;
     this.isUmlaufStarted = true;
 
