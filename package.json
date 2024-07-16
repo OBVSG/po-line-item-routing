@@ -1,7 +1,6 @@
 {
   "name": "po-line-item-routing",
-  "version": "0.0.1",
-  "description": "description-TODO",
+  "version": "1.0.0",
   "license": "BSD-3-Clause",
   "private": true,
   "scripts": {

@@ -1,43 +1,25 @@
 {
-   "id": "po-line-item-routing",
-   "title": "PO line item routing",
-   "subtitle": [
-      {
-         "lang": "en",
-         "text": "// TODO-CORE: change text"
-      },
-      {
-         "lang": "de",
-         "text": "// TODO-CORE: change text"
-      }
-   ],
-   "author": "Omid Soleimani",
-   "description": [
-      {
-         "lang": "en",
-         "text": "// TODO-CORE: change text"
-      },
-      {
-         "lang": "de",
-         "text": "// TODO-CORE: change text"
-      }
-   ],
-   "contentSecurity": {
-      "sandbox": {
-         "downloads": true,
-         "modals": true
-      }
-   },
-   "icon": {
-      "type": "url",
-      "value": "/assets/poline.jpg"
-   },
-   "fullscreen": {
-      "allow": true,
-      "open": false
-   },
-   "pages": {
-      "settings": "/#/settings",
-      "help": "/#/help"
-   }
+  "id": "po-line-item-routing",
+  "author": "OBVSG - The Austrian Library Network and Service Ltd",
+  "title": "PO line item routing",
+  "subtitle": "// TODO-CORE: change text",
+  "description": "// TODO-CORE: change text",
+  "contentSecurity": {
+    "sandbox": {
+      "downloads": true,
+      "modals": true
+    }
+  },
+  "icon": {
+    "type": "url",
+    "value": "/assets/poline.jpg"
+  },
+  "fullscreen": {
+    "allow": true,
+    "open": false
+  },
+  "pages": {
+    "settings": "/#/settings",
+    "help": "/#/help"
+  }
 }
