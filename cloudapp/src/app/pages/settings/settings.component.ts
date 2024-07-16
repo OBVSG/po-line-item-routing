@@ -5,7 +5,7 @@ import {
   CloudAppSettingsService,
   FormGroupUtil,
 } from "@exlibris/exl-cloudapp-angular-lib";
-import { UserSettings } from "../../../app.model";
+import { UserSettings } from "../../app.model";
 
 @Component({
   selector: "app-settings",
