@@ -1,4 +1,3 @@
-<!-- TODO-CORE: change text -->
 <button mat-flat-button color="primary" routerLink="/" style="display: block">
   Startseite
 </button>
@@ -9,15 +8,13 @@
 
 <app-loading-spinner *ngIf="saving"></app-loading-spinner>
 
-<!-- TODO-CORE: change text -->
 <app-alert type="error" *ngIf="itemPolicy.length === 0"
-  >item policy list can not be empty</app-alert
+  >Die ItemPolicy-Liste darf nicht leer sein</app-alert
 >
 
 <div *ngIf="settingsForm">
   <mat-card>
     <mat-card-header>
-      <!-- TODO-CORE: change text -->
       <mat-card-title>Item Policy</mat-card-title>
     </mat-card-header>
 
@@ -43,12 +40,10 @@
       </div>
 
       <mat-form-field>
-        <!-- TODO-CORE: change text -->
-        <mat-label>new policy</mat-label>
+        <mat-label>Neue Policy</mat-label>
         <input matInput type="text" #newPolicy />
       </mat-form-field>
 
-      <!-- TODO-CORE: change text -->
       <button
         mat-flat-button
         type="button"
@@ -56,7 +51,7 @@
         (click)="addItemPolicy(newPolicy)"
         [disabled]="newPolicy.value === ''"
       >
-        add policy
+        Policy hinzufügen
       </button>
     </mat-card-content>
   </mat-card>
@@ -67,25 +62,21 @@
     <div formGroupName="sternumlauf">
       <mat-card>
         <mat-card-header>
-          <!-- TODO-CORE: change text -->
           <mat-card-title>Sternumlauf</mat-card-title>
         </mat-card-header>
 
         <mat-card-content>
           <mat-form-field>
-            <!-- TODO-CORE: change text -->
             <mat-label>Location Type</mat-label>
             <input matInput type="text" formControlName="locationType" />
           </mat-form-field>
 
           <mat-form-field>
-            <!-- TODO-CORE: change text -->
             <mat-label>Location Library</mat-label>
             <input matInput type="text" formControlName="locationLibrary" />
           </mat-form-field>
 
           <mat-form-field>
-            <!-- TODO-CORE: change text -->
             <mat-label>Location Circulation Desk</mat-label>
             <input
               matInput
@@ -102,49 +93,41 @@
     <div formGroupName="information">
       <mat-card>
         <mat-card-header>
-          <!-- TODO-CORE: change text -->
-          <mat-card-title>Absender</mat-card-title>
+          <mat-card-title>Absender Informationen</mat-card-title>
         </mat-card-header>
 
         <mat-card-content>
           <mat-form-field>
-            <!-- TODO-CORE: change text -->
-            <mat-label>Title</mat-label>
+            <mat-label>Titel</mat-label>
             <input matInput type="text" formControlName="title" />
           </mat-form-field>
 
           <mat-form-field>
-            <!-- TODO-CORE: change text -->
-            <mat-label>Subtitle</mat-label>
+            <mat-label>Beschreibung</mat-label>
             <input matInput type="text" formControlName="subtitle" />
           </mat-form-field>
 
           <mat-form-field>
-            <!-- TODO-CORE: change text -->
-            <mat-label>Address</mat-label>
+            <mat-label>Adresse</mat-label>
             <input matInput type="text" formControlName="address" />
           </mat-form-field>
 
           <mat-form-field>
-            <!-- TODO-CORE: change text -->
-            <mat-label>Phone</mat-label>
+            <mat-label>Telefonnummer</mat-label>
             <input matInput type="text" formControlName="phone" />
           </mat-form-field>
 
           <mat-form-field>
-            <!-- TODO-CORE: change text -->
-            <mat-label>Email</mat-label>
+            <mat-label>E-mail</mat-label>
             <input matInput type="text" formControlName="email" />
           </mat-form-field>
 
           <mat-form-field>
-            <!-- TODO-CORE: change text -->
             <mat-label>Website</mat-label>
             <input matInput type="text" formControlName="website" />
           </mat-form-field>
 
           <mat-form-field>
-            <!-- TODO-CORE: change text -->
             <mat-label>DVR</mat-label>
             <input matInput type="text" formControlName="dvr" />
           </mat-form-field>
@@ -156,7 +139,6 @@
 
 <br />
 
-<!-- TODO-CORE: change text -->
 <button
   mat-flat-button
   type="button"
@@ -164,5 +146,5 @@
   (click)="save()"
   [disabled]="itemPolicy.length === 0"
 >
-  Save Configuration
+  Speichern
 </button>

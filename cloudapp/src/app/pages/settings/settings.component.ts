@@ -75,13 +75,12 @@ export class SettingsComponent implements OnInit {
 
     this.settingsService.set(settingsToSave).subscribe(
       (_response) => {
-        // TODO-CORE: change text
-        this.alert.success("Settings successfully saved.");
+        this.alert.success("Die Einstellungen wurden erfolgreich gespeichert");
         this.settingsForm.markAsPristine();
       },
       (error) => {
         console.log(error);
-        this.alert.error("Failed to save settings");
+        this.alert.error("Die Einstellungen konnten nicht gespeichert werden");
       },
       () => {
         this.saving = false;
