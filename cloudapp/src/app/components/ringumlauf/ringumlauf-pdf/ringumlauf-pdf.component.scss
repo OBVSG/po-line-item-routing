@@ -4,7 +4,7 @@
   border: 1px solid rgb(197, 197, 197);
 
   #ringumlauf-pdf {
-    padding: 100px 100px 0;
+    padding: 100px 60px 0;
 
     p {
       font-size: 22px;
@@ -25,6 +25,10 @@
       p {
         font-size: 22px;
       }
+
+      & > div {
+        max-width: 40%;
+      }
     }
 
     h3.ringumlauf-pdf-title {
@@ -33,7 +37,7 @@
   }
 
   .ringumlauf-pdf-table {
-    padding: 0 100px;
+    padding: 0 60px;
 
     table {
       width: 100%;

@@ -120,7 +120,7 @@ export class RingumlaufPdfComponent
       autoTable(pdf, {
         theme: "plain",
         startY: imgHeight,
-        margin: { right: 20, left: 20 },
+        margin: { right: 12, left: 12 },
         headStyles: {
           fontSize: 10,
           fillColor: [235, 235, 235],
