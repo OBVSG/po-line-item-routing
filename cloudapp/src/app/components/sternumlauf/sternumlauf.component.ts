@@ -146,7 +146,7 @@ export class SternumlaufComponent implements OnInit {
 
                       if (lastCheckResult.total_record_count === 1) {
                         errorMessage +=
-                          " Eine der Anfragen befindet sich möglicherweise im STATUS 'Bereitstellung' und kann nicht storniert werden";
+                          " Eine der Anfragen befindet sich möglicherweise im status 'Bereitstellung' und kann nicht storniert werden";
                       }
 
                       this.alert.error(errorMessage);
