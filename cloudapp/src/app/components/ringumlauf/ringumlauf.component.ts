@@ -63,9 +63,9 @@ export class RingumlaufComponent implements OnInit {
             .call(`/almaws/v1/users/${user.primary_id}`)
             .pipe(
               catchError((error) => {
-                // TODO-RING: change text
                 this.alert.error(
-                  "Failed to retrieve user info for: " + user.primary_id
+                  "Fehler beim Abrufen der Benutzerinformationen für: " +
+                    user.primary_id
                 );
 
                 // Throw the error again to stop the observable chain
@@ -115,8 +115,9 @@ export class RingumlaufComponent implements OnInit {
         width: "90%",
       });
     } catch (error) {
-      // TODO-RING: change text
-      this.alert.error("The interested users list is not matched");
+      this.alert.error(
+        "Die Reihenfolge der interessierten Benutzer ist nicht korrekt"
+      );
     }
   }
 

@@ -9,8 +9,7 @@
 ></ng-container>
 
 <ng-template #barcodeSelection>
-  <!-- TODO-RING: change text -->
-  <h2 id="barcode-radio-group-label">Please select a barcode:</h2>
+  <h2 id="barcode-radio-group-label">Bitte wählen Sie einen Barcode aus:</h2>
   <mat-radio-group
     aria-labelledby="barcode-radio-group-label"
     [(ngModel)]="selectedBarcode"
@@ -30,19 +29,16 @@
 
       <mat-card-content>
         <p *ngIf="barcode.description">
-          <!-- TODO-RING: change text -->
-          <strong>Description: </strong>{{ barcode.description }}
+          <strong>Beschreibung: </strong>{{ barcode.description }}
         </p>
 
         <p *ngIf="barcode.receive_date">
-          <!-- TODO-RING: change text -->
-          <strong>Receive Date: </strong
+          <strong>Erhaltungsdatum: </strong
           >{{ barcode.receive_date | date : "mediumDate" }}
         </p>
 
         <p *ngIf="barcode.item_policy.desc">
-          <!-- TODO-RING: change text -->
-          <strong>ItemPolicy: </strong>{{ barcode.item_policy.desc }}
+          <strong>Item Policy: </strong>{{ barcode.item_policy.desc }}
         </p>
       </mat-card-content>
     </mat-card>
@@ -52,11 +48,9 @@
   <mat-divider></mat-divider>
   <br />
 
-  <!-- TODO-RING: change text -->
   <h2>Zusatzinformation</h2>
   <div>
     <mat-form-field>
-      <!-- TODO-RING: change text -->
       <mat-label>Lesetage/TeilnehmerIn max:</mat-label>
       <input matInput type="text" [(ngModel)]="readDays" />
       <button
@@ -72,7 +66,6 @@
     </mat-form-field>
 
     <mat-form-field>
-      <!-- TODO-RING: change text -->
       <mat-label>Bemerkung:</mat-label>
       <input matInput type="text" [(ngModel)]="comment" />
       <button
@@ -90,7 +83,6 @@
 
   <br />
 
-  <!-- TODO-RING: change text -->
   <button
     mat-flat-button
     color="primary"
@@ -103,8 +95,7 @@
 </ng-template>
 
 <ng-template #noBarcode>
-  <!-- TODO-RING: change text -->
-  <app-alert type="error"> No ringumlauf barcode found </app-alert>
+  <app-alert type="error">Kein Ringumlauf-Barcode gefunden</app-alert>
 </ng-template>
 
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>

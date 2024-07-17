@@ -1,13 +1,12 @@
-<!-- TODO-RING: change text -->
 <h1 id="ringumlauf-pdf-dialog-title" mat-dialog-title>Ringumlauf PDF</h1>
 
 <mat-dialog-content>
   <ng-container *ngIf="hasSmallWidth; then smallView; else pdf"></ng-container>
 
   <ng-template #smallView>
-    <!-- TODO-RING: change text -->
     <app-alert type="info">
-      make the browser and cloud app fullscreen to see the PDF
+      Stellen Sie sicher, dass der Browser und die Cloud-App im Vollbildmodus
+      angezeigt werden, um das PDF zu sehen
     </app-alert>
   </ng-template>
 
@@ -91,6 +90,8 @@
       >
         Download PDF
       </button>
+
+      <button mat-flat-button color="secondary" mat-dialog-close>Zurück</button>
     </mat-dialog-actions>
   </ng-template>
 </mat-dialog-content>

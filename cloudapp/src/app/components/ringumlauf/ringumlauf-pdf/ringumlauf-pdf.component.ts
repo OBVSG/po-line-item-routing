@@ -120,7 +120,7 @@ export class RingumlaufPdfComponent
       autoTable(pdf, {
         theme: "plain",
         startY: imgHeight,
-        margin: { right: 16, left: 16 },
+        margin: { right: 20, left: 20 },
         headStyles: {
           fontSize: 10,
           fillColor: [235, 235, 235],
@@ -141,11 +141,9 @@ export class RingumlaufPdfComponent
       }-ringumlauf.pdf`;
 
       pdf.save(pdfFileName);
-      // TODO-RING: change text
-      this.alert.success("PDF generated successfully");
+      this.alert.success("PDF wurde erfolgreich erstellt");
     } catch (error) {
-      // TODO-RING: change text
-      this.alert.error("Failed to generate PDF");
+      this.alert.error("Fehler beim Erstellen der PDF");
       console.error(error);
     }
   }
