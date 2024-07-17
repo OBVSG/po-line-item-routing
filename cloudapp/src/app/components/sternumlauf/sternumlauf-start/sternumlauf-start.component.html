@@ -1,22 +1,11 @@
 <mat-dialog-content>
-  <!-- TODO-STERN: change text -->
-  <h2>Sternumlauf is ready to start</h2>
-
-  <!-- TODO-STERN: change text -->
-  <p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae accusamus
-    natus repellendus qui ullam saepe unde ipsam neque, harum asperiores enim
-    suscipit vitae aliquid quia veniam veritatis dolores inventore sunt.
-  </p>
+  <h3>Sternumlauf-Prozess</h3>
 
   <div *ngIf="!isUmlaufStarted">
-    <!-- TODO-STERN: change text -->
     <button mat-flat-button color="primary" (click)="startSternumlauf()">
-      starten
+      Starten
     </button>
   </div>
-
-  <br />
 
   <div *ngIf="loading">
     <div class="sternumlauf-process">
@@ -69,7 +58,6 @@
   <mat-divider></mat-divider>
 
   <mat-dialog-actions align="end">
-    <!-- TODO-STERN: change text -->
-    <button mat-button [disabled]="loading" mat-dialog-close>close</button>
+    <button mat-button [disabled]="loading" mat-dialog-close>Zurück</button>
   </mat-dialog-actions>
 </mat-dialog-content>

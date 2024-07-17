@@ -1,5 +1,3 @@
-import { InternalSymbolName } from "typescript";
-
 export interface InterestedUser {
   email: string;
   primary_id: string;

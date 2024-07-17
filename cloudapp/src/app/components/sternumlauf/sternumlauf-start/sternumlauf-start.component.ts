@@ -12,7 +12,7 @@ import {
   SternumlaufStartData,
   UserSettings,
 } from "../../../app.model";
-import { forkJoin, from, of, throwError } from "rxjs";
+import { forkJoin, from, throwError } from "rxjs";
 import { catchError, concatMap, delay, finalize, tap } from "rxjs/operators";
 
 @Component({
@@ -91,11 +91,11 @@ export class SternumlaufStartComponent implements OnInit {
               this.processed++;
             }),
             catchError((error) => {
-              // TODO-STERN: change text
               this.finalResult = {
                 type: "error",
                 message:
-                  "Failed to register request for user: " + user.primary_id,
+                  "Fehler beim Registrieren der Anfrage für den Benutzer: " +
+                  user.primary_id,
               };
 
               // Throw an error observable to stop further execution
@@ -123,10 +123,9 @@ export class SternumlaufStartComponent implements OnInit {
                   this.data.apiResult.interested_user.length !==
                   result.total_record_count
                 ) {
-                  // TODO-STERN: change text
                   this.finalResult = {
                     type: "error",
-                    message: "Vormerkungen konnten nicht gebildet werden.",
+                    message: "Vormerkungen konnten nicht gebildet werden",
                   };
 
                   // stop the observable chain
@@ -144,10 +143,9 @@ export class SternumlaufStartComponent implements OnInit {
                     this.data.apiResult.interested_user[i].primary_id !==
                     result.user_request[i].user_primary_id
                   ) {
-                    // TODO-STERN: change text
                     this.finalResult = {
                       type: "error",
-                      message: "Requests order mismatch. Cannot loan the item.",
+                      message: "Unstimmigkeit bei der Reihenfolge der Anfragen",
                     };
 
                     throw new InternalAppError();
@@ -160,10 +158,9 @@ export class SternumlaufStartComponent implements OnInit {
               catchError((error) => {
                 // handle errors that is not thrown by the tap operator
                 if (!error.internalError) {
-                  // TODO-STERN: change text
                   this.finalResult = {
                     type: "error",
-                    message: "Failed to perform the final requests check.",
+                    message: "Ein unerwarteter Fehler ist aufgetreten",
                   };
                 }
 
@@ -195,11 +192,10 @@ export class SternumlaufStartComponent implements OnInit {
                 this.runScanIn = "check";
               }),
               catchError((error) => {
-                // TODO-STERN: change text
                 // Handle any errors from the scan in operation
                 this.finalResult = {
                   type: "error",
-                  message: "Failed to perform the scan in operation.",
+                  message: "Fehler beim Ausführen der SCAN-IN-Operation",
                 };
 
                 return throwError(error);
@@ -234,11 +230,10 @@ export class SternumlaufStartComponent implements OnInit {
               }),
               delay(1000),
               catchError((error) => {
-                // TODO-STERN: change text
                 // Handle any errors from the create user loan operation
                 this.finalResult = {
                   type: "error",
-                  message: "Failed to perform the loan operation.",
+                  message: "Fehler beim Ausführen der Ausleihe-Operation",
                 };
 
                 return throwError(error);
@@ -249,10 +244,9 @@ export class SternumlaufStartComponent implements OnInit {
       )
       .subscribe({
         next: (_result: any) => {
-          // TODO-STERN: change text
           this.finalResult = {
             type: "success",
-            message: "Sternumlauf finished successfully.",
+            message: "Der Prozess wurde erfolgreich abgeschlossen",
           };
         },
         error: (error) => {

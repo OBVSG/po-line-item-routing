@@ -1,6 +1,6 @@
 # Publishing
 
+- [ ] alerts and english texts
 - [ ] Help Page
-- [ ] application texts
 - [ ] screenshots (public data)
 - [ ] Developer Network platform texts

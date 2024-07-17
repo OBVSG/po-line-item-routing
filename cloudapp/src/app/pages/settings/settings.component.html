@@ -11,13 +11,13 @@
 <app-loading-spinner *ngIf="saving"></app-loading-spinner>
 
 <app-alert type="error" *ngIf="itemPolicy.length === 0"
-  >Die ItemPolicy-Liste darf nicht leer sein</app-alert
+  >Die Richtlinienliste darf nicht leer sein</app-alert
 >
 
 <div *ngIf="settingsForm">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Item Policy</mat-card-title>
+      <mat-card-title>Examplar-Richtlinie</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -42,7 +42,7 @@
       </div>
 
       <mat-form-field>
-        <mat-label>Neue Policy</mat-label>
+        <mat-label>Neue Richtlinie</mat-label>
         <input matInput type="text" #newPolicy />
       </mat-form-field>
 
@@ -53,7 +53,7 @@
         (click)="addItemPolicy(newPolicy)"
         [disabled]="newPolicy.value === ''"
       >
-        Policy hinzufügen
+        Hinzufügen
       </button>
     </mat-card-content>
   </mat-card>
