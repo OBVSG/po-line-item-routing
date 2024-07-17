@@ -5,16 +5,15 @@
 
   <ng-template #noEntities>
     <br />
-    <!-- TODO-CORE: change text -->
     <app-alert type="info">
-      Navigate to a page in Alma to view a list of entities.
+      Wechseln Sie zu einer Seite in Alma, um eine Liste von Entitäten
+      anzuzeigen.
     </app-alert>
   </ng-template>
 
   <ng-template #entityList>
     <br />
 
-    <!-- TODO-CORE: change text -->
     <button
       mat-flat-button
       color="primary"
@@ -22,7 +21,7 @@
       [disabled]="!selectedEntity"
       style="display: block"
     >
-      Reset App
+      Zurücksetzen
     </button>
 
     <br />
@@ -30,8 +29,7 @@
     <br />
 
     <h2>
-      <!-- TODO-CORE: change text -->
-      <label id="entities-radio-group-label">Select an entity:</label>
+      <label id="entities-radio-group-label">Wählen Sie eine Entität:</label>
     </h2>
 
     <mat-radio-group
@@ -48,9 +46,9 @@
         </mat-radio-button>
       </div>
 
-      <!-- TODO-CORE: change text -->
       <app-alert type="info" *ngIf="!isEntityCorrect">
-        No entity has the correct link. please navigate to a correct page.
+        Keine Entität enthält die korrekten Daten. Bitte navigieren Sie zur
+        entsprechenden Seite
       </app-alert>
     </mat-radio-group>
 
@@ -78,7 +76,6 @@
                 color="primary"
                 (click)="saveUsersOrder()"
                 [disabled]="loading"
-                style="margin-bottom: 20px"
               >
                 Speichern
               </button>
@@ -107,9 +104,9 @@
       </ng-template>
 
       <ng-template #noUserFound>
-        <!-- TODO-CORE: change text -->
         <app-alert type="info"
-          >No interested user found, please navigate to correct page</app-alert
+          >Keine Entität gefunden. Bitte navigieren Sie zur entsprechenden
+          Seite</app-alert
         >
       </ng-template>
     </div>

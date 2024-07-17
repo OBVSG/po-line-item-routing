@@ -17,14 +17,16 @@ import { InterestedUser } from "../../app.model";
 export class InterestedUsersComponent implements OnInit, OnChanges {
   @Input() users: InterestedUser[];
 
+  private originalUserOrder: InterestedUser[];
   private originalOrderHash: string;
   hasUnsavedChanges = false;
 
   constructor() {}
 
   ngOnInit(): void {
-    // Save the original order of the users
+    // Save the original order of the users (also hash of it)
     this.setOriginalOrderHash();
+    this.originalUserOrder = [...this.users];
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -50,6 +52,12 @@ export class InterestedUsersComponent implements OnInit, OnChanges {
   private setOriginalOrderHash() {
     // Save the original order of the users after the component is initialized or the users array changes from the parent
     this.originalOrderHash = this.computeArrayHash(this.users);
+    this.hasUnsavedChanges = false;
+  }
+
+  resetOrder() {
+    // Reset the order of the users to the original order
+    this.users = [...this.originalUserOrder];
     this.hasUnsavedChanges = false;
   }
 }

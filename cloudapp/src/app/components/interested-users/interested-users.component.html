@@ -1,6 +1,9 @@
 <br />
-<!-- TODO-CORE: change text -->
-<h2>change the order of the users</h2>
+<h2>Interessierte Benutzer</h2>
+
+<p>
+  Die Reihenfolge der Benutzer kann durch Ziehen und Ablegen geändert werden
+</p>
 
 <div class="dnd__container">
   <div class="dnd__list dnd__list--index">
@@ -29,10 +32,23 @@
 <br />
 
 <div *ngIf="hasUnsavedChanges">
-  <!-- TODO-CORE: change text -->
   <app-alert type="info">
-    There are unsaved changes. Please save them before leaving this page.
+    Es gibt nicht gespeicherte Änderungen. Bitte speichern Sie diese, bevor Sie
+    die Seite verlassen
   </app-alert>
 
-  <ng-content></ng-content>
+  <div class="interested-users-actions">
+    <ng-content></ng-content>
+
+    <button
+      mat-flat-button
+      color="secondary"
+      (click)="resetOrder()"
+      [disabled]="loading"
+    >
+      Zurücksetzen
+    </button>
+  </div>
+
+  <br />
 </div>

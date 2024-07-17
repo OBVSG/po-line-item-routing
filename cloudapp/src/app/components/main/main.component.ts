@@ -46,7 +46,6 @@ export class MainComponent {
   clear() {
     this.apiResult = null;
     this.selectedEntity = null;
-    this.isEntityCorrect = false;
     this.alert.clear();
   }
 
@@ -64,8 +63,9 @@ export class MainComponent {
         },
         (error) => {
           console.log(error);
-          // TODO-CORE: change text
-          this.alert.error("Failed to retrieve entity data from Alma API");
+          this.alert.error(
+            "Fehler beim Abrufen der Entitätsdaten von der Alma API"
+          );
         }
       );
   }
@@ -87,15 +87,14 @@ export class MainComponent {
       .subscribe({
         next: (result) => {
           this.apiResult = result;
-          this.eventsService.refreshPage().subscribe(() => {
-            // TODO-CORE: change text
-            this.alert.success("Success!");
-          });
+          this.eventsService.refreshPage().subscribe();
         },
         error: (error: RestErrorResponse) => {
-          // TODO-CORE: change text
-          this.alert.error("Failed to update the user list");
+          this.alert.error("Die Änderungen konnten nicht gespeichert werden");
           console.error(error);
+        },
+        complete: () => {
+          this.alert.success("Die Änderungen wurden erfolgreich gespeichert");
         },
       });
   }
