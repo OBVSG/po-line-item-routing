@@ -33,7 +33,7 @@
         </p>
 
         <p *ngIf="barcode.receive_date">
-          <strong>Erhaltungsdatum: </strong
+          <strong>Eingangsdatum: </strong
           >{{ barcode.receive_date | date : "mediumDate" }}
         </p>
 
@@ -58,15 +58,15 @@
       <app-alert type="info">
         <div>
           <p>
-            <strong>Location Type: </strong
+            <strong>Standorttyp: </strong
             >{{ userSettings.sternumlauf.locationType }}
           </p>
           <p>
-            <strong>Location Library: </strong
+            <strong>Bibliothekscode: </strong
             >{{ userSettings.sternumlauf.locationLibrary }}
           </p>
           <p style="margin: 0">
-            <strong>Location Circulation Desk: </strong
+            <strong>Code des Ausleihschalters: </strong
             >{{ userSettings.sternumlauf.locationCirculationDesk }}
           </p>
         </div>
