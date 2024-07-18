@@ -70,12 +70,22 @@
         <mat-card-content>
           <mat-form-field>
             <mat-label>Standorttyp</mat-label>
-            <input matInput type="text" formControlName="locationType" />
+            <input
+              matInput
+              type="text"
+              formControlName="locationType"
+              placeholder="LIBRARY"
+            />
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>Bibliothekscode</mat-label>
-            <input matInput type="text" formControlName="locationLibrary" />
+            <input
+              matInput
+              type="text"
+              formControlName="locationLibrary"
+              placeholder="MUS"
+            />
           </mat-form-field>
 
           <mat-form-field>
@@ -84,8 +94,19 @@
               matInput
               type="text"
               formControlName="locationCirculationDesk"
+              placeholder="DEFAULT_CIRC_DESK"
             />
           </mat-form-field>
+
+          <br />
+          <button
+            mat-flat-button
+            type="button"
+            color="primary"
+            (click)="resetSternumlaufSettings()"
+          >
+            Zurücksetzen
+          </button>
         </mat-card-content>
       </mat-card>
     </div>
@@ -150,3 +171,6 @@
 >
   Speichern
 </button>
+
+<br />
+<br />

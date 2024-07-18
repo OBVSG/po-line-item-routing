@@ -1,25 +1,25 @@
 {
-  "id": "po-line-item-routing",
-  "title": "PO line item routing",
-  "subtitle": "// TODO-MANIFEST: change text",
-  "author": "OBVSG - The Austrian Library Network and Service Ltd",
-  "description": "// TODO-MANIFEST: change text",
-  "contentSecurity": {
-    "sandbox": {
-      "downloads": true,
-      "modals": true
-    }
-  },
-  "icon": {
-    "type": "url",
-    "value": "/assets/poline.jpg"
-  },
-  "fullscreen": {
-    "allow": true,
-    "open": false
-  },
-  "pages": {
-    "settings": "/#/settings",
-    "help": "/#/help"
-  }
+   "id": "po-line-item-routing",
+   "title": "PO line item routing",
+   "subtitle": "// TODO-MANIFEST: change text",
+   "author": "OBVSG - The Austrian Library Network and Service Ltd",
+   "description": "// TODO-MANIFEST: change text",
+   "contentSecurity": {
+      "sandbox": {
+         "downloads": true,
+         "modals": true
+      }
+   },
+   "icon": {
+      "type": "url",
+      "value": "/assets/poline.jpg"
+   },
+   "fullscreen": {
+      "allow": true,
+      "open": false
+   },
+   "pages": {
+      "settings": "/#/settings",
+      "help": "/#/help"
+   }
 }

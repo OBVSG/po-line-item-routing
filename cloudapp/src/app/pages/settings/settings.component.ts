@@ -14,7 +14,7 @@ import { UserSettings } from "../../app.model";
 })
 export class SettingsComponent implements OnInit {
   settingsForm: FormGroup;
-  itemPolicy: string[] = ["STAR_EXAMPLE", "SU_EXAMPLE"];
+  itemPolicy: string[] = ["SU_WEEK", "SU_MONTH", "SU_QUARTERLY"];
   saving = false;
 
   constructor(
@@ -63,6 +63,14 @@ export class SettingsComponent implements OnInit {
     if (index >= 0) {
       this.itemPolicy.splice(index, 1);
     }
+  }
+
+  resetSternumlaufSettings() {
+    this.settingsForm.get("sternumlauf").reset({
+      locationType: "LIBRARY",
+      locationLibrary: "MUS",
+      locationCirculationDesk: "DEFAULT_CIRC_DESK",
+    });
   }
 
   save() {
