@@ -17,13 +17,13 @@ To install and use the correct version of Node.js, run:
 nvm install && nvm use
 ```
 
-Next, install the dependencies by running:
+Next, install the ECA dependency:
 
 ```sh
-npm install
+npm install -g @exlibris/exl-cloudapp-cli
 ```
 
-then start the development server by running:
+then start the development server:
 
 ```sh
 npm start

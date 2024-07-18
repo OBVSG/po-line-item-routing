@@ -4,7 +4,6 @@
   "license": "BSD-3-Clause",
   "private": true,
   "scripts": {
-    "preinstall": "npm install -g @exlibris/exl-cloudapp-cli",
     "start": "eca start",
     "generate": "eca generate",
     "extract": "eca extract-labels",
