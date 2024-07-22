@@ -1,9 +1,8 @@
 {
    "id": "po-line-item-routing",
    "title": "PO line item routing",
-   "subtitle": "// TODO-MANIFEST: change text",
+   "subtitle": "Sort interested users and manage item routing for a PO line",
    "author": "OBVSG - The Austrian Library Network and Service Ltd",
-   "description": "// TODO-MANIFEST: change text",
    "contentSecurity": {
       "sandbox": {
          "downloads": true,
