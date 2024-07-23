@@ -1,24 +1,24 @@
 {
-   "id": "po-line-item-routing",
-   "title": "PO line item routing",
-   "subtitle": "Sort interested users and manage item routing for a PO line",
-   "author": "OBVSG - The Austrian Library Network and Service Ltd",
-   "contentSecurity": {
-      "sandbox": {
-         "downloads": true,
-         "modals": true
-      }
-   },
-   "icon": {
-      "type": "url",
-      "value": "/assets/poline.jpg"
-   },
-   "fullscreen": {
-      "allow": true,
-      "open": false
-   },
-   "pages": {
-      "settings": "/#/settings",
-      "help": "/#/help"
-   }
+  "id": "po-line-item-routing",
+  "title": "PO Line Item Routing",
+  "subtitle": "Sort interested users and manage item routing for a PO line",
+  "author": "OBVSG - The Austrian Library Network and Service Ltd",
+  "contentSecurity": {
+    "sandbox": {
+      "downloads": true,
+      "modals": true
+    }
+  },
+  "icon": {
+    "type": "url",
+    "value": "/assets/poline.jpg"
+  },
+  "fullscreen": {
+    "allow": true,
+    "open": false
+  },
+  "pages": {
+    "settings": "/#/settings",
+    "help": "/#/help"
+  }
 }
