@@ -1,76 +1,44 @@
 <br />
 
 <button mat-flat-button color="primary" routerLink="/" style="display: block">
-  Startseite
+  {{ "Translate.pages.help.button.home" | translate }}
 </button>
 
 <br />
 <mat-divider></mat-divider>
 <br />
 
-<!-- TODO: help page -->
-<p>
-  Die Cloud App funktioniert innerhalb des Alma Menüs einer PO Line. Ist die PO
-  Line offen, wird die Cloud App durch Klicken auf den Titel aktiviert.
-</p>
+<p translate>Translate.pages.help.content.overall.desc</p>
 
-<h3>
-  1. Zuerst sollen die Einstellungen via dem Zahnrad Menü angepasst werden:
-</h3>
+<h3 translate>Translate.pages.help.content.settings.header</h3>
 
 <ul>
-  <li>
-    Eintragung aller Item Policy Codes, für die die Umläufe möglich sein sollen
-  </li>
-  <li>
-    Eintragung des Bibliotheks-Codes, von wo aus die Entlehnungen stattfinden
-  </li>
-  <li>
-    Eintragung des Ausleihschalter-Codes, von wo aus die Entlehnungen
-    stattfinden
-  </li>
-  <li>
-    Eintragung des Absender Briefkopfes für die Erstellung des Ringumlauf
-    Zettels
-  </li>
+  <li translate>Translate.pages.help.content.settings.list.item1</li>
+  <li translate>Translate.pages.help.content.settings.list.item2</li>
+  <li translate>Translate.pages.help.content.settings.list.item3</li>
+  <li translate>Translate.pages.help.content.settings.list.item4</li>
 </ul>
 
-<h3>2. Die Cloud App hat zwei Bereiche</h3>
+<h3 translate>Translate.pages.help.content.area.header</h3>
 
-<h4>Benutzer</h4>
-<p>Hier kann die Liste der Umlaufteilnehmer eingesehen und sortiert werden</p>
+<h4 translate>Translate.pages.help.content.area.users.header</h4>
+<p translate>Translate.pages.help.content.area.users.paragraph</p>
 
-<h4>Ring/Sternumlauf</h4>
+<h4 translate>Translate.pages.help.content.area.circulation.header</h4>
 
-<p>
-  Hier kann ein Ring- oder Sternumlauf für ein konkretes Exemplar gestartet
-  werden
-</p>
+<p translate>Translate.pages.help.content.area.circulation.paragraph</p>
 
 <ul>
-  <li>
-    Die Ring/Sternumlauf Anzeige hängt davon ab, ob im 5. Reporting Code "RING"
-    oder "STERN" eingetragen ist
-  </li>
-  <li>
-    Die Anzeige der Exemplare, die in den Umlauf geschickt werden können, hängt
-    davon hab, ob ein Barcode eingetragen ist
-  </li>
+  <li translate>Translate.pages.help.content.area.circulation.list.item1</li>
+  <li translate>Translate.pages.help.content.area.circulation.list.item2</li>
 </ul>
 
-<h3>3. Verwendung Ringumlauf</h3>
+<h3 translate>Translate.pages.help.content.ring.header</h3>
 
-<p>
-  Durch wählen eines Exemplars und starten des Umlaufs wird ein PDF Dokument
-  erzeugt mit der Liste der Umlaufteilnehmerinnen. Das Werk sollte händisch
-  entlehnt werden und ggf. die Ausleihdauer angepasst.
-</p>
+<p translate>Translate.pages.help.content.ring.paragraph</p>
 
-<h3>4. Verwendung Sternumlauf</h3>
+<h3 translate>Translate.pages.help.content.star.header</h3>
 
-<p>
-  Beim Sternumlauf erzeugt die Applikation für alle Teilnehmer eine Vormerkung
-  sowie gleich die Ausleihe für die erste Person. Externer Teil der Applikation:
-  wird später das Werk als Rückgabe verbucht, erfolgt die Ausleihe an die
-  nächste Person automatisch.
-</p>
+<p translate>Translate.pages.help.content.star.paragraph</p>
+
+<p translate>Translate.pages.help.content.overall.footer</p>

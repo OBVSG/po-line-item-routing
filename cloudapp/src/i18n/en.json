@@ -1,0 +1,49 @@
+{
+  "Translate": {
+    "pages": {
+      "help": {
+        "button": {
+          "home": "Home"
+        },
+        "content": {
+          "overall": {
+            "desc": "Die Cloud App funktioniert innerhalb des Alma Menüs einer PO Line. Ist die PO Line offen, wird die Cloud App durch Klicken auf den Titel aktiviert.",
+            "footer": "Externer Teil der Applikation: wird später das Werk als Rückgabe verbucht, erfolgt die Ausleihe an die nächste Person automatisch."
+          },
+          "settings": {
+            "header": "1. Zuerst sollen die Einstellungen via dem Zahnrad Menü angepasst werden",
+            "list": {
+              "item1": "Eintragung aller Item Policy Codes, für die die Umläufe möglich sein sollen",
+              "item2": "Eintragung des Bibliotheks-Codes, von wo aus die Entlehnungen stattfinden",
+              "item3": "Eintragung des Ausleihschalter-Codes, von wo aus die Entlehnungen stattfinden",
+              "item4": "Eintragung des Absender Briefkopfes für die Erstellung des Ringumlauf Zettels"
+            }
+          },
+          "area": {
+            "header": "2. Die Cloud App hat zwei Bereiche",
+            "users": {
+              "header": "Benutzer",
+              "paragraph": "Hier kann die Liste der Umlaufteilnehmer eingesehen und sortiert werden."
+            },
+            "circulation": {
+              "header": "Ring/Sternumlauf",
+              "list": {
+                "item1": "Die Ring/Sternumlauf Anzeige hängt davon ab, ob im 5. Reporting Code \"RING\" oder \"STERN\" eingetragen ist",
+                "item2": "Die Anzeige der Exemplare, die in den Umlauf davon ab, ob ein Barcode eingetragen ist"
+              },
+              "paragraph": "Hier kann ein Ring- oder Sternumlauf für ein konkretes Exemplar gestartet werden."
+            }
+          },
+          "ring": {
+            "header": "3. Verwendung Ringumlauf",
+            "paragraph": "Durch wählen eines Exemplars und starten des Umlaufs wird ein PDF Dokument erzeugt mit der Liste der Umlaufteilnehmerinnen. Das Werk sollte händisch entlehnt werden und ggf. die Ausleihdauer angepasst."
+          },
+          "star": {
+            "header": "4. Verwendung Sternumlauf",
+            "paragraph": "Beim Sternumlauf erzeugt die Applikation für alle Teilnehmer eine Vormerkung sowie gleich die Ausleihe für die erste Person."
+          }
+        }
+      }
+    }
+  }
+}

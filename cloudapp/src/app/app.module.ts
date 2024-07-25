@@ -3,7 +3,6 @@ import { registerLocaleData } from "@angular/common";
 import localeDeAt from "@angular/common/locales/de-AT";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserModule } from "@angular/platform-browser";
-import { Routes, RouterModule } from "@angular/router";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -24,16 +23,7 @@ import { AlertComponent } from "./components/shared/alert/alert.component";
 import { SternumlaufStartComponent } from "./components/sternumlauf/sternumlauf-start/sternumlauf-start.component";
 import { HelpComponent } from "./pages/help/help.component";
 import { SettingsComponent } from "./pages/settings/settings.component";
-
-// App routes
-const routes: Routes = [
-  {
-    path: "",
-    component: MainComponent,
-  },
-  { path: "settings", component: SettingsComponent },
-  { path: "help", component: HelpComponent },
-];
+import { AppRoutingModule } from "./app-routing.module";
 
 // Register locale data
 registerLocaleData(localeDeAt);
@@ -61,7 +51,7 @@ registerLocaleData(localeDeAt);
     FormsModule,
     ReactiveFormsModule,
     CloudAppTranslateModule.forRoot(),
-    RouterModule.forRoot(routes, { useHash: true }),
+    AppRoutingModule,
   ],
   providers: [
     {
