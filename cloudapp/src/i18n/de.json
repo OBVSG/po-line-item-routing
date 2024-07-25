@@ -8,7 +8,10 @@
         "content": {
           "overall": {
             "desc": "Die Cloud App funktioniert innerhalb des Alma Menüs einer PO Line. Ist die PO Line offen, wird die Cloud App durch Klicken auf den Titel aktiviert.",
-            "footer": "Externer Teil der Applikation: wird später das Werk als Rückgabe verbucht, erfolgt die Ausleihe an die nächste Person automatisch."
+            "footer": {
+              "header": "Externer Teil der Applikation",
+              "paragraph": "Das wird später das Werk als Rückgabe verbucht, erfolgt die Ausleihe an die nächste Person automatisch."
+            }
           },
           "settings": {
             "header": "1. Zuerst sollen die Einstellungen via dem Zahnrad Menü angepasst werden",

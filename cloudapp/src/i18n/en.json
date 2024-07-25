@@ -7,40 +7,43 @@
         },
         "content": {
           "overall": {
-            "desc": "Die Cloud App funktioniert innerhalb des Alma Menüs einer PO Line. Ist die PO Line offen, wird die Cloud App durch Klicken auf den Titel aktiviert.",
-            "footer": "Externer Teil der Applikation: wird später das Werk als Rückgabe verbucht, erfolgt die Ausleihe an die nächste Person automatisch."
+            "desc": "The cloud app works within the Alma menu of a PO line. If the PO line is open, the cloud app is activated by clicking on the title.",
+            "footer": {
+              "header": "External part of the application",
+              "paragraph": "If the item is later returned, the loan to the next person will occur automatically."
+            }
           },
           "settings": {
-            "header": "1. Zuerst sollen die Einstellungen via dem Zahnrad Menü angepasst werden",
+            "header": "1. First, the settings should be adjusted via the gear menu",
             "list": {
-              "item1": "Eintragung aller Item Policy Codes, für die die Umläufe möglich sein sollen",
-              "item2": "Eintragung des Bibliotheks-Codes, von wo aus die Entlehnungen stattfinden",
-              "item3": "Eintragung des Ausleihschalter-Codes, von wo aus die Entlehnungen stattfinden",
-              "item4": "Eintragung des Absender Briefkopfes für die Erstellung des Ringumlauf Zettels"
+              "item1": "Entry of all item policy codes for which circulations should be possible",
+              "item2": "Entry of the library code from which the loans are made",
+              "item3": "Entry of the circulation desk code from which the loans are processed",
+              "item4": "Entry of the sender's letterhead for the creation of the circulation slip"
             }
           },
           "area": {
-            "header": "2. Die Cloud App hat zwei Bereiche",
+            "header": "2. The cloud app has two sections",
             "users": {
-              "header": "Benutzer",
-              "paragraph": "Hier kann die Liste der Umlaufteilnehmer eingesehen und sortiert werden."
+              "header": "Users",
+              "paragraph": "Here, you can view and sort the list of circulation participants."
             },
             "circulation": {
-              "header": "Ring/Sternumlauf",
+              "header": "Ring/Star circulation",
               "list": {
-                "item1": "Die Ring/Sternumlauf Anzeige hängt davon ab, ob im 5. Reporting Code \"RING\" oder \"STERN\" eingetragen ist",
-                "item2": "Die Anzeige der Exemplare, die in den Umlauf davon ab, ob ein Barcode eingetragen ist"
+                "item1": "The ring/star circulation display depends on whether \"RING\" or \"STAR\" is entered in the 5th reporting code.",
+                "item2": "The display of the items in circulation depends on whether a barcode is entered."
               },
               "paragraph": "Hier kann ein Ring- oder Sternumlauf für ein konkretes Exemplar gestartet werden."
             }
           },
           "ring": {
-            "header": "3. Verwendung Ringumlauf",
-            "paragraph": "Durch wählen eines Exemplars und starten des Umlaufs wird ein PDF Dokument erzeugt mit der Liste der Umlaufteilnehmerinnen. Das Werk sollte händisch entlehnt werden und ggf. die Ausleihdauer angepasst."
+            "header": "3. Use of ring circulation",
+            "paragraph": "By selecting an item and starting the circulation, a PDF document is generated with the list of circulation participants. The item should be manually checked out, and the loan duration may need to be adjusted if necessary."
           },
           "star": {
-            "header": "4. Verwendung Sternumlauf",
-            "paragraph": "Beim Sternumlauf erzeugt die Applikation für alle Teilnehmer eine Vormerkung sowie gleich die Ausleihe für die erste Person."
+            "header": "4. Use of star circulation",
+            "paragraph": "In star circulation, the application creates a reservation for all participants and immediately processes the loan for the first person."
           }
         }
       }
