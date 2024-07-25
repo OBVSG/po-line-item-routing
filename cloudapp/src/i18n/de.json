@@ -46,6 +46,17 @@
             "paragraph": "Beim Sternumlauf erzeugt die Applikation für alle Teilnehmer eine Vormerkung sowie gleich die Ausleihe für die erste Person."
           }
         }
+      },
+      "settings": {}
+    },
+    "components": {
+      "main": {},
+      "interestedUsers": {},
+      "ringumlauf": {
+        "pdf": {}
+      },
+      "sternumlauf": {
+        "start": {}
       }
     }
   }

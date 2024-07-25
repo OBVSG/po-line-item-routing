@@ -46,6 +46,17 @@
             "paragraph": "In star circulation, the application creates a reservation for all participants and immediately processes the loan for the first person."
           }
         }
+      },
+      "settings": {}
+    },
+    "components": {
+      "main": {},
+      "interestedUsers": {},
+      "ringumlauf": {
+        "pdf": {}
+      },
+      "sternumlauf": {
+        "start": {}
       }
     }
   }
