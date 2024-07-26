@@ -9,6 +9,7 @@ import { from, throwError } from "rxjs";
 import { catchError, concatMap, finalize, toArray } from "rxjs/operators";
 import { MatDialog } from "@angular/material/dialog";
 import { RingumlaufPdfComponent } from "../ringumlauf/ringumlauf-pdf/ringumlauf-pdf.component";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-ringumlauf",
@@ -29,7 +30,8 @@ export class RingumlaufComponent implements OnInit {
   constructor(
     private restService: CloudAppRestService,
     private alert: AlertService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -64,8 +66,10 @@ export class RingumlaufComponent implements OnInit {
             .pipe(
               catchError((error) => {
                 this.alert.error(
-                  "Fehler beim Abrufen der Benutzerinformationen für: " +
-                    user.primary_id
+                  this.translate.instant(
+                    "Translate.components.ringumlauf.componentFile.userInfoFailure",
+                    { userId: user.primary_id }
+                  )
                 );
 
                 // Throw the error again to stop the observable chain
@@ -116,7 +120,9 @@ export class RingumlaufComponent implements OnInit {
       });
     } catch (error) {
       this.alert.error(
-        "Die Reihenfolge der interessierten Benutzer ist nicht korrekt"
+        this.translate.instant(
+          "Translate.components.ringumlauf.componentFile.wrongUserOrder"
+        )
       );
     }
   }

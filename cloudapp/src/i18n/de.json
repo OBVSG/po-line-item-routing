@@ -6,7 +6,8 @@
         "reset": "Zurücksetzen",
         "start": "Starten",
         "save": "Speichern",
-        "add": "Hinzufügen"
+        "add": "Hinzufügen",
+        "back": "Zurück"
       }
     },
     "pages": {
@@ -114,11 +115,46 @@
         "desc": "Die Reihenfolge der Benutzer kann durch Ziehen und Ablegen geändert werden"
       },
       "ringumlauf": {
-        "pdf": {}
+        "componentFile": {
+          "userInfoFailure": "Fehler beim Abrufen der Benutzerinformationen für {{userId}}",
+          "wrongUserOrder": "Die Reihenfolge der interessierten Benutzer ist nicht korrekt"
+        },
+        "alert": {
+          "noBarcode": "Kein Ringumlauf-Barcode gefunden"
+        },
+        "header": "Bitte wählen Sie einen Barcode aus:",
+        "desc": "Beschreibung: ",
+        "receiveDate": "Eingangsdatum: ",
+        "button": "Ringumlauf starten",
+        "form": {
+          "header": "Zusatzinformation",
+          "readDays": "Lesetage/TeilnehmerIn max:",
+          "notice": "Bemerkung:"
+        }
       },
-      "sternumlauf": {
-        "start": {}
-      }
+      "ringumlaufPdf": {
+        "componentFile": {
+          "pdfSuccess": "PDF wurde erfolgreich erstellt",
+          "pdfFailure": "Fehler beim Erstellen der PDF"
+        },
+        "alert": {
+          "smallScreen": "Stellen Sie sicher, dass der Browser und die Cloud-App im Vollbildmodus angezeigt werden, um das PDF zu sehen"
+        },
+        "header": "Ringumlauf PDF",
+        "title": "Umlauf-/Entlehnliste",
+        "information": {
+          "readDays": "Lesetage/TeilnehmerIn max:",
+          "notice": "Bemerkung:"
+        },
+        "table": {
+          "firstName": "Vorname",
+          "lastName": "Nachname",
+          "address": "Adresse"
+        },
+        "button": "PDF Herunterladen"
+      },
+      "sternumlauf": {},
+      "sternumlaufStart": {}
     }
   }
 }

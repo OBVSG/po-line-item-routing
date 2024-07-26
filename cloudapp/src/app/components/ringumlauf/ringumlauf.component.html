@@ -9,7 +9,9 @@
 ></ng-container>
 
 <ng-template #barcodeSelection>
-  <h2 id="barcode-radio-group-label">Bitte wählen Sie einen Barcode aus:</h2>
+  <h2 id="barcode-radio-group-label" translate>
+    Translate.components.ringumlauf.header
+  </h2>
   <mat-radio-group
     aria-labelledby="barcode-radio-group-label"
     [(ngModel)]="selectedBarcode"
@@ -29,11 +31,12 @@
 
       <mat-card-content>
         <p *ngIf="barcode.description">
-          <strong>Beschreibung: </strong>{{ barcode.description }}
+          <strong translate>Translate.components.ringumlauf.desc</strong
+          >{{ barcode.description }}
         </p>
 
         <p *ngIf="barcode.receive_date">
-          <strong>Eingangsdatum: </strong
+          <strong translate>Translate.components.ringumlauf.receiveDate</strong
           >{{ barcode.receive_date | date : "mediumDate" }}
         </p>
 
@@ -48,10 +51,12 @@
   <mat-divider></mat-divider>
   <br />
 
-  <h2>Zusatzinformation</h2>
+  <h2 translate>Translate.components.ringumlauf.form.header</h2>
   <div>
     <mat-form-field>
-      <mat-label>Lesetage/TeilnehmerIn max:</mat-label>
+      <mat-label translate
+        >Translate.components.ringumlauf.form.readDays</mat-label
+      >
       <input matInput type="text" [(ngModel)]="readDays" />
       <button
         mat-button
@@ -66,7 +71,9 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Bemerkung:</mat-label>
+      <mat-label translate
+        >Translate.components.ringumlauf.form.notice</mat-label
+      >
       <input matInput type="text" [(ngModel)]="comment" />
       <button
         mat-button
@@ -90,12 +97,14 @@
     [disabled]="loading"
     style="margin-bottom: 20px"
   >
-    Ringumlauf Starten
+    {{ "Translate.components.ringumlauf.button" | translate }}
   </button>
 </ng-template>
 
 <ng-template #noBarcode>
-  <app-alert type="error">Kein Ringumlauf-Barcode gefunden</app-alert>
+  <app-alert type="error">{{
+    "Translate.components.ringumlauf.alert.noBarcode" | translate
+  }}</app-alert>
 </ng-template>
 
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>

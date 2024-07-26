@@ -1,19 +1,22 @@
-<h1 id="ringumlauf-pdf-dialog-title" mat-dialog-title>Ringumlauf PDF</h1>
+<h1 id="ringumlauf-pdf-dialog-title" mat-dialog-title translate>
+  Translate.components.ringumlaufPdf.header
+</h1>
 
 <mat-dialog-content>
   <ng-container *ngIf="hasSmallWidth; then smallView; else pdf"></ng-container>
 
   <ng-template #smallView>
     <app-alert type="info">
-      Stellen Sie sicher, dass der Browser und die Cloud-App im Vollbildmodus
-      angezeigt werden, um das PDF zu sehen
+      {{ "Translate.components.ringumlaufPdf.alert.smallScreen" | translate }}
     </app-alert>
   </ng-template>
 
   <ng-template #pdf>
     <div class="ringumlauf-pdf-container">
       <div id="ringumlauf-pdf">
-        <h2 class="ringumlauf-pdf-header">Umlauf-/Entlehnliste</h2>
+        <h2 class="ringumlauf-pdf-header" translate>
+          Translate.components.ringumlaufPdf.title
+        </h2>
 
         <br />
         <br />
@@ -47,8 +50,21 @@
 
         <div>
           <p>Barcode: {{ data.barcode }}</p>
-          <p>Lesetage/TeilnehmerIn max: {{ data.readDays }}</p>
-          <p>Bemerkung: {{ data.comment }}</p>
+
+          <p>
+            {{
+              "Translate.components.ringumlaufPdf.information.readDays"
+                | translate
+            }}
+            {{ data.readDays }}
+          </p>
+          <p>
+            {{
+              "Translate.components.ringumlaufPdf.information.notice"
+                | translate
+            }}
+            {{ data.comment }}
+          </p>
         </div>
 
         <br />
@@ -59,9 +75,15 @@
         <table>
           <thead>
             <tr>
-              <th>Vorname</th>
-              <th>Nachname</th>
-              <th>Adresse</th>
+              <th translate>
+                Translate.components.ringumlaufPdf.table.firstName
+              </th>
+              <th translate>
+                Translate.components.ringumlaufPdf.table.lastName
+              </th>
+              <th translate>
+                Translate.components.ringumlaufPdf.table.address
+              </th>
             </tr>
           </thead>
 
@@ -88,10 +110,12 @@
         cdkFocusInitial
         (click)="generatePdf()"
       >
-        Download PDF
+        {{ "Translate.components.ringumlaufPdf.button" | translate }}
       </button>
 
-      <button mat-flat-button color="secondary" mat-dialog-close>Zurück</button>
+      <button mat-flat-button color="secondary" mat-dialog-close>
+        {{ "Translate.shared.button.back" | translate }}
+      </button>
     </mat-dialog-actions>
   </ng-template>
 </mat-dialog-content>

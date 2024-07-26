@@ -6,7 +6,8 @@
         "reset": "Reset",
         "start": "Start",
         "save": "Save",
-        "add": "Add"
+        "add": "Add",
+        "back": "Back"
       }
     },
     "pages": {
@@ -114,11 +115,46 @@
         "desc": "The order of users can be changed by dragging and dropping"
       },
       "ringumlauf": {
-        "pdf": {}
+        "componentFile": {
+          "userInfoFailure": "An error occurred while retrieving user data for {{userId}}",
+          "wrongUserOrder": "The order of interested users is incompatible to the Alma"
+        },
+        "alert": {
+          "noBarcode": "No ring circulation barcode found"
+        },
+        "header": "Please select a barcode:",
+        "desc": "Description: ",
+        "receiveDate": "Receive date: ",
+        "button": "Start ring circulation",
+        "form": {
+          "header": "Additional information",
+          "readDays": "Max reading days per user:",
+          "notice": "Notice:"
+        }
       },
-      "sternumlauf": {
-        "start": {}
-      }
+      "ringumlaufPdf": {
+        "componentFile": {
+          "pdfSuccess": "The PDF has been successfully generated",
+          "pdfFailure": "An error occurred while creating the PDF"
+        },
+        "alert": {
+          "smallScreen": "Please ensure that both the browser and cloud app are in full-screen mode to view the PDF"
+        },
+        "header": "Ring circulation PDF",
+        "title": "Routing list",
+        "information": {
+          "readDays": "Max reading days per user:",
+          "notice": "Notice:"
+        },
+        "table": {
+          "firstName": "First name",
+          "lastName": "Last name",
+          "address": "Address"
+        },
+        "button": "Download PDF"
+      },
+      "sternumlauf": {},
+      "sternumlaufStart": {}
     }
   }
 }

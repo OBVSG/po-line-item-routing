@@ -16,6 +16,7 @@ import {
   CloudAppSettingsService,
 } from "@exlibris/exl-cloudapp-angular-lib";
 import autoTable from "jspdf-autotable";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-ringumlauf-pdf",
@@ -41,7 +42,8 @@ export class RingumlaufPdfComponent
     @Inject(MAT_DIALOG_DATA) public data: RingumlaufPdfData,
     private elementRef: ElementRef,
     private alert: AlertService,
-    private settingsService: CloudAppSettingsService
+    private settingsService: CloudAppSettingsService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -128,7 +130,19 @@ export class RingumlaufPdfComponent
         bodyStyles: {
           fontSize: 10,
         },
-        head: [["Vorname", "Nachname", "Adresse"]],
+        head: [
+          [
+            this.translate.instant(
+              "Translate.components.ringumlaufPdf.table.firstName"
+            ),
+            this.translate.instant(
+              "Translate.components.ringumlaufPdf.table.lastName"
+            ),
+            this.translate.instant(
+              "Translate.components.ringumlaufPdf.table.address"
+            ),
+          ],
+        ],
         body: this.usersList.map((user) => [
           user.firstName,
           user.lastName,
@@ -141,10 +155,18 @@ export class RingumlaufPdfComponent
       }-ringumlauf.pdf`;
 
       pdf.save(pdfFileName);
-      this.alert.success("PDF wurde erfolgreich erstellt");
+      this.alert.success(
+        this.translate.instant(
+          "Translate.components.ringumlaufPdf.componentFile.pdfSuccess"
+        )
+      );
     } catch (error) {
-      this.alert.error("Fehler beim Erstellen der PDF");
       console.error(error);
+      this.alert.error(
+        this.translate.instant(
+          "Translate.components.ringumlaufPdf.componentFile.pdfFailure"
+        )
+      );
     }
   }
 }
