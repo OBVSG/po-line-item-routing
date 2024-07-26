@@ -106,7 +106,13 @@
           "sternumlauf": "Sternumlauf"
         }
       },
-      "interestedUsers": {},
+      "interestedUsers": {
+        "alert": {
+          "changesToSave": "Es gibt nicht gespeicherte Änderungen. Bitte speichern Sie diese, bevor Sie die Seite verlassen"
+        },
+        "header": "Interessierte Benutzer",
+        "desc": "Die Reihenfolge der Benutzer kann durch Ziehen und Ablegen geändert werden"
+      },
       "ringumlauf": {
         "pdf": {}
       },

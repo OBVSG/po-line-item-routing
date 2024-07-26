@@ -106,7 +106,13 @@
           "sternumlauf": "Star circulation"
         }
       },
-      "interestedUsers": {},
+      "interestedUsers": {
+        "alert": {
+          "changesToSave": "There are unsaved changes. Please save them before leaving the page"
+        },
+        "header": "Interested users",
+        "desc": "The order of users can be changed by dragging and dropping"
+      },
       "ringumlauf": {
         "pdf": {}
       },
