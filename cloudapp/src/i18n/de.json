@@ -1,10 +1,16 @@
 {
   "Translate": {
+    "shared": {
+      "button": {
+        "home": "Startseite",
+        "reset": "Zurücksetzen",
+        "start": "Starten",
+        "save": "Speichern",
+        "add": "Hinzufügen"
+      }
+    },
     "pages": {
       "help": {
-        "button": {
-          "home": "Startseite"
-        },
         "content": {
           "overall": {
             "desc": "Die Cloud App funktioniert innerhalb des Alma Menüs einer PO Line. Ist die PO Line offen, wird die Cloud App durch Klicken auf den Titel aktiviert.",
@@ -47,7 +53,39 @@
           }
         }
       },
-      "settings": {}
+      "settings": {
+        "componentFile": {
+          "saveSuccuss": "Die Einstellungen wurden erfolgreich gespeichert",
+          "saveFailure": "Die Einstellungen konnten nicht gespeichert werden"
+        },
+        "alert": {
+          "noItemPolicy": "Die Richtlinienliste darf nicht leer sein"
+        },
+        "itemPolicy": {
+          "title": "Examplar-Richtlinie",
+          "newPolicy": "Neue Richtlinie"
+        },
+        "sternumlauf": {
+          "title": "Sternumlauf",
+          "form": {
+            "locationType": "Standorttyp",
+            "locationLibrary": "Bibliothekscode",
+            "locationCirculationDesk": "Code des Ausleihschalters"
+          }
+        },
+        "information": {
+          "title": "Absender Informationen",
+          "form": {
+            "title": "Titel",
+            "subtitle": "Beschreibung",
+            "address": "Adresse",
+            "tel": "Telefonnummer",
+            "email": "E-mail",
+            "website": "Website",
+            "dvr": "DVR"
+          }
+        }
+      }
     },
     "components": {
       "main": {},

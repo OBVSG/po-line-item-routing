@@ -6,6 +6,7 @@ import {
   FormGroupUtil,
 } from "@exlibris/exl-cloudapp-angular-lib";
 import { UserSettings } from "../../app.model";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-settings",
@@ -19,7 +20,8 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private settingsService: CloudAppSettingsService,
-    private alert: AlertService
+    private alert: AlertService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -83,12 +85,20 @@ export class SettingsComponent implements OnInit {
 
     this.settingsService.set(settingsToSave).subscribe(
       (_response) => {
-        this.alert.success("Die Einstellungen wurden erfolgreich gespeichert");
+        this.alert.success(
+          this.translate.instant(
+            "Translate.pages.settings.componentFile.saveSuccuss"
+          )
+        );
         this.settingsForm.markAsPristine();
       },
       (error) => {
         console.log(error);
-        this.alert.error("Die Einstellungen konnten nicht gespeichert werden");
+        this.alert.error(
+          this.translate.instant(
+            "Translate.pages.settings.componentFile.saveFailure"
+          )
+        );
       },
       () => {
         this.saving = false;

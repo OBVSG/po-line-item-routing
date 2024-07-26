@@ -1,10 +1,16 @@
 {
   "Translate": {
+    "shared": {
+      "button": {
+        "home": "Home",
+        "reset": "Reset",
+        "start": "Start",
+        "save": "Save",
+        "add": "Add"
+      }
+    },
     "pages": {
       "help": {
-        "button": {
-          "home": "Home"
-        },
         "content": {
           "overall": {
             "desc": "The cloud app works within the Alma menu of a PO line. If the PO line is open, the cloud app is activated by clicking on the title.",
@@ -47,7 +53,39 @@
           }
         }
       },
-      "settings": {}
+      "settings": {
+        "componentFile": {
+          "saveSuccuss": "The settings have been successfully saved",
+          "saveFailure": "The settings could not be saved"
+        },
+        "alert": {
+          "noItemPolicy": "The item policy list can not be empty"
+        },
+        "itemPolicy": {
+          "title": "Item policy",
+          "newPolicy": "New policy"
+        },
+        "sternumlauf": {
+          "title": "Star circulation",
+          "form": {
+            "locationType": "Location type",
+            "locationLibrary": "Location library",
+            "locationCirculationDesk": "Location Circulation Desk"
+          }
+        },
+        "information": {
+          "title": "Sender information",
+          "form": {
+            "title": "Title",
+            "subtitle": "Description",
+            "address": "Address",
+            "tel": "Phone number",
+            "email": "Email",
+            "website": "Website",
+            "dvr": "DVR"
+          }
+        }
+      }
     },
     "components": {
       "main": {},

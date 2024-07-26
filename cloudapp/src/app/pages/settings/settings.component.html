@@ -1,7 +1,7 @@
 <br />
 
 <button mat-flat-button color="primary" routerLink="/" style="display: block">
-  Startseite
+  {{ "Translate.shared.button.home" | translate }}
 </button>
 
 <br />
@@ -10,14 +10,16 @@
 
 <app-loading-spinner *ngIf="saving"></app-loading-spinner>
 
-<app-alert type="error" *ngIf="itemPolicy.length === 0"
-  >Die Richtlinienliste darf nicht leer sein</app-alert
->
+<app-alert type="error" *ngIf="itemPolicy.length === 0">{{
+  "Translate.pages.settings.alert.noItemPolicy" | translate
+}}</app-alert>
 
 <div *ngIf="settingsForm">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Examplar-Richtlinie</mat-card-title>
+      <mat-card-title translate>
+        Translate.pages.settings.itemPolicy.title</mat-card-title
+      >
     </mat-card-header>
 
     <mat-card-content>
@@ -42,7 +44,9 @@
       </div>
 
       <mat-form-field>
-        <mat-label>Neue Richtlinie</mat-label>
+        <mat-label translate
+          >Translate.pages.settings.itemPolicy.newPolicy</mat-label
+        >
         <input matInput type="text" #newPolicy />
       </mat-form-field>
 
@@ -53,7 +57,7 @@
         (click)="addItemPolicy(newPolicy)"
         [disabled]="newPolicy.value === ''"
       >
-        Hinzufügen
+        {{ "Translate.shared.button.add" | translate }}
       </button>
     </mat-card-content>
   </mat-card>
@@ -64,12 +68,16 @@
     <div formGroupName="sternumlauf">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>Sternumlauf</mat-card-title>
+          <mat-card-title translate
+            >Translate.pages.settings.sternumlauf.title</mat-card-title
+          >
         </mat-card-header>
 
         <mat-card-content>
           <mat-form-field>
-            <mat-label>Standorttyp</mat-label>
+            <mat-label translate
+              >Translate.pages.settings.sternumlauf.form.locationType</mat-label
+            >
             <input
               matInput
               type="text"
@@ -79,7 +87,9 @@
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Bibliothekscode</mat-label>
+            <mat-label translate
+              >Translate.pages.settings.sternumlauf.form.locationLibrary</mat-label
+            >
             <input
               matInput
               type="text"
@@ -89,7 +99,9 @@
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Code des Ausleihschalters</mat-label>
+            <mat-label translate
+              >Translate.pages.settings.sternumlauf.form.locationCirculationDesk</mat-label
+            >
             <input
               matInput
               type="text"
@@ -105,7 +117,7 @@
             color="primary"
             (click)="resetSternumlaufSettings()"
           >
-            Zurücksetzen
+            {{ "Translate.shared.button.reset" | translate }}
           </button>
         </mat-card-content>
       </mat-card>
@@ -116,42 +128,58 @@
     <div formGroupName="information">
       <mat-card>
         <mat-card-header>
-          <mat-card-title>Absender Informationen</mat-card-title>
+          <mat-card-title translate
+            >Translate.pages.settings.information.title</mat-card-title
+          >
         </mat-card-header>
 
         <mat-card-content>
           <mat-form-field>
-            <mat-label>Titel</mat-label>
+            <mat-label translate
+              >Translate.pages.settings.information.form.title</mat-label
+            >
             <input matInput type="text" formControlName="title" />
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Beschreibung</mat-label>
+            <mat-label translate
+              >Translate.pages.settings.information.form.subtitle</mat-label
+            >
             <input matInput type="text" formControlName="subtitle" />
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Adresse</mat-label>
+            <mat-label translate
+              >Translate.pages.settings.information.form.address</mat-label
+            >
             <input matInput type="text" formControlName="address" />
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Telefonnummer</mat-label>
+            <mat-label translate
+              >Translate.pages.settings.information.form.tel</mat-label
+            >
             <input matInput type="text" formControlName="phone" />
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>E-mail</mat-label>
+            <mat-label translate
+              >Translate.pages.settings.information.form.email</mat-label
+            >
             <input matInput type="text" formControlName="email" />
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Website</mat-label>
+            <mat-label translate
+              >Translate.pages.settings.information.form.website</mat-label
+            >
             <input matInput type="text" formControlName="website" />
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>DVR</mat-label>
+            <mat-label translate
+              >Translate.pages.settings.information.form.dvr</mat-label
+            >
             <input matInput type="text" formControlName="dvr" />
           </mat-form-field>
         </mat-card-content>
@@ -169,7 +197,7 @@
   (click)="save()"
   [disabled]="itemPolicy.length === 0"
 >
-  Speichern
+  {{ "Translate.shared.button.save" | translate }}
 </button>
 
 <br />
