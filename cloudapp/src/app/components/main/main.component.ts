@@ -9,6 +9,7 @@ import {
   RestErrorResponse,
   Request,
 } from "@exlibris/exl-cloudapp-angular-lib";
+import { TranslateService } from "@ngx-translate/core";
 
 import { Observable } from "rxjs";
 import { finalize, tap } from "rxjs/operators";
@@ -40,7 +41,8 @@ export class MainComponent {
   constructor(
     private restService: CloudAppRestService,
     private eventsService: CloudAppEventsService,
-    private alert: AlertService
+    private alert: AlertService,
+    private translate: TranslateService
   ) {}
 
   clear() {
@@ -64,7 +66,9 @@ export class MainComponent {
         (error) => {
           console.log(error);
           this.alert.error(
-            "Fehler beim Abrufen der Entitätsdaten von der Alma API"
+            this.translate.instant(
+              "Translate.components.main.componentFile.selectEntityFailure"
+            )
           );
         }
       );
@@ -90,11 +94,19 @@ export class MainComponent {
           this.eventsService.refreshPage().subscribe();
         },
         error: (error: RestErrorResponse) => {
-          this.alert.error("Die Änderungen konnten nicht gespeichert werden");
+          this.alert.error(
+            this.translate.instant(
+              "Translate.components.main.componentFile.saveUserOrderFailure"
+            )
+          );
           console.error(error);
         },
         complete: () => {
-          this.alert.success("Die Änderungen wurden erfolgreich gespeichert");
+          this.alert.success(
+            this.translate.instant(
+              "Translate.components.main.componentFile.saveUserOrderSuccess"
+            )
+          );
         },
       });
   }

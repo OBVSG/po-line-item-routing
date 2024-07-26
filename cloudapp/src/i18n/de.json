@@ -88,7 +88,24 @@
       }
     },
     "components": {
-      "main": {},
+      "main": {
+        "componentFile": {
+          "selectEntityFailure": "Fehler beim Abrufen der Entitätsdaten von der Alma API",
+          "saveUserOrderSuccess": "Die Änderungen wurden erfolgreich gespeichert",
+          "saveUserOrderFailure": "Die Änderungen konnten nicht gespeichert werden"
+        },
+        "alert": {
+          "searchInAlma": "Wechseln Sie zu einer Seite in Alma, um eine Liste von Entitäten anzuzeigen",
+          "wrongEntity": "Keine Entität enthält die korrekten Daten. Bitte navigieren Sie zur entsprechenden Seite",
+          "noEntity": "Keine Entität gefunden. Bitte navigieren Sie zur entsprechenden Seite"
+        },
+        "header": "Wählen Sie eine Entität:",
+        "label": {
+          "interestedUsers": "Benutzer",
+          "ringumlauf": "Ringumlauf",
+          "sternumlauf": "Sternumlauf"
+        }
+      },
       "interestedUsers": {},
       "ringumlauf": {
         "pdf": {}

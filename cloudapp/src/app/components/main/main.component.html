@@ -5,10 +5,9 @@
 
   <ng-template #noEntities>
     <br />
-    <app-alert type="info">
-      Wechseln Sie zu einer Seite in Alma, um eine Liste von Entitäten
-      anzuzeigen.
-    </app-alert>
+    <app-alert type="info">{{
+      "Translate.components.main.alert.searchInAlma" | translate
+    }}</app-alert>
   </ng-template>
 
   <ng-template #entityList>
@@ -21,7 +20,7 @@
       [disabled]="!selectedEntity"
       style="display: block"
     >
-      Zurücksetzen
+      {{ "Translate.shared.button.reset" | translate }}
     </button>
 
     <br />
@@ -29,7 +28,9 @@
     <br />
 
     <h2>
-      <label id="entities-radio-group-label">Wählen Sie eine Entität:</label>
+      <label id="entities-radio-group-label" translate
+        >Translate.components.main.header</label
+      >
     </h2>
 
     <mat-radio-group
@@ -46,10 +47,9 @@
         </mat-radio-button>
       </div>
 
-      <app-alert type="info" *ngIf="!isEntityCorrect">
-        Keine Entität enthält die korrekten Daten. Bitte navigieren Sie zur
-        entsprechenden Seite
-      </app-alert>
+      <app-alert type="info" *ngIf="!isEntityCorrect">{{
+        "Translate.components.main.alert.wrongEntity" | translate
+      }}</app-alert>
     </mat-radio-group>
 
     <div *ngIf="selectedEntity && !loading">
@@ -69,7 +69,11 @@
 
       <ng-template #tabGroup>
         <mat-tab-group animationDuration="0ms">
-          <mat-tab label="Benutzer">
+          <mat-tab
+            label="{{
+              'Translate.components.main.label.interestedUsers' | translate
+            }}"
+          >
             <app-interested-users [users]="apiResult.interested_user">
               <button
                 mat-flat-button
@@ -77,13 +81,15 @@
                 (click)="saveUsersOrder()"
                 [disabled]="loading"
               >
-                Speichern
+                {{ "Translate.shared.button.save" | translate }}
               </button>
             </app-interested-users></mat-tab
           >
 
           <mat-tab
-            label="Ringumlauf"
+            label="{{
+              'Translate.components.main.label.ringumlauf' | translate
+            }}"
             *ngIf="
               apiResult.fifth_reporting_code &&
               apiResult.fifth_reporting_code === 'RING'
@@ -93,10 +99,13 @@
           </mat-tab>
 
           <mat-tab
-            label="Sternumlauf"
+            label="{{
+              'Translate.components.main.label.sternumlauf' | translate
+            }}"
             *ngIf="
               apiResult.fifth_reporting_code &&
-              apiResult.fifth_reporting_code === 'STERN'
+              (apiResult.fifth_reporting_code === 'STERN' ||
+                apiResult.fifth_reporting_code === 'STAR')
             "
             ><app-sternumlauf [apiResult]="apiResult"></app-sternumlauf
           ></mat-tab>
@@ -104,10 +113,9 @@
       </ng-template>
 
       <ng-template #noUserFound>
-        <app-alert type="info"
-          >Keine Entität gefunden. Bitte navigieren Sie zur entsprechenden
-          Seite</app-alert
-        >
+        <app-alert type="info">{{
+          "Translate.components.main.alert.noEntity" | translate
+        }}</app-alert>
       </ng-template>
     </div>
   </ng-template>

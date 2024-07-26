@@ -88,7 +88,24 @@
       }
     },
     "components": {
-      "main": {},
+      "main": {
+        "componentFile": {
+          "selectEntityFailure": "An error occurred while retrieving entity data from the Alma API",
+          "saveUserOrderSuccess": "The changes have been successfully saved",
+          "saveUserOrderFailure": "The changes could not be saved"
+        },
+        "alert": {
+          "searchInAlma": "Please navigate to a page in Alma to view a list of entities",
+          "wrongEntity": "No entity contains the correct data. Please navigate to the appropriate page",
+          "noEntity": "No entity found. Please navigate to the appropriate page"
+        },
+        "header": "Select an entity:",
+        "label": {
+          "interestedUsers": "Users",
+          "ringumlauf": "Ring circulation",
+          "sternumlauf": "Star circulation"
+        }
+      },
       "interestedUsers": {},
       "ringumlauf": {
         "pdf": {}
