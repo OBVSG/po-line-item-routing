@@ -1,25 +1,25 @@
 {
-  "id": "po-line-item-routing",
-  "title": "PO Line Item Routing",
-  "subtitle": "Sort interested users and manage item routing for a PO line",
-  "description": "This cloud app, integrated into the Alma PO line menu, allows for sorting interested users and routing items using two modes: \"Ring\"-Mode, which generates a PDF list for manual distribution, and \"Star\"-Mode, which automates user requests and loans.",
-  "author": "OBVSG - The Austrian Library Network and Service Ltd",
-  "contentSecurity": {
-    "sandbox": {
-      "downloads": true,
-      "modals": true
-    }
-  },
-  "icon": {
-    "type": "url",
-    "value": "/assets/poline.jpg"
-  },
-  "fullscreen": {
-    "allow": true,
-    "open": false
-  },
-  "pages": {
-    "settings": "/#/settings",
-    "help": "/#/help"
-  }
+   "id": "po-line-item-routing",
+   "title": "PO Line Item Routing",
+   "subtitle": "Sort interested users and manage item routing for a PO line",
+   "author": "OBVSG - The Austrian Library Network and Service Ltd",
+   "description": "This cloud app, integrated into the Alma PO line menu, allows for sorting interested users and routing items using two modes: \"Ring\"-Mode, which generates a PDF list for manual distribution, and \"Star\"-Mode, which automates user requests and loans.",
+   "contentSecurity": {
+      "sandbox": {
+         "downloads": true,
+         "modals": true
+      }
+   },
+   "icon": {
+      "type": "url",
+      "value": "/assets/poline.jpg"
+   },
+   "fullscreen": {
+      "allow": true,
+      "open": false
+   },
+   "pages": {
+      "settings": "/#/settings",
+      "help": "/#/help"
+   }
 }

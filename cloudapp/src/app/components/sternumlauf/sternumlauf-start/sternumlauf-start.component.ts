@@ -14,6 +14,7 @@ import {
 } from "../../../app.model";
 import { forkJoin, from, throwError } from "rxjs";
 import { catchError, concatMap, delay, finalize, tap } from "rxjs/operators";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-sternumlauf-start",
@@ -42,7 +43,8 @@ export class SternumlaufStartComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: SternumlaufStartData,
     private restService: CloudAppRestService,
     private settingsService: CloudAppSettingsService,
-    private alert: AlertService
+    private alert: AlertService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +56,13 @@ export class SternumlaufStartComponent implements OnInit {
     // set the total progress based on the number of interested users
     this.totalProgress = this.data.apiResult.interested_user.length;
   }
+
+  // TODO
+  /*
+  this.translate.instant(
+    "Translate.components.sternumlauf.componentFile.loaned"
+  )
+  */
 
   startSternumlauf() {
     this.loading = true;
@@ -93,9 +102,10 @@ export class SternumlaufStartComponent implements OnInit {
             catchError((error) => {
               this.finalResult = {
                 type: "error",
-                message:
-                  "Fehler beim Registrieren der Anfrage für den Benutzer: " +
-                  user.primary_id,
+                message: this.translate.instant(
+                  "Translate.components.sternumlaufStart.componentFile.createRequestFailure",
+                  { userId: user.primary_id }
+                ),
               };
 
               // Throw an error observable to stop further execution
@@ -125,7 +135,9 @@ export class SternumlaufStartComponent implements OnInit {
                 ) {
                   this.finalResult = {
                     type: "error",
-                    message: "Vormerkungen konnten nicht gebildet werden",
+                    message: this.translate.instant(
+                      "Translate.components.sternumlaufStart.componentFile.checkRequestsLength"
+                    ),
                   };
 
                   // stop the observable chain
@@ -145,7 +157,9 @@ export class SternumlaufStartComponent implements OnInit {
                   ) {
                     this.finalResult = {
                       type: "error",
-                      message: "Unstimmigkeit bei der Reihenfolge der Anfragen",
+                      message: this.translate.instant(
+                        "Translate.components.sternumlaufStart.componentFile.checkRequestsOrder"
+                      ),
                     };
 
                     throw new InternalAppError();
@@ -160,7 +174,9 @@ export class SternumlaufStartComponent implements OnInit {
                 if (!error.internalError) {
                   this.finalResult = {
                     type: "error",
-                    message: "Ein unerwarteter Fehler ist aufgetreten",
+                    message: this.translate.instant(
+                      "Translate.components.sternumlaufStart.componentFile.general"
+                    ),
                   };
                 }
 
@@ -195,7 +211,9 @@ export class SternumlaufStartComponent implements OnInit {
                 // Handle any errors from the scan in operation
                 this.finalResult = {
                   type: "error",
-                  message: "Fehler beim Ausführen der SCAN-IN-Operation",
+                  message: this.translate.instant(
+                    "Translate.components.sternumlaufStart.componentFile.scanInFailure"
+                  ),
                 };
 
                 return throwError(error);
@@ -233,7 +251,9 @@ export class SternumlaufStartComponent implements OnInit {
                 // Handle any errors from the create user loan operation
                 this.finalResult = {
                   type: "error",
-                  message: "Fehler beim Ausführen der Ausleihe-Operation",
+                  message: this.translate.instant(
+                    "Translate.components.sternumlaufStart.componentFile.loanFailure"
+                  ),
                 };
 
                 return throwError(error);
@@ -246,7 +266,9 @@ export class SternumlaufStartComponent implements OnInit {
         next: (_result: any) => {
           this.finalResult = {
             type: "success",
-            message: "Der Prozess wurde erfolgreich abgeschlossen",
+            message: this.translate.instant(
+              "Translate.components.sternumlaufStart.componentFile.success"
+            ),
           };
         },
         error: (error) => {

@@ -9,7 +9,9 @@
 ></ng-container>
 
 <ng-template #barcodeSelection>
-  <h2 id="barcode-radio-group-label">Bitte wählen Sie einen Barcode aus:</h2>
+  <h2 id="barcode-radio-group-label" translate>
+    Translate.components.sternumlauf.header
+  </h2>
 
   <mat-radio-group
     aria-labelledby="barcode-radio-group-label"
@@ -29,16 +31,21 @@
 
       <mat-card-content>
         <p *ngIf="barcode.description">
-          <strong>Beschreibung: </strong>{{ barcode.description }}
+          <strong translate
+            >Translate.components.sternumlauf.barcode.desc</strong
+          >{{ barcode.description }}
         </p>
 
         <p *ngIf="barcode.receive_date">
-          <strong>Eingangsdatum: </strong
+          <strong translate
+            >Translate.components.sternumlauf.barcode.receiveDate</strong
           >{{ barcode.receive_date | date : "mediumDate" }}
         </p>
 
         <p *ngIf="barcode.item_policy.desc">
-          <strong>Richtlinie: </strong>{{ barcode.item_policy.desc }}
+          <strong translate
+            >Translate.components.sternumlauf.barcode.policy</strong
+          >{{ barcode.item_policy.desc }}
         </p>
       </mat-card-content>
     </mat-card>
@@ -50,30 +57,30 @@
 
   <div *ngIf="selectedBarcode">
     <div>
-      <h4>
-        Diese Werte stammen aus den Einstellungen. Wenn sie nicht korrekt sind,
-        bitte die Einstellungen aufrufen und aktualisieren.
-      </h4>
+      <h4 translate>Translate.components.sternumlauf.settings.desc</h4>
 
       <app-alert type="info">
         <div>
           <p>
-            <strong>Standorttyp: </strong
+            <strong translate
+              >Translate.components.sternumlauf.settings.info.locationType</strong
             >{{ userSettings.sternumlauf.locationType }}
           </p>
           <p>
-            <strong>Bibliothekscode: </strong
+            <strong translate
+              >Translate.components.sternumlauf.settings.info.locationLibrary</strong
             >{{ userSettings.sternumlauf.locationLibrary }}
           </p>
           <p style="margin: 0">
-            <strong>Code des Ausleihschalters: </strong
+            <strong translate
+              >Translate.components.sternumlauf.settings.info.locationCirculationDesk</strong
             >{{ userSettings.sternumlauf.locationCirculationDesk }}
           </p>
         </div>
       </app-alert>
 
       <button mat-button type="button" color="primary" routerLink="/settings">
-        zu den Einstellungen
+        {{ "Translate.components.sternumlauf.button.toSettings" | translate }}
       </button>
     </div>
 
@@ -82,7 +89,10 @@
 
     <div>
       <button mat-flat-button color="primary" (click)="prepareSternumlauf()">
-        sternumlauf vorbereiten
+        {{
+          "Translate.components.sternumlauf.button.prepareSternumlauf"
+            | translate
+        }}
       </button>
     </div>
 
@@ -91,7 +101,9 @@
 </ng-template>
 
 <ng-template #noBarcode>
-  <app-alert type="error">Kein Sternumlauf-Barcode gefunden</app-alert>
+  <app-alert type="error">{{
+    "Translate.components.sternumlauf.alert.noBarcode" | translate
+  }}</app-alert>
 </ng-template>
 
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>

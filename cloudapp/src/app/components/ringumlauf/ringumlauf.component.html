@@ -31,17 +31,20 @@
 
       <mat-card-content>
         <p *ngIf="barcode.description">
-          <strong translate>Translate.components.ringumlauf.desc</strong
+          <strong translate>Translate.components.ringumlauf.barcode.desc</strong
           >{{ barcode.description }}
         </p>
 
         <p *ngIf="barcode.receive_date">
-          <strong translate>Translate.components.ringumlauf.receiveDate</strong
+          <strong translate
+            >Translate.components.ringumlauf.barcode.receiveDate</strong
           >{{ barcode.receive_date | date : "mediumDate" }}
         </p>
 
         <p *ngIf="barcode.item_policy.desc">
-          <strong>Richtlinie: </strong>{{ barcode.item_policy.desc }}
+          <strong translate
+            >Translate.components.ringumlauf.barcode.policy</strong
+          >{{ barcode.item_policy.desc }}
         </p>
       </mat-card-content>
     </mat-card>

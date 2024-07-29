@@ -123,8 +123,11 @@
           "noBarcode": "No ring circulation barcode found"
         },
         "header": "Please select a barcode:",
-        "desc": "Description: ",
-        "receiveDate": "Receive date: ",
+        "barcode": {
+          "desc": "Description: ",
+          "receiveDate": "Receive date: ",
+          "policy": "Policy: "
+        },
         "button": "Start ring circulation",
         "form": {
           "header": "Additional information",
@@ -153,8 +156,57 @@
         },
         "button": "Download PDF"
       },
-      "sternumlauf": {},
-      "sternumlaufStart": {}
+      "sternumlauf": {
+        "componentFile": {
+          "wrongPolicy": "{{policy}} is an invalid item policy",
+          "loaned": "Circulation can not be started, loaned",
+          "deleteRequestFailure": "An error occurred while deleting request {{requestId}} for user ID: {{userId}}",
+          "holdShelf": {
+            "main": "Circulation can not be started, item is reserved",
+            "extra": " One of the requests might be in the 'Hold Shelf' status and can not be canceled"
+          },
+          "general": "An unexpected error has occurred"
+        },
+        "alert": {
+          "noBarcode": "No star circulation barcode found"
+        },
+        "button": {
+          "toSettings": "to the settings",
+          "prepareSternumlauf": "Prepare star circulation"
+        },
+        "header": "Please select a barcode:",
+        "barcode": {
+          "desc": "Description: ",
+          "receiveDate": "Receive date: ",
+          "policy": "Policy: "
+        },
+        "settings": {
+          "desc": "These values are sourced from your settings. If they appear incorrect, please go to the settings and update them.",
+          "info": {
+            "locationType": "Location type: ",
+            "locationLibrary": "Location library: ",
+            "locationCirculationDesk": "Location Circulation Desk: "
+          }
+        }
+      },
+      "sternumlaufStart": {
+        "componentFile": {
+          "createRequestFailure": "An error occurred while registering the request for user: {{userId}}",
+          "checkRequestsLength": "Reservations could not be created",
+          "checkRequestsOrder": "Mismatch in the order of registered requests",
+          "general": "An unexpected error has occurred",
+          "scanInFailure": "An error occurred while executing the SCAN-IN operation",
+          "loanFailure": "An error occurred while executing the LOAN operation",
+          "success": "The process has been successfully completed"
+        },
+        "header": "Star circulation process",
+        "process": {
+          "requests": "Creating user requests: ",
+          "check": "Reviewing user requests",
+          "scanIn": "Processing scan-in operation",
+          "loan": "Processing loan operation"
+        }
+      }
     }
   }
 }

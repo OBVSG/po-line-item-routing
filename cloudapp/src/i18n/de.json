@@ -123,8 +123,11 @@
           "noBarcode": "Kein Ringumlauf-Barcode gefunden"
         },
         "header": "Bitte wählen Sie einen Barcode aus:",
-        "desc": "Beschreibung: ",
-        "receiveDate": "Eingangsdatum: ",
+        "barcode": {
+          "desc": "Beschreibung: ",
+          "receiveDate": "Eingangsdatum: ",
+          "policy": "Richtlinie: "
+        },
         "button": "Ringumlauf starten",
         "form": {
           "header": "Zusatzinformation",
@@ -153,8 +156,57 @@
         },
         "button": "PDF Herunterladen"
       },
-      "sternumlauf": {},
-      "sternumlaufStart": {}
+      "sternumlauf": {
+        "componentFile": {
+          "wrongPolicy": "{{policy}} ist eine ungültige Exemplar-Richtlinie",
+          "loaned": "Umlauf kann nicht gestartet werden, entlehnt",
+          "deleteRequestFailure": "Fehler beim Löschen der Anfrage {{requestId}} für die Benutzer-ID: {{userId}}",
+          "holdShelf": {
+            "main": "Umlauf kann nicht gestartet werden, vorgemerkt.",
+            "extra": " Eine der Anfragen befindet sich möglicherweise im status 'Bereitstellung' und kann nicht storniert werden"
+          },
+          "general": "Ein unerwarteter Fehler ist aufgetreten"
+        },
+        "alert": {
+          "noBarcode": "Kein Sternumlauf-Barcode gefunden"
+        },
+        "button": {
+          "toSettings": "zu den Einstellungen",
+          "prepareSternumlauf": "sternumlauf vorbereiten"
+        },
+        "header": "Bitte wählen Sie einen Barcode aus:",
+        "barcode": {
+          "desc": "Beschreibung: ",
+          "receiveDate": "Eingangsdatum: ",
+          "policy": "Richtlinie: "
+        },
+        "settings": {
+          "desc": "Diese Werte stammen aus den Einstellungen. Wenn sie nicht korrekt sind, bitte die Einstellungen aufrufen und aktualisieren.",
+          "info": {
+            "locationType": "Standorttyp: ",
+            "locationLibrary": "Bibliothekscode: ",
+            "locationCirculationDesk": "Code des Ausleihschalters: "
+          }
+        }
+      },
+      "sternumlaufStart": {
+        "componentFile": {
+          "createRequestFailure": "Fehler beim Registrieren der Anfrage für den Benutzer: {{userId}}",
+          "checkRequestsLength": "Vormerkungen konnten nicht gebildet werden",
+          "checkRequestsOrder": "Unstimmigkeit bei der Reihenfolge der Anfragen",
+          "general": "Ein unerwarteter Fehler ist aufgetreten",
+          "scanInFailure": "Fehler beim Ausführen der SCAN-IN-Operation",
+          "loanFailure": "Fehler beim Ausführen der Ausleihe-Operation",
+          "success": "Der Prozess wurde erfolgreich abgeschlossen"
+        },
+        "header": "Sternumlauf-Prozess",
+        "process": {
+          "requests": "Benutzeranfragen erstellen: ",
+          "check": "Benutzeranfragen überprüfen",
+          "scanIn": "Scan-in-Vorgang durchführen",
+          "loan": "Ausleihvorgang durchführen"
+        }
+      }
     }
   }
 }

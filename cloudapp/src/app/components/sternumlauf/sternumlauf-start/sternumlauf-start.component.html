@@ -1,9 +1,9 @@
 <mat-dialog-content>
-  <h3>Sternumlauf-Prozess</h3>
+  <h3 translate>Translate.components.sternumlaufStart.header</h3>
 
   <div *ngIf="!isUmlaufStarted">
     <button mat-flat-button color="primary" (click)="startSternumlauf()">
-      Starten
+      {{ "Translate.shared.button.start" | translate }}
     </button>
   </div>
 
@@ -15,7 +15,12 @@
       <mat-icon *ngIf="processed == totalProgress" class="check"
         >check</mat-icon
       >
-      <div>Creating user requests: {{ processed }} / {{ totalProgress }}</div>
+      <div>
+        <span translate
+          >Translate.components.sternumlaufStart.process.requests</span
+        >
+        <span>{{ processed }} / {{ totalProgress }}</span>
+      </div>
     </div>
 
     <div class="sternumlauf-process">
@@ -28,7 +33,7 @@
       <mat-icon *ngIf="runCheckRequests == 'block'" class="block"
         >block</mat-icon
       >
-      <div>Checking created user requests</div>
+      <div translate>Translate.components.sternumlaufStart.process.check</div>
     </div>
 
     <div class="sternumlauf-process">
@@ -37,7 +42,7 @@
       >
       <mat-icon *ngIf="runScanIn == 'check'" class="check">check</mat-icon>
       <mat-icon *ngIf="runScanIn == 'block'" class="block">block</mat-icon>
-      <div>Running scan in operation</div>
+      <div translate>Translate.components.sternumlaufStart.process.scanIn</div>
     </div>
 
     <div class="sternumlauf-process">
@@ -46,7 +51,7 @@
       >
       <mat-icon *ngIf="runLoan == 'check'" class="check">check</mat-icon>
       <mat-icon *ngIf="runLoan == 'block'" class="block">block</mat-icon>
-      <div>Running loan operation</div>
+      <div translate>Translate.components.sternumlaufStart.process.loan</div>
     </div>
   </div>
 
@@ -58,6 +63,8 @@
   <mat-divider></mat-divider>
 
   <mat-dialog-actions align="end">
-    <button mat-button [disabled]="loading" mat-dialog-close>Zurück</button>
+    <button mat-button [disabled]="loading" mat-dialog-close>
+      {{ "Translate.shared.button.back" | translate }}
+    </button>
   </mat-dialog-actions>
 </mat-dialog-content>

@@ -19,6 +19,7 @@ import {
 import { EMPTY, from, of, throwError } from "rxjs";
 import { MatDialog } from "@angular/material/dialog";
 import { SternumlaufStartComponent } from "./sternumlauf-start/sternumlauf-start.component";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-sternumlauf",
@@ -36,7 +37,8 @@ export class SternumlaufComponent implements OnInit {
     private restService: CloudAppRestService,
     private settingsService: CloudAppSettingsService,
     private alert: AlertService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -63,8 +65,12 @@ export class SternumlaufComponent implements OnInit {
       this.selectedBarcode = event.value as Umlauf;
     } else {
       this.selectedBarcode = undefined;
+
       this.alert.error(
-        `${selectedValue} ist eine ungültige Exemplar-Richtlinie`
+        this.translate.instant(
+          "Translate.components.sternumlauf.componentFile.wrongPolicy",
+          { policy: selectedValue }
+        )
       );
     }
   }
@@ -88,7 +94,11 @@ export class SternumlaufComponent implements OnInit {
               method: HttpMethod.GET,
             });
           } else {
-            this.alert.error("Umlauf kann nicht gestartet werden, entlehnt.");
+            this.alert.error(
+              this.translate.instant(
+                "Translate.components.sternumlauf.componentFile.loaned"
+              )
+            );
 
             // Throw an error observable to stop further execution
             return throwError(() => new Error());
@@ -122,7 +132,13 @@ export class SternumlaufComponent implements OnInit {
                   // this catch error will never be called because the delete request will always return 204 status code even if the request failed
                   catchError((error) => {
                     this.alert.error(
-                      `Fehler beim Löschen der Anfrage ${request.request_id} für die Benutzer-ID: ${request.user_primary_id}`
+                      this.translate.instant(
+                        "Translate.components.sternumlauf.componentFile.deleteRequestFailure",
+                        {
+                          requestId: request.request_id,
+                          userId: request.user_primary_id,
+                        }
+                      )
                     );
 
                     // Throw an error observable to stop further execution
@@ -141,12 +157,14 @@ export class SternumlaufComponent implements OnInit {
                 .pipe(
                   map((lastCheckResult) => {
                     if (lastCheckResult.total_record_count !== 0) {
-                      let errorMessage =
-                        "Umlauf kann nicht gestartet werden, vorgemerkt.";
+                      let errorMessage = this.translate.instant(
+                        "Translate.components.sternumlauf.componentFile.holdShelf.main"
+                      );
 
                       if (lastCheckResult.total_record_count === 1) {
-                        errorMessage +=
-                          " Eine der Anfragen befindet sich möglicherweise im status 'Bereitstellung' und kann nicht storniert werden";
+                        errorMessage += this.translate.instant(
+                          "Translate.components.sternumlauf.componentFile.holdShelf.extra"
+                        );
                       }
 
                       this.alert.error(errorMessage);
@@ -162,7 +180,9 @@ export class SternumlaufComponent implements OnInit {
                     // handle errors that is not thrown by the map operator
                     if (!error.internalError) {
                       this.alert.error(
-                        "Ein unerwarteter Fehler ist aufgetreten"
+                        this.translate.instant(
+                          "Translate.components.sternumlauf.componentFile.general"
+                        )
                       );
                     }
 
