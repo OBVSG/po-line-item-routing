@@ -98,9 +98,13 @@
         "alert": {
           "searchInAlma": "Wechseln Sie zu einer Seite in Alma, um eine Liste von Entitäten anzuzeigen",
           "wrongEntity": "Keine Entität enthält die korrekten Daten. Bitte navigieren Sie zur entsprechenden Seite",
-          "noEntity": "Keine Entität gefunden. Bitte navigieren Sie zur entsprechenden Seite"
+          "noEntity": "Keine Entität gefunden. Bitte navigieren Sie zur entsprechenden Seite",
+          "noSettings": "Um zu beginnen, besuchen Sie bitte die Einstellungsseite und legen Sie Ihre Standardpräferenzen fest"
         },
         "header": "Wählen Sie eine Entität:",
+        "button": {
+          "toSettings": "zu den Einstellungen"
+        },
         "label": {
           "interestedUsers": "Benutzer",
           "ringumlauf": "Ringumlauf",

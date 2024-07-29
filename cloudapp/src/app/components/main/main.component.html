@@ -68,48 +68,76 @@
       ></ng-container>
 
       <ng-template #tabGroup>
-        <mat-tab-group animationDuration="0ms">
-          <mat-tab
-            label="{{
-              'Translate.components.main.label.interestedUsers' | translate
-            }}"
-          >
-            <app-interested-users [users]="apiResult.interested_user">
-              <button
-                mat-flat-button
-                color="primary"
-                (click)="saveUsersOrder()"
-                [disabled]="loading"
-              >
-                {{ "Translate.shared.button.save" | translate }}
-              </button>
-            </app-interested-users></mat-tab
-          >
+        <ng-container
+          *ngIf="
+            !userSettings.itemPolicy ||
+              userSettings.itemPolicy.length == 0 ||
+              !userSettings.sternumlauf;
+            then noSettings;
+            else mainContent
+          "
+        ></ng-container>
 
-          <mat-tab
-            label="{{
-              'Translate.components.main.label.ringumlauf' | translate
-            }}"
-            *ngIf="
-              apiResult.fifth_reporting_code &&
-              apiResult.fifth_reporting_code === 'RING'
-            "
-          >
-            <app-ringumlauf [apiResult]="apiResult"></app-ringumlauf>
-          </mat-tab>
+        <ng-template #mainContent>
+          <mat-tab-group animationDuration="0ms">
+            <mat-tab
+              label="{{
+                'Translate.components.main.label.interestedUsers' | translate
+              }}"
+            >
+              <app-interested-users [users]="apiResult.interested_user">
+                <button
+                  mat-flat-button
+                  color="primary"
+                  (click)="saveUsersOrder()"
+                  [disabled]="loading"
+                >
+                  {{ "Translate.shared.button.save" | translate }}
+                </button>
+              </app-interested-users>
+            </mat-tab>
 
-          <mat-tab
-            label="{{
-              'Translate.components.main.label.sternumlauf' | translate
-            }}"
-            *ngIf="
-              apiResult.fifth_reporting_code &&
-              (apiResult.fifth_reporting_code === 'STERN' ||
-                apiResult.fifth_reporting_code === 'STAR')
-            "
-            ><app-sternumlauf [apiResult]="apiResult"></app-sternumlauf
-          ></mat-tab>
-        </mat-tab-group>
+            <mat-tab
+              label="{{
+                'Translate.components.main.label.ringumlauf' | translate
+              }}"
+              *ngIf="
+                apiResult.fifth_reporting_code &&
+                apiResult.fifth_reporting_code === 'RING'
+              "
+            >
+              <app-ringumlauf [apiResult]="apiResult"></app-ringumlauf>
+            </mat-tab>
+
+            <mat-tab
+              label="{{
+                'Translate.components.main.label.sternumlauf' | translate
+              }}"
+              *ngIf="
+                apiResult.fifth_reporting_code &&
+                (apiResult.fifth_reporting_code === 'STERN' ||
+                  apiResult.fifth_reporting_code === 'STAR')
+              "
+            >
+              <app-sternumlauf [apiResult]="apiResult"></app-sternumlauf>
+            </mat-tab>
+          </mat-tab-group>
+        </ng-template>
+
+        <ng-template #noSettings>
+          <app-alert type="info">{{
+            "Translate.components.main.alert.noSettings" | translate
+          }}</app-alert>
+
+          <button
+            mat-flat-button
+            type="button"
+            color="primary"
+            routerLink="/settings"
+          >
+            {{ "Translate.components.main.button.toSettings" | translate }}
+          </button>
+        </ng-template>
       </ng-template>
 
       <ng-template #noUserFound>

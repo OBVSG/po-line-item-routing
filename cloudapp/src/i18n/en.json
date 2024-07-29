@@ -98,9 +98,13 @@
         "alert": {
           "searchInAlma": "Please navigate to a page in Alma to view a list of entities",
           "wrongEntity": "No entity contains the correct data. Please navigate to the appropriate page",
-          "noEntity": "No entity found. Please navigate to the appropriate page"
+          "noEntity": "No entity found. Please navigate to the appropriate page",
+          "noSettings": "To get started, please visit the Settings page and set your default preferences"
         },
         "header": "Select an entity:",
+        "button": {
+          "toSettings": "to the settings"
+        },
         "label": {
           "interestedUsers": "Users",
           "ringumlauf": "Ring circulation",

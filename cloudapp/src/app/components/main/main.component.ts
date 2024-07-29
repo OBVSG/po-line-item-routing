@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatRadioChange } from "@angular/material/radio";
 import {
   Entity,
@@ -8,19 +8,22 @@ import {
   HttpMethod,
   RestErrorResponse,
   Request,
+  CloudAppSettingsService,
 } from "@exlibris/exl-cloudapp-angular-lib";
 import { TranslateService } from "@ngx-translate/core";
 
 import { Observable } from "rxjs";
 import { finalize, tap } from "rxjs/operators";
+import { UserSettings } from "../../app.model";
 
 @Component({
   selector: "app-main",
   templateUrl: "./main.component.html",
   styleUrls: ["./main.component.scss"],
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
   loading = false;
+  userSettings: UserSettings;
   selectedEntity: Entity;
   apiResult: any;
   isEntityCorrect: boolean = false;
@@ -39,11 +42,19 @@ export class MainComponent {
   );
 
   constructor(
+    private settingsService: CloudAppSettingsService,
     private restService: CloudAppRestService,
     private eventsService: CloudAppEventsService,
     private alert: AlertService,
     private translate: TranslateService
   ) {}
+
+  ngOnInit(): void {
+    // Get user settings
+    this.settingsService.get().subscribe((settings: UserSettings) => {
+      this.userSettings = settings;
+    });
+  }
 
   clear() {
     this.apiResult = null;
