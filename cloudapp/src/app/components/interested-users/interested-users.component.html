@@ -39,12 +39,7 @@
   <div class="interested-users-actions">
     <ng-content></ng-content>
 
-    <button
-      mat-flat-button
-      color="secondary"
-      (click)="resetOrder()"
-      [disabled]="loading"
-    >
+    <button mat-flat-button color="secondary" (click)="resetOrder()">
       {{ "Translate.shared.button.reset" | translate }}
     </button>
   </div>
