@@ -36,7 +36,9 @@
             <p>{{ userSettings.information.phone }}</p>
             <p>{{ userSettings.information.email }}</p>
             <p>{{ userSettings.information.website }}</p>
-            <p>DVR: {{ userSettings.information.dvr }}</p>
+            <p *ngIf="userSettings.information.dvr">
+              DVR: {{ userSettings.information.dvr }}
+            </p>
           </div>
         </div>
 
