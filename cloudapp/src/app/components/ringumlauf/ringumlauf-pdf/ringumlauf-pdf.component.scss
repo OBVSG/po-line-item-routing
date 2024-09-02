@@ -1,3 +1,10 @@
+mat-dialog-content {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 .ringumlauf-pdf-container {
   margin: 50px;
   padding-bottom: 50px;
@@ -7,24 +14,23 @@
     padding: 100px 70px 0;
 
     p {
-      font-size: 22px;
       font-weight: 400;
     }
 
     h2.ringumlauf-pdf-header {
       text-align: center;
-      font-size: 30px;
       color: #000000de;
+      font-size: clamp(22px, 3vw, 30px);
     }
 
     .address-container {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
 
       p {
-        font-size: 22px;
+        font-size: clamp(12px, 1.5vw, 20px);
       }
 
       & > div {
@@ -33,16 +39,24 @@
     }
 
     h3.ringumlauf-pdf-title {
-      font-size: 24px;
       color: #000000de;
+      font-size: clamp(18px, 2vw, 24px);
+    }
+
+    div.ringumlauf-pdf-info {
+      p {
+        font-size: clamp(14px, 1.5vw, 22px);
+      }
     }
   }
 
   .ringumlauf-pdf-table {
     padding: 0 60px;
+    overflow-x: auto;
 
     table {
       width: 100%;
+      table-layout: auto;
       border-collapse: collapse;
 
       th {
@@ -53,7 +67,7 @@
       th {
         text-align: left;
         padding: 10px;
-        font-size: 20px;
+        font-size: clamp(12px, 1.5vw, 20px);
       }
     }
   }

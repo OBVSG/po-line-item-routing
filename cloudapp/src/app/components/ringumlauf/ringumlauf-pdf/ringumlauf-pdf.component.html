@@ -23,8 +23,7 @@
 
         <div class="address-container">
           <div>
-            <p>{{ usersList[0].firstName }}</p>
-            <p>{{ usersList[0].lastName }}</p>
+            <p>{{ usersList[0].firstName }} {{ usersList[0].lastName }}</p>
             <p>{{ usersList[0].address1 }}</p>
             <p>{{ usersList[0].address2 }}</p>
           </div>
@@ -46,11 +45,13 @@
         <br />
         <br />
 
-        <h3 class="ringumlauf-pdf-title">{{ data.title }}</h3>
+        <h3 class="ringumlauf-pdf-title">
+          {{ data.title }}
+        </h3>
 
         <br />
 
-        <div>
+        <div class="ringumlauf-pdf-info">
           <p>Barcode: {{ data.barcode }}</p>
 
           <p>
@@ -103,21 +104,21 @@
     <br />
     <br />
     <mat-divider></mat-divider>
-
-    <mat-dialog-actions>
-      <button
-        mat-flat-button
-        color="primary"
-        [mat-dialog-close]="true"
-        cdkFocusInitial
-        (click)="generatePdf()"
-      >
-        {{ "Translate.components.ringumlaufPdf.button" | translate }}
-      </button>
-
-      <button mat-flat-button color="secondary" mat-dialog-close>
-        {{ "Translate.shared.button.back" | translate }}
-      </button>
-    </mat-dialog-actions>
   </ng-template>
+
+  <mat-dialog-actions>
+    <button
+      mat-flat-button
+      color="primary"
+      [mat-dialog-close]="true"
+      cdkFocusInitial
+      (click)="generatePdf()"
+    >
+      {{ "Translate.components.ringumlaufPdf.button" | translate }}
+    </button>
+
+    <button mat-flat-button color="secondary" mat-dialog-close>
+      {{ "Translate.shared.button.back" | translate }}
+    </button>
+  </mat-dialog-actions>
 </mat-dialog-content>

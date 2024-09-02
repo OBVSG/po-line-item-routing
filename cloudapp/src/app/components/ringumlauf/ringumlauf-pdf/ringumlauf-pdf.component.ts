@@ -8,7 +8,6 @@ import {
 } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import ResizeObserver from "resize-observer-polyfill";
-import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import { RingumlaufPdfData, UserSettings } from "../../../app.model";
 import {
@@ -85,7 +84,7 @@ export class RingumlaufPdfComponent
     this.resizeObserver = new ResizeObserver((entries) => {
       for (let entry of entries) {
         const width = entry.contentRect.width;
-        this.hasSmallWidth = width < 1000;
+        this.hasSmallWidth = width < 400;
       }
     });
 
@@ -98,31 +97,97 @@ export class RingumlaufPdfComponent
   }
 
   async generatePdf() {
-    const pdfElement =
-      this.elementRef.nativeElement.querySelector("#ringumlauf-pdf");
-
     try {
-      const canvas = await html2canvas(pdfElement, {
-        backgroundColor: "#FFFFFF",
-        scale: 4,
+      const doc = new jsPDF("p", "mm", "a4");
+
+      // Add the header
+      autoTable(doc, {
+        theme: "plain",
+        tableWidth: 180,
+        showHead: "never",
+        bodyStyles: {
+          fontSize: 18,
+          fontStyle: "bold",
+        },
+        columnStyles: {
+          0: { halign: "center" },
+        },
+        head: [[""]],
+        body: [
+          [this.translate.instant("Translate.components.ringumlaufPdf.title")],
+        ],
       });
 
-      const imgData = canvas.toDataURL("image/png");
-
-      const pdf = new jsPDF("p", "mm", "a4");
-
-      // Calculate the aspect ratio to maintain the content's original aspect ratio
-      const pageWidth = 210; // A4 width in mm
-      const imgWidth = pageWidth;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-
-      // autoTable(pdf, { html: "#ringumlauf-pdf-table" });
-      autoTable(pdf, {
+      // Add the address
+      autoTable(doc, {
         theme: "plain",
-        startY: imgHeight,
-        margin: { right: 12, left: 12 },
+        tableWidth: 180,
+        showHead: "never",
+        bodyStyles: {
+          fontSize: 10,
+        },
+        columnStyles: {
+          0: { halign: "left" },
+          1: { halign: "right" },
+        },
+        head: [["", ""]],
+        body: [
+          [
+            `${this.usersList[0].firstName} ${this.usersList[0].lastName}`,
+            this.userSettings.information.title,
+          ],
+          [this.usersList[0].address1, this.userSettings.information.subtitle],
+          [this.usersList[0].address2, this.userSettings.information.address],
+          ["", this.userSettings.information.phone],
+          ["", this.userSettings.information.email],
+          ["", this.userSettings.information.website],
+          this.userSettings.information.dvr
+            ? ["", `DVR: ${this.userSettings.information.dvr}`]
+            : [],
+        ],
+      });
+
+      // Add the title
+      autoTable(doc, {
+        theme: "plain",
+        tableWidth: 180,
+        showHead: "never",
+        bodyStyles: {
+          fontSize: 12,
+          fontStyle: "bold",
+        },
+        head: [[""]],
+        body: [[this.data.title]],
+      });
+
+      // Add the information
+      autoTable(doc, {
+        theme: "plain",
+        tableWidth: 180,
+        showHead: "never",
+        bodyStyles: {
+          fontSize: 11,
+        },
+        head: [[""]],
+        body: [
+          [`Barcode: ${this.data.barcode}`],
+          [
+            `${this.translate.instant(
+              "Translate.components.ringumlaufPdf.information.readDays"
+            )} ${this.data.readDays}`,
+          ],
+          [
+            `${this.translate.instant(
+              "Translate.components.ringumlaufPdf.information.notice"
+            )} ${this.data.comment}`,
+          ],
+        ],
+      });
+
+      // Add the users list table
+      autoTable(doc, {
+        theme: "plain",
+        tableWidth: 180,
         headStyles: {
           fontSize: 10,
           fillColor: [235, 235, 235],
@@ -154,7 +219,7 @@ export class RingumlaufPdfComponent
         new Date().toISOString().split("T")[0]
       }-ringumlauf.pdf`;
 
-      pdf.save(pdfFileName);
+      doc.save(pdfFileName);
       this.alert.success(
         this.translate.instant(
           "Translate.components.ringumlaufPdf.componentFile.pdfSuccess"

@@ -26,7 +26,6 @@
     "@exlibris/exl-cloudapp-angular-lib": "^1.4.7",
     "@exlibris/exl-cloudapp-base": "^1.4.7",
     "@ngx-translate/core": "~13.0.0",
-    "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "lodash": "~4.17.21",
