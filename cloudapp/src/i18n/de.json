@@ -17,7 +17,7 @@
             "desc": "Die Cloud App funktioniert innerhalb des Alma Menüs einer PO Line. Ist die PO Line offen, wird die Cloud App durch Klicken auf den Titel aktiviert.",
             "footer": {
               "header": "Externer Teil der Applikation",
-              "paragraph": "Das wird später das Werk als Rückgabe verbucht, erfolgt die Ausleihe an die nächste Person automatisch."
+              "paragraph": "Wird das Werk später als Rückgabe verbucht, erfolgt die Ausleihe an die nächste Person automatisch."
             }
           },
           "settings": {
@@ -39,7 +39,7 @@
               "header": "Ring/Sternumlauf",
               "list": {
                 "item1": "Die Ring/Sternumlauf Anzeige hängt davon ab, ob im 5. Reporting Code \"RING\" oder \"STERN\" eingetragen ist",
-                "item2": "Die Anzeige der Exemplare, die in den Umlauf davon ab, ob ein Barcode eingetragen ist"
+                "item2": "Die Anzeige der Exemplare, die in den Umlauf gegeben werden können, hängt davon ab, ob ein Barcode eingetragen ist"
               },
               "paragraph": "Hier kann ein Ring- oder Sternumlauf für ein konkretes Exemplar gestartet werden."
             }
