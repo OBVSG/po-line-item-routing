@@ -44,6 +44,11 @@
           *ngIf="entity.link.startsWith('/acq/po-lines')"
         >
           {{ entity.description }}
+          <span
+            class="entity-description-info"
+            *ngIf="entity.link && entity.link.split('/')[3]"
+            >{{ entity.link.split("/")[3] }}</span
+          >
         </mat-radio-button>
       </div>
 
