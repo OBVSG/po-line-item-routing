@@ -4,7 +4,7 @@
   "license": "BSD-3-Clause",
   "private": true,
   "scripts": {
-    "start": "eca start",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider eca start",
     "generate": "eca generate",
     "extract": "eca extract-labels",
     "build": "eca build",
