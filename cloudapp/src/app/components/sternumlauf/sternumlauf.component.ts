@@ -50,11 +50,20 @@ export class SternumlaufComponent implements OnInit {
     // Filter out the items with barcode
     this.barcodeList = this.apiResult.location[0].copy
       .filter((item: Umlauf) => !!item.barcode)
-      .sort(
-        (a: Umlauf, b: Umlauf) =>
-          new Date(b.receive_date).getTime() -
-          new Date(a.receive_date).getTime()
-      );
+      .sort((a: Umlauf, b: Umlauf) => {
+        if (a.receive_date && b.receive_date) {
+          return (
+            new Date(b.receive_date).getTime() -
+            new Date(a.receive_date).getTime()
+          );
+        } else if (a.receive_date) {
+          return -1;
+        } else if (b.receive_date) {
+          return 1;
+        } else {
+          return b.barcode.localeCompare(a.barcode);
+        }
+      });
   }
 
   onSelectBarcode(event: MatRadioChange) {
