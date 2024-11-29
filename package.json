@@ -9,7 +9,8 @@
     "extract": "eca extract-labels",
     "build": "eca build",
     "help": "eca help",
-    "version": "eca version"
+    "version": "eca version",
+    "eca:update": "eca update"
   },
   "dependencies": {
     "@angular/animations": "~11.2.14",
@@ -37,6 +38,7 @@
     "@angular-devkit/build-angular": "~0.1102.14",
     "@angular/cli": "~11.2.13",
     "@angular/compiler-cli": "~11.2.14",
+    "@exlibris/exl-cloudapp-cli": "^1.4.9",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~13.13.5",

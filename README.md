@@ -37,7 +37,7 @@ npm install
 npm install -g @exlibris/exl-cloudapp-cli
 
 # For any issues
-eca update
+npm run eca:update
 ```
 
 start the development server:
