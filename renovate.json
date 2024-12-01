@@ -1,13 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>renovate/renovate-config"],
+  "extends": [
+    "local>renovate/renovate-config"
+  ],
   "packageRules": [
     {
-      "packagePatterns": ["*"],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": [
+        "*"
+      ]
     },
     {
-      "paths": [
+      "matchFileNames": [
         "@exlibris/exl-cloudapp-angular-lib",
         "@exlibris/exl-cloudapp-base",
         "@exlibris/exl-cloudapp-cli"
