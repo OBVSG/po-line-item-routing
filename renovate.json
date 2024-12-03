@@ -5,13 +5,7 @@
   ],
   "packageRules": [
     {
-      "enabled": false,
       "matchPackageNames": [
-        "*"
-      ]
-    },
-    {
-      "matchFileNames": [
         "@exlibris/exl-cloudapp-angular-lib",
         "@exlibris/exl-cloudapp-base",
         "@exlibris/exl-cloudapp-cli"
