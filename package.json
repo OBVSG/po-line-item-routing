@@ -31,7 +31,7 @@
     "jspdf-autotable": "^3.8.2",
     "lodash": "~4.17.21",
     "resize-observer-polyfill": "^1.5.1",
-    "rxjs": "~6.5.5",
+    "rxjs": "~6.6.0",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
