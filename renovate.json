@@ -1,4 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>renovate/renovate-config"]
+  "extends": ["local>renovate/renovate-config"],
+  "packageRules": [
+    {
+      "matchPackageNames": ["!@exlibris/**"],
+      "enabled": false
+    }
+  ]
 }
