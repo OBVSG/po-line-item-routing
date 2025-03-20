@@ -29,9 +29,9 @@ import { TranslateService } from "@ngx-translate/core";
 export class SternumlaufComponent implements OnInit {
   @Input() apiResult: any;
   loading = false;
-  userSettings: UserSettings;
-  barcodeList: Umlauf[];
-  selectedBarcode: Umlauf;
+  userSettings!: UserSettings;
+  barcodeList!: Umlauf[];
+  selectedBarcode!: Umlauf | undefined;
 
   constructor(
     private restService: CloudAppRestService,
@@ -91,7 +91,7 @@ export class SternumlaufComponent implements OnInit {
     // first check if the item is loaned
     this.restService
       .call({
-        url: `${this.selectedBarcode.link}/loans`,
+        url: `${this.selectedBarcode!.link}/loans`,
         method: HttpMethod.GET,
       })
       .pipe(
@@ -99,7 +99,7 @@ export class SternumlaufComponent implements OnInit {
           if (loanResult.total_record_count === 0) {
             // when the item is not loaned, proceed to check requests
             return this.restService.call({
-              url: `${this.selectedBarcode.link}/requests`,
+              url: `${this.selectedBarcode!.link}/requests`,
               method: HttpMethod.GET,
             });
           } else {
@@ -118,7 +118,7 @@ export class SternumlaufComponent implements OnInit {
             return EMPTY;
           } else {
             const userRequestsWithComment = requestResult.user_request.filter(
-              (item) => item.comment === "po-line-item-routing"
+              (item: any) => item.comment === "po-line-item-routing"
             );
 
             if (userRequestsWithComment.length === 0) {
@@ -151,7 +151,12 @@ export class SternumlaufComponent implements OnInit {
                     );
 
                     // Throw an error observable to stop further execution
-                    return throwError(error);
+                    return throwError(
+                      () =>
+                        new Error("An error occurred", {
+                          cause: error,
+                        })
+                    );
                   })
                 );
             }),
@@ -160,7 +165,7 @@ export class SternumlaufComponent implements OnInit {
               // Perform the final requests check
               return this.restService
                 .call({
-                  url: `${this.selectedBarcode.link}/requests`,
+                  url: `${this.selectedBarcode!.link}/requests`,
                   method: HttpMethod.GET,
                 })
                 .pipe(
@@ -195,7 +200,12 @@ export class SternumlaufComponent implements OnInit {
                       );
                     }
 
-                    return throwError(error);
+                    return throwError(
+                      () =>
+                        new Error("An error occurred", {
+                          cause: error,
+                        })
+                    );
                   })
                 );
             })

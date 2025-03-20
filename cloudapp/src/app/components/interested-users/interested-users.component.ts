@@ -15,10 +15,10 @@ import { InterestedUser } from "../../app.model";
   styleUrls: ["./interested-users.component.scss"],
 })
 export class InterestedUsersComponent implements OnInit, OnChanges {
-  @Input() users: InterestedUser[];
+  @Input() users!: InterestedUser[];
 
-  private originalUserOrder: InterestedUser[];
-  private originalOrderHash: string;
+  private originalUserOrder!: InterestedUser[];
+  private originalOrderHash!: string;
   hasUnsavedChanges = false;
 
   constructor() {}
@@ -31,7 +31,7 @@ export class InterestedUsersComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     // If the users array changes, update the original order hash
-    if (changes.users) {
+    if (changes["users"]) {
       this.setOriginalOrderHash();
     }
   }

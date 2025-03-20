@@ -14,7 +14,7 @@ import { TranslateService } from "@ngx-translate/core";
   styleUrls: ["./settings.component.scss"],
 })
 export class SettingsComponent implements OnInit {
-  settingsForm: FormGroup;
+  settingsForm!: FormGroup;
   itemPolicy: string[] = ["SU_WEEK", "SU_MONTH", "SU_QUARTERLY"];
   saving = false;
 
@@ -68,7 +68,7 @@ export class SettingsComponent implements OnInit {
   }
 
   resetSternumlaufSettings() {
-    this.settingsForm.get("sternumlauf").reset({
+    this.settingsForm.get("sternumlauf")!.reset({
       locationType: "LIBRARY",
       locationLibrary: "MUS",
       locationCirculationDesk: "DEFAULT_CIRC_DESK",

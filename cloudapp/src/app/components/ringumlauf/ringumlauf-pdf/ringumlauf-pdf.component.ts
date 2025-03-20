@@ -25,16 +25,16 @@ import { TranslateService } from "@ngx-translate/core";
 export class RingumlaufPdfComponent
   implements OnInit, AfterViewInit, OnDestroy
 {
-  userSettings: UserSettings;
-  usersList: {
+  userSettings!: UserSettings;
+  usersList!: {
     firstName: string;
     lastName: string;
     address1: string;
     address2: string;
   }[];
 
-  private resizeObserver: ResizeObserver;
-  private observableElement: HTMLElement;
+  private resizeObserver!: ResizeObserver;
+  private observableElement!: HTMLElement;
   hasSmallWidth = true;
 
   constructor(
@@ -67,7 +67,7 @@ export class RingumlaufPdfComponent
 
       if (user.contact_info.address.length > 0) {
         const preferredAddress = user.contact_info.address.find(
-          (address) => address.preferred
+          (address: any) => address.preferred
         );
 
         if (preferredAddress) {
@@ -132,6 +132,7 @@ export class RingumlaufPdfComponent
         },
         head: [["", ""]],
         body: [
+          ["", ""], // to fit into the address window of an envelope
           [
             `${this.usersList[0].firstName} ${this.usersList[0].lastName}`,
             this.userSettings.information.title,

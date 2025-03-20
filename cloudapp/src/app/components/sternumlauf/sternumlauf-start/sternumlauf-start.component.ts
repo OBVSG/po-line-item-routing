@@ -23,14 +23,14 @@ import { TranslateService } from "@ngx-translate/core";
 })
 export class SternumlaufStartComponent implements OnInit {
   loading = false;
-  totalProgress: number;
+  totalProgress!: number;
   processed: number = 0;
   isUmlaufStarted = false;
   runCheckRequests: "block" | "check" | "loading" = "block";
   runScanIn: "block" | "check" | "loading" = "block";
   runLoan: "block" | "check" | "loading" = "block";
-  userSettings: UserSettings;
-  finalResult: {
+  userSettings!: UserSettings;
+  finalResult!: {
     type: "error" | "success";
     message: string;
   };
@@ -109,7 +109,12 @@ export class SternumlaufStartComponent implements OnInit {
               };
 
               // Throw an error observable to stop further execution
-              return throwError(error);
+              return throwError(
+                () =>
+                  new Error("An error occurred", {
+                    cause: error,
+                  })
+              );
             })
           );
       })
@@ -145,7 +150,7 @@ export class SternumlaufStartComponent implements OnInit {
                 }
               }),
               tap((result: any) => {
-                // check the requests order agin, if doesn't match the interested users order, then show an error message and DO NOT let to scan in and loan the item
+                // check the requests order again, if doesn't match the interested users order, then show an error message and DO NOT let to scan in and loan the item
                 for (
                   let i = 0;
                   i < this.data.apiResult.interested_user.length;
@@ -181,7 +186,12 @@ export class SternumlaufStartComponent implements OnInit {
                 }
 
                 // Throw an error observable to stop further execution
-                return throwError(error);
+                return throwError(
+                  () =>
+                    new Error("An error occurred", {
+                      cause: error,
+                    })
+                );
               })
             );
         }),
@@ -216,7 +226,12 @@ export class SternumlaufStartComponent implements OnInit {
                   ),
                 };
 
-                return throwError(error);
+                return throwError(
+                  () =>
+                    new Error("An error occurred", {
+                      cause: error,
+                    })
+                );
               })
             );
         }),
@@ -256,7 +271,12 @@ export class SternumlaufStartComponent implements OnInit {
                   ),
                 };
 
-                return throwError(error);
+                return throwError(
+                  () =>
+                    new Error("An error occurred", {
+                      cause: error,
+                    })
+                );
               })
             );
         }),

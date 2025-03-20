@@ -23,23 +23,11 @@ import { UserSettings } from "../../app.model";
 })
 export class MainComponent implements OnInit {
   loading = false;
-  userSettings: UserSettings;
-  selectedEntity: Entity;
+  userSettings!: UserSettings;
+  selectedEntity!: Entity | null;
   apiResult: any;
   isEntityCorrect: boolean = false;
-
-  entities$: Observable<Entity[]> = this.eventsService.entities$.pipe(
-    tap((entities) => {
-      this.clear();
-
-      // check if in the list of entities there is a PO line item to select
-      this.isEntityCorrect = entities.some((entity) =>
-        entity.link.startsWith("/acq/po-lines")
-      )
-        ? true
-        : false;
-    })
-  );
+  entities$!: Observable<Entity[]>;
 
   constructor(
     private settingsService: CloudAppSettingsService,
@@ -54,6 +42,19 @@ export class MainComponent implements OnInit {
     this.settingsService.get().subscribe((settings: UserSettings) => {
       this.userSettings = settings;
     });
+
+    this.entities$ = this.eventsService.entities$.pipe(
+      tap((entities) => {
+        this.clear();
+
+        // check if in the list of entities there is a PO line item to select
+        this.isEntityCorrect = entities.some((entity) =>
+          entity.link.startsWith("/acq/po-lines")
+        )
+          ? true
+          : false;
+      })
+    );
   }
 
   clear() {
@@ -70,19 +71,19 @@ export class MainComponent implements OnInit {
     this.restService
       .call<any>(value.link)
       .pipe(finalize(() => (this.loading = false)))
-      .subscribe(
-        (result) => {
+      .subscribe({
+        next: (result) => {
           this.apiResult = result;
         },
-        (error) => {
+        error: (error) => {
           console.log(error);
           this.alert.error(
             this.translate.instant(
               "Translate.components.main.componentFile.selectEntityFailure"
             )
           );
-        }
-      );
+        },
+      });
   }
 
   // save the order of the users to the Alma API
@@ -91,7 +92,7 @@ export class MainComponent implements OnInit {
     this.alert.clear();
 
     const request: Request = {
-      url: this.selectedEntity.link,
+      url: this.selectedEntity!.link,
       method: HttpMethod.PUT,
       requestBody: this.apiResult,
     };

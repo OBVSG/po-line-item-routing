@@ -1,7 +1,10 @@
 import { NgModule, LOCALE_ID } from "@angular/core";
 import { registerLocaleData } from "@angular/common";
 import localeDeAt from "@angular/common/locales/de-AT";
-import { HttpClientModule } from "@angular/common/http";
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from "@angular/common/http";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
@@ -42,11 +45,11 @@ registerLocaleData(localeDeAt);
     HelpComponent,
     AlertComponent,
   ],
+  bootstrap: [AppComponent],
   imports: [
     MaterialModule,
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     AlertModule,
     FormsModule,
     ReactiveFormsModule,
@@ -56,11 +59,10 @@ registerLocaleData(localeDeAt);
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { appearance: "standard" },
+      useValue: { appearance: "fill" },
     },
     { provide: LOCALE_ID, useValue: "de-AT" },
+    provideHttpClient(withInterceptorsFromDi()),
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [RingumlaufPdfComponent, SternumlaufStartComponent],
 })
 export class AppModule {}

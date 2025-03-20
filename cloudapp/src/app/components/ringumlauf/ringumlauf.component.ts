@@ -20,12 +20,12 @@ export class RingumlaufComponent implements OnInit {
   @Input() apiResult: any;
 
   loading = false;
-  barcodeList: Umlauf[];
-  selectedBarcode: Umlauf;
+  barcodeList!: Umlauf[];
+  selectedBarcode!: Umlauf;
   readDays: string = "";
   comment: string = "";
 
-  interestedUsersInfo: any[];
+  interestedUsersInfo!: any[];
 
   constructor(
     private restService: CloudAppRestService,
@@ -82,7 +82,12 @@ export class RingumlaufComponent implements OnInit {
                 );
 
                 // Throw the error again to stop the observable chain
-                return throwError(error);
+                return throwError(
+                  () =>
+                    new Error("An error occurred", {
+                      cause: error,
+                    })
+                );
               })
             );
         }),
@@ -126,6 +131,7 @@ export class RingumlaufComponent implements OnInit {
         autoFocus: false,
         data: pdfData,
         width: "90%",
+        maxWidth: "100%",
       });
     } catch (error) {
       this.alert.error(
