@@ -31,6 +31,7 @@ export class RingumlaufPdfComponent
     lastName: string;
     address1: string;
     address2: string;
+    address3: string;
   }[];
 
   private resizeObserver!: ResizeObserver;
@@ -63,6 +64,7 @@ export class RingumlaufPdfComponent
         lastName: user.last_name,
         address1: "",
         address2: "",
+        address3: "",
       };
 
       if (user.contact_info.address.length > 0) {
@@ -73,6 +75,7 @@ export class RingumlaufPdfComponent
         if (preferredAddress) {
           userInfo.address1 = preferredAddress.line1 || "";
           userInfo.address2 = preferredAddress.line2 || "";
+          userInfo.address3 = preferredAddress.line3 || "";
         }
       }
 
@@ -139,7 +142,7 @@ export class RingumlaufPdfComponent
           ],
           [this.usersList[0].address1, this.userSettings.information.subtitle],
           [this.usersList[0].address2, this.userSettings.information.address],
-          ["", this.userSettings.information.phone],
+          [this.usersList[0].address3, this.userSettings.information.phone],
           ["", this.userSettings.information.email],
           ["", this.userSettings.information.website],
           this.userSettings.information.dvr
