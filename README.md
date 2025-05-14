@@ -1,6 +1,3 @@
-<a href="https://developers.exlibrisgroup.com/appcenter/po-line-item-routing/">![CloudApp Activations](<https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapps01.ext.exlibrisgroup.com%2Fappstats.json&query=%24%5B%3F(%40.cloud_app_id%3D%3D'obvsg%2Fpo-line-item-routing')%5D.user_count&style=flat&label=Cloud%20App%20Activations>)</a>
-<a href="https://developers.exlibrisgroup.com/appcenter/po-line-item-routing/">![Deployed Version](<https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapps01.ext.exlibrisgroup.com%2Fapps.json&query=%24%5B%3F(%40.id%3D%3D'obvsg%2Fpo-line-item-routing')%5D.version&label=Deployed%20Version&color=green>)</a>
-
 # PO Line Item Routing
 
 This cloud app integrates with the Alma system to manage PO line items efficiently. It offers two main features:
@@ -49,4 +46,3 @@ npm start
 ### Mirroring and Token Information
 
 This repository is mirrored to [GitHub](https://github.com/OBVSG/po-line-item-routing) using GitLab's mirroring functionality. Any changes made here will be automatically reflected in the corresponding GitHub repository.
-
