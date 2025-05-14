@@ -63,7 +63,7 @@
           "noItemPolicy": "Die Richtlinienliste darf nicht leer sein"
         },
         "itemPolicy": {
-          "title": "Examplar-Richtlinie",
+          "title": "Exemplar-Richtlinie",
           "newPolicy": "Neue Richtlinie"
         },
         "sternumlauf": {
